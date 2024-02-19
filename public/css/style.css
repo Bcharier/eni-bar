@@ -3,16 +3,31 @@ html, body {
     font-family: "Open sans";
 }
 
-body {
-    background-color: lightblue;
+h1,h3 {
+    margin: 0;
+    padding: 0;
 }
 
-.login-center {
+body {
+}
+
+.form-center {
     width: 50%;
-    background-color: lightcoral;
     margin:auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.login {
+    border-radius: 20px;
+    border: solid 2px black;
+    padding: 20px;
+}
+
+h3 {
+    padding-bottom: 20px;
+    font-size: 22px;
 }
