@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="sortie-container">
+    <table>
+    <thead>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>Inscrits/Places</th>
+            <th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sortie in sorties %}
+            <tr>
+                <td>{{sortie.nom}}</td>
+                <td>{{sortie.dateHeureDebut|date('d-m-Y')}}</td>
+                <td>{{sortie.dateLimiteInscription|date('d-m-Y')}}</td>
+                <td>{{sortie.nbInscriptionsMax}}</td>
+                
+            </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+{% endblock %}
