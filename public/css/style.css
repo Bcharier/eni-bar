@@ -1,4 +1,18 @@
+html, body {
+    height:100%;
+    font-family: "Open sans";
+}
+
 body {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
+    background-color: lightblue;
+}
+
+.login-center {
+    width: 50%;
+    background-color: lightcoral;
+    margin:auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
