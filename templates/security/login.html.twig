@@ -2,7 +2,35 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
 {% block body %}
+
+
+
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-white bg-{{ label }}">
+                    <strong class="me-auto">Notification</strong>
+                    <small>Maintenant</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
+
+
 <form class="login form-center" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -12,20 +40,26 @@
         <div class="mb-3">
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
-    {% endif %}
+    {% else %}
 
-    <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
-    <label for="inputmailParticipant">mail</label>
-    <input type="text" value="{{ last_username }}" name="mailParticipant" id="inputmailParticipant" class="form-control" autocomplete="username" required autofocus>
+    <div class="form-input">
+    <div>
+        <label for="inputmailParticipant">Email</label>
+        <input type="text" value="{{ last_username }}" name="mailParticipant" id="inputmailParticipant" class="form-control" autocomplete="username" required autofocus>
+    </div>
+    <div>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
+    </div>
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+       Connexion 
     </button>
+    <a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3">Mot de passe oublié</a>
 </form>
+    {% endif %}
 {% endblock %}
