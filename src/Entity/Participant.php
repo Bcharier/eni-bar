@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,6 +48,17 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
+
+    #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'organisateur')]
+    private Collection $organizedSorties;
+
+    #[ORM\ManyToOne(inversedBy: 'participants')]
+    private ?Site $site = null;
+
+    public function __construct()
+    {
+        $this->organizedSorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +198,48 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(?string $pseudo): static
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getOrganizedSorties(): Collection
+    {
+        return $this->organizedSorties;
+    }
+
+    public function addOrganizedSorty(Sortie $organizedSorty): static
+    {
+        if (!$this->organizedSorties->contains($organizedSorty)) {
+            $this->organizedSorties->add($organizedSorty);
+            $organizedSorty->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganizedSorty(Sortie $organizedSorty): static
+    {
+        if ($this->organizedSorties->removeElement($organizedSorty)) {
+            // set the owning side to null (unless already changed)
+            if ($organizedSorty->getOrganisateur() === $this) {
+                $organizedSorty->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): static
+    {
+        $this->site = $site;
 
         return $this;
     }

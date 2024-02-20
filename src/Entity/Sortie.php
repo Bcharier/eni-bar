@@ -35,6 +35,12 @@ class Sortie
     #[ORM\Column(nullable: true)]
     private ?int $etat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'organizedSorties')]
+    private ?Participant $organisateur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    private ?Site $site = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,30 @@ class Sortie
     public function setEtat(?int $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Participant
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Participant $organisateur): static
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): static
+    {
+        $this->site = $site;
 
         return $this;
     }

@@ -1,0 +1,25 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+}
+
+.sortie-container {
+    width: 75%;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;    
+}

@@ -29,28 +29,43 @@ class SortieRepository extends ServiceEntityRepository
         return $q->getResult();
     }
 
-//    /**
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findFilteredSorties($filterData) {
+        $q = $this->createQueryBuilder('s')
+            ->orderBy('s.dateHeureDebut', 'DESC');
+            $q->andWhere('s.site = :site')
+                ->setParameter('site', $filterData['site']);
+        if ($filterData['nameSearch'] != null) {
+            $q->andWhere('s.nom LIKE :nameSearch')
+                ->setParameter('nameSearch', '%' . $filterData['nameSearch'] . '%');
+        }
+        if ($filterData['dateStart'] != null) {
+            $q->andWhere('s.dateHeureDebut >= :dateStart')
+                ->setParameter('dateStart', $filterData['dateStart']);
+        }
+        if ($filterData['dateEnd'] != null) {
+            $q->andWhere('s.dateHeureDebut <= :dateEnd')
+                ->setParameter('dateEnd', $filterData['dateEnd']);
+        }
+        if (isset($filterData['organizer']) && $filterData['organizer'] != null) {
+            $q->andWhere('s.organisateur = :organizer')
+                ->setParameter('organizer', $filterData['organizer']);
+        }
+        if (isset($filterData['registered']) && $filterData['registered'] != null) {
+            $q->andWhere(':registered MEMBER OF s.participants')
+                ->setParameter('registered', $filterData['registered']);
+        }
+        if (isset($filterData['notRegistered']) && $filterData['notRegistered'] != null) {
+            $q->andWhere(':notRegistered NOT MEMBER OF s.participants')
+                ->setParameter('notRegistered', $filterData['notRegistered']);
+        }
+        if (isset($filterData['passed']) && $filterData['passed']) {
+            $q->andWhere('s.dateHeureDebut < :now')
+                ->setParameter('now', new \DateTime());
+        } else {
+            $q->andWhere('s.dateHeureDebut > :now')
+                ->setParameter('now', new \DateTime());
+        }
 
-//    public function findOneBySomeField($value): ?Sortie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $q->getQuery()->getResult();
+    }
 }

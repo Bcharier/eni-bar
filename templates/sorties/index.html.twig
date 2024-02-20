@@ -1,6 +1,67 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('styles/sorties.css')}}">
+{% endblock %}
+
 {% block body %}
+
+<div class="user-container">
+    <p>Date du jour : {{"now"|date("d/m/Y")}}</p>
+    <p>Participant : {{user.prenom}} {{user.nom|first}}.</p>
+</div>
+
+<form method="POST" action="{{path('app_filterSorties')}}">
+    <div class="first-column">
+        <h2 class="subtitle">Filtrer les sorties</h2>
+        <div class="site-option-container">
+            <label for="site-select">Site :</label>
+            <select name="sites" id="site-select">
+            {% for site in sites %}
+                {% if site.nom == user.site.nom %}
+                    <option value={{site.id}} selected>{{site.nom}}</option>
+                {% else %}
+                    <option value={{site.id}}>{{site.nom}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+        </div>
+        <div class="name-option-container">
+            <label for="name-search">Le nom de la sortie contient : </label>
+            <input type="search" name="name-search" id="name-search">
+        </div>
+        <div class="date-option-container">
+            <label for="date-start">Entre : </label>
+            <input type="date" name="date-start" id="date-start">
+            <label for="date-end">et : </label>
+            <input type="date" name="date-end" id="date-end">   
+        </div>
+    </div>
+    <div class="second-column">
+        <div class="checkbox-container">
+            <div class="input-container">
+                <input type="checkbox" name="checkbox-organizer" id="checkbox-organizer">
+                <label for="checkbox-organizer">Sorties dont je suis l'organisateur/trice</label>
+            </div>
+            <div class="input-container">            
+                <input type="checkbox" name="checkbox-subscribe" id="checkbox-subscribe">
+                <label for="checkbox-subscribe">Sorties auxquelles je suis inscrit/e</label>
+            </div>
+            <div class="input-container">
+                <input type="checkbox" name="checkbox-not-subscribe" id="checkbox-not-subscribe">
+                <label for="checkbox-not-subscribe">Sorties auxquelles je ne suis pas inscrit/e</label>
+            </div>
+            <div class="input-container">
+                <input type="checkbox" name="checkbox-past" id="checkbox-past">
+                <label for="checkbox-past">Sorties passées</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-container">
+        <input type="submit" value="Rechercher">
+    </div>
+</form>
 
 <div class="sortie-container">
     <table>
@@ -23,10 +84,12 @@
                 <td>{{sortie.dateHeureDebut|date('d-m-Y')}}</td>
                 <td>{{sortie.dateLimiteInscription|date('d-m-Y')}}</td>
                 <td>{{sortie.nbInscriptionsMax}}</td>
-                
+                <td>{{sortie.organisateur.pseudo}}</td>
             </tr>
         {%endfor%}
     </tbody>
     </table>
 </div>
+
+<a class="button" href="{{ path('app_sorties') }}">Créer une sortie</a>
 {% endblock %}
