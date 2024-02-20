@@ -9,11 +9,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(EntityManagerInterface $em, Request $request): Response
+    public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new Participant();
         // $user = $this->getUser();
@@ -26,6 +27,12 @@ class ProfileController extends AbstractController
     
         // Si le formulaire a déjà été soumis
         if($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
             $this->addFlash('success', 'Votre profil a bien été mis à jour !');
 
             $em->flush();
