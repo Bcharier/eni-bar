@@ -59,6 +59,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->organizedSorties = new ArrayCollection();
     }
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
 
     public function getId(): ?int
     {
@@ -240,6 +242,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSite(?Site $site): static
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }

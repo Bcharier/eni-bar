@@ -1,0 +1,67 @@
+html, body {
+    height:100%;
+    font-family: "Open sans";
+}
+
+h1,h3 {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+}
+
+.form-center {
+    width: 50%;
+    margin:auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    border-radius: 20px;
+    border: solid 2px black;
+    padding: 20px;
+}
+
+.form-input {
+    width: 70%;
+}
+
+.form-input div label {
+    display: inline-block;
+    width: 20%;
+    min-width: 80px;
+    margin: 5px;
+}
+
+.form-input div input {
+    justify-content: center;
+    width: 50%;
+    margin: 5px;
+}
+
+.login {
+}
+
+.alert {
+    width: 100%;
+    padding: 20px;
+    color: lightcoral;
+}
+
+.mb-3 {
+    margin: 20px;
+}
+
+h3 {
+    padding-bottom: 20px;
+    font-size: 22px;
+}
+
+.btn-primary {
+    padding: 5px;
+}
