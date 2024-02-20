@@ -1,0 +1,11 @@
+form #participant div {
+  display: flex;
+}
+form #participant div label {
+  margin: 0.2rem;
+  min-width: 20%;
+  text-align: right;
+}
+form #participant div input {
+  margin: 0.2rem;
+}
