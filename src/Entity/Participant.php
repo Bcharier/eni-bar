@@ -50,14 +50,14 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $pseudo = null;
 
     #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'organisateur')]
-    private Collection $organizedSorties;
+    private Collection $organizedSortie;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
     private ?Site $site = null;
 
     public function __construct()
     {
-        $this->organizedSorties = new ArrayCollection();
+        $this->organizedSortie = new ArrayCollection();
     }
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $resetToken = null;
@@ -207,15 +207,15 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Sortie>
      */
-    public function getOrganizedSorties(): Collection
+    public function getOrganizedSortie(): Collection
     {
-        return $this->organizedSorties;
+        return $this->organizedSortie;
     }
 
     public function addOrganizedSorty(Sortie $organizedSorty): static
     {
-        if (!$this->organizedSorties->contains($organizedSorty)) {
-            $this->organizedSorties->add($organizedSorty);
+        if (!$this->organizedSortie->contains($organizedSorty)) {
+            $this->organizedSortie->add($organizedSorty);
             $organizedSorty->setOrganisateur($this);
         }
 
@@ -224,7 +224,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeOrganizedSorty(Sortie $organizedSorty): static
     {
-        if ($this->organizedSorties->removeElement($organizedSorty)) {
+        if ($this->organizedSortie->removeElement($organizedSorty)) {
             // set the owning side to null (unless already changed)
             if ($organizedSorty->getOrganisateur() === $this) {
                 $organizedSorty->setOrganisateur(null);

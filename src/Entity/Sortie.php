@@ -35,10 +35,10 @@ class Sortie
     #[ORM\Column(nullable: true)]
     private ?int $etat = null;
 
-    #[ORM\ManyToOne(inversedBy: 'organizedSorties')]
+    #[ORM\ManyToOne(inversedBy: 'organizedSortie')]
     private ?Participant $organisateur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\ManyToOne(inversedBy: 'sortie')]
     private ?Site $site = null;
 
     public function getId(): ?int
