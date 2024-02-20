@@ -1,5 +1,9 @@
 twig:
+    globals:
+        tab_name_prefix: 'SaE - '
+
     file_name_pattern: '*.twig'
+
 
 when@test:
     twig:

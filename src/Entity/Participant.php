@@ -257,4 +257,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    public function getFullName(): string {
+        return $this->getPrenom().' '.$this->getNom();
+    }
 }
