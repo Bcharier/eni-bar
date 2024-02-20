@@ -11,6 +11,7 @@
 
 
 
+<div class="form-center">
 {% for label, messages in app.flashes %}
     {% for message in messages %}
         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -31,7 +32,7 @@
 
 
 
-<form class="login form-center" method="post">
+<form class="login" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -61,5 +62,6 @@
     </button>
     <a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3">Mot de passe oublié</a>
 </form>
+</div>
     {% endif %}
 {% endblock %}

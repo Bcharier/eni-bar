@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
-
-
 use App\Form\ResetPasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Repository\ParticipantRepository;
@@ -17,19 +15,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use App\Service\SendMailService;
-#use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-#use Symfony\Component\HttpFoundation\Request;
-#use Symfony\Component\HttpFoundation\Response;
-#use Symfony\Component\Routing\Annotation\Route;
-#use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
-
-
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    #[Route(path: '/', name: 'app_login')]
+    public function login(AuthenticationUtils $authenticationUtils, ParticipantRepository $participantRepository): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -40,7 +30,12 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        if($lastUsername) {
+            //sorties
+        } else {
+            return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        }
+
     }
 
     #[Route('/password_reset', name:'forgotten_password')]
