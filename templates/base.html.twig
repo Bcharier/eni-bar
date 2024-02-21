@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Barre de naviguation{% endblock %}</title>
+        <title>{% block title %}Sortir a l'ENI{% endblock %}</title>
         <!-- favicon -->
         <link rel="stylesheet" href="{{ asset('styles/nav.css') }}">
         <link rel="icon" href="{{ asset('img/sortiraleni.png') }}">
@@ -18,15 +18,11 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}
-            {% include 'header.html.twig' %}
-        {% endblock %}
-
         <nav>
             <img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo">
             <ul>
                 {% if is_granted('ROLE_USER') %}
-                    <li><a href="" class="strike greyed-out">Villes</a></li>
+                    <li><a href="{{ path('app_villes') }}">Villes</a></li>
                     <li><a href="" class="strike greyed-out">Sites</a></li>
                 {% endif %}               
                     <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>

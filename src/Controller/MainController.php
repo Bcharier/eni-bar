@@ -24,4 +24,12 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+
+    #[Route('/villes', name: 'app_villes')]
+    public function villes(): Response
+    {
+        return $this->render('villes/index.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
 }
