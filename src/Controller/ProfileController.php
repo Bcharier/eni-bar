@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
@@ -45,8 +44,20 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'ProfileController',
-            'current_user' => $user,
+            'user' => $user,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/profile/{id}', name: 'app_profile_viewer', requirements:['id' => '\d+'])]
+    public function profileViewer(string $id, EntityManagerInterface $em, Request $request): Response
+    {
+        $user = $this->getUser();
+        $viewed_user = $em->getRepository(Participant::class)->findOneById($id);
+        return $this->render('profile/profile-viewer.html.twig', [
+            'controller_name' => 'ProfileController',
+            'viewed_user' => $viewed_user,
+            'user' => $user,
         ]);
     }
 }

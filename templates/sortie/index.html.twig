@@ -107,7 +107,10 @@
                 </form>
                 <form method="POST" action="{{ path('app_sortie_cancel', {id: sortie.id}) }}">
                     <button type="submit">Annuler</button>
-                </form
+                </form>
+                <form method="POST" action="{{ path('app_sortie_closed', {id: sortie.id}) }}">
+                    <button type="submit">Clôturer</button>
+                </form>
                 {% endif %}
                 </td>
             </tr>
