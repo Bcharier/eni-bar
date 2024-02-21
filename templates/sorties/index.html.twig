@@ -83,7 +83,13 @@
                 <td>{{sortie.nom}}</td>
                 <td>{{sortie.dateHeureDebut|date('d-m-Y')}}</td>
                 <td>{{sortie.dateLimiteInscription|date('d-m-Y')}}</td>
-                <td>{{sortie.nbInscriptionsMax}}</td>
+                <td>{{sortie.participants|length}} / {{sortie.nbInscriptionsMax}}</td>
+                <td>{{sortie.etat.libelle}}</td>
+                <td>
+                {% if user in sortie.participants %}
+                    X
+                {% endif %}
+                </td>
                 <td>{{sortie.organisateur.pseudo}}</td>
                 <td><a href="{{ path('app_showSortie', {id: sortie.id}) }}">Afficher</a></td>
             </tr>

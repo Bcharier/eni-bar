@@ -34,9 +34,6 @@ class Sortie
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $etat = null;
-
     #[ORM\ManyToOne(inversedBy: 'organizedSorties')]
     private ?Participant $organisateur = null;
 
@@ -48,6 +45,9 @@ class Sortie
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Lieu $lieu = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    private ?Etat $etat = null;
 
     public function __construct()
     {
@@ -131,18 +131,6 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?int $etat): static
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
     public function getOrganisateur(): ?Participant
     {
         return $this->organisateur;
@@ -202,6 +190,18 @@ class Sortie
     public function setLieu(?Lieu $lieu): static
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?Etat $etat): static
+    {
+        $this->etat = $etat;
 
         return $this;
     }
