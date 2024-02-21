@@ -1,8 +1,41 @@
 @import "_colors.less";
 
+@outer-flash-padding : 10px;
+@inner-flash-padding : 4px;
+
 #live-flash-ctn {
     margin:auto;
     position: fixed;
-    top: 0px;
-    z-index: 11
+    top: @inner-flash-padding;
+    left : @inner-flash-padding;
+    z-index: 11;
+
+    background-color: @white;
+
+    .flash-header {
+        color : @white;
+        font-weight : bold;
+        padding : @outer-flash-padding @outer-flash-padding @inner-flash-padding @outer-flash-padding;
+
+        &.success {
+            background-color: @pale-green;
+            border: 1px solid @pale-green;
+        }
+        &.error {
+            background-color: @pale-green;
+            border: 1px solid @pale-green;
+        }
+    }
+
+    .flash-body {
+        padding : @inner-flash-padding @outer-flash-padding @outer-flash-padding @outer-flash-padding;
+    }
+
+    button.btn-close {
+        position: absolute;
+        display: block;
+
+        top: @outer-flash-padding;
+        right: @outer-flash-padding;
+    }
 }

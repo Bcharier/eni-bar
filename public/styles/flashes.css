@@ -1,6 +1,30 @@
 #live-flash-ctn {
   margin: auto;
   position: fixed;
-  top: 0px;
+  top: 4px;
+  left: 4px;
   z-index: 11;
+  background-color: #ffffff;
+}
+#live-flash-ctn .flash-header {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 10px 10px 4px 10px;
+}
+#live-flash-ctn .flash-header.success {
+  background-color: #88e188;
+  border: 1px solid #88e188;
+}
+#live-flash-ctn .flash-header.error {
+  background-color: #88e188;
+  border: 1px solid #88e188;
+}
+#live-flash-ctn .flash-body {
+  padding: 4px 10px 10px 10px;
+}
+#live-flash-ctn button.btn-close {
+  position: absolute;
+  display: block;
+  top: 10px;
+  right: 10px;
 }
