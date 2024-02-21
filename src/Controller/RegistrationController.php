@@ -40,8 +40,7 @@ class RegistrationController extends AbstractController
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
-                $request,
-                $form
+                $request
             );
         }
 
