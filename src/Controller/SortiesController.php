@@ -61,4 +61,16 @@ class SortiesController extends AbstractController
             'filterData' => $filterData
         ]);
     }
+
+    #[Route('/showSortie', name: 'app_showSortie')]
+    public function showSortie(SortieRepository $sortieRepository): Response
+    {
+        $request = Request::createFromGlobals();
+        $sortieId = $request->query->get('id');
+        $sortie = $sortieRepository->find($sortieId);
+
+        return $this->render('sorties/showSortie.html.twig', [
+            'sortie' => $sortie
+        ]);
+    }
 }

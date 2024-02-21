@@ -58,9 +58,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->organizedSorties = new ArrayCollection();
+        $this->sortiesParticipant = new ArrayCollection();
     }
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $resetToken = null;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participants')]
+    private Collection $sortiesParticipant;
 
     public function getId(): ?int
     {
@@ -260,5 +264,29 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     
     public function getFullName(): string {
         return $this->getPrenom().' '.$this->getNom();
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortiesParticipant(): Collection
+    {
+        return $this->sortiesParticipant;
+    }
+
+    public function addSortiesParticipant(Sortie $sortiesParticipant): static
+    {
+        if (!$this->sortiesParticipant->contains($sortiesParticipant)) {
+            $this->sortiesParticipant->add($sortiesParticipant);
+        }
+
+        return $this;
+    }
+
+    public function removeSortiesParticipant(Sortie $sortiesParticipant): static
+    {
+        $this->sortiesParticipant->removeElement($sortiesParticipant);
+
+        return $this;
     }
 }
