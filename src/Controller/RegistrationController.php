@@ -35,6 +35,7 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre inscription à bien été faite!');
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
@@ -42,6 +43,9 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 $request
             );
+
+        } else {
+            $this->addFlash('error', 'Erreur...');
         }
 
         return $this->render('registration/register.html.twig', [
