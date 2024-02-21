@@ -85,7 +85,7 @@
                 <td>{{sortie.dateLimiteInscription|date('d-m-Y')}}</td>
                 <td>{{sortie.nbInscriptionsMax}}</td>
                 <td>{{sortie.organisateur.pseudo}}</td>
-                <td><a href="{{ path('app_showSortie', {id: sortie.id}) }}">Afficher</a></td>
+                <td><a href="{{ path('app_sortie_show', {id: sortie.id}) }}">Afficher</a></td>
             </tr>
         {%endfor%}
     </tbody>
