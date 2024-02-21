@@ -65,19 +65,7 @@ class SortieController extends AbstractController
         ]);
     }
 
-    // #[Route('/showSortie', name: 'app_sortie_show')]
-    // public function showSortie(SortieRepository $sortieRepository): Response
-    // {
-    //     $request = Request::createFromGlobals();
-    //     $sortieId = $request->query->get('id');
-    //     $sortie = $sortieRepository->find($sortieId);
-
-    //     return $this->render('sorties/showSortie.html.twig', [
-    //         'sortie' => $sortie
-    //     ]);
-    // }
-
-    #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['POST'])]
     public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SortieType::class, $sortie);
@@ -105,4 +93,47 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/register', name: 'app_sortie_register', methods: ['POST'])]
+    public function register(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $sortie->addParticipant($user);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/unregister', name: 'app_sortie_unregister', methods: ['POST'])]
+    public function unregister(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $sortie->removeParticipant($user);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/publish', name: 'app_sortie_publish', methods: ['POST'])]
+    public function publish(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 2));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/cancel', name: 'app_sortie_cancel', methods: ['POST'])]
+    public function cancel(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 6));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
 }
