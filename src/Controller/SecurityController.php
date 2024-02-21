@@ -16,8 +16,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use App\Service\SendMailService;
 
+#[Route('/login')]
 class SecurityController extends AbstractController
 {
+    /*
     #[Route(path: '/', name: 'app_home')]
     public function home(): Response
     {
@@ -25,6 +27,9 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'app_login')]
+    */
+
+    #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, ParticipantRepository $participantRepository): Response
     {
         if ($this->getUser()) {
@@ -36,11 +41,11 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        if($lastUsername) {
+        if($this->getUser()) {
             return $this->redirectToRoute('app_sortie_index');
         } else {
-            return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
         }
+            return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
 
     }
 
@@ -124,7 +129,7 @@ class SecurityController extends AbstractController
                 $user->setResetToken('');
                 
                 
-// On enregistre le nouveau mot de passe en le hashant
+		// On enregistre le nouveau mot de passe en le hashant
                 $user->setPassword(
                     $passwordHasher->hashPassword(
                         $user,

@@ -1,4 +1,21 @@
 {{ form_start(form) }}
+
+    {{ form_row(form.nom, { 'label': 'Nom de la sortie' }) }}
+    {{ form_row(form.dateHeureDebut, { 'label': 'Date et heure de la sortie' }) }}
+    {{ form_row(form.dateLimiteInscription, { 'label': 'Date limite d\'inscription' }) }}
+    {{ form_row(form.nbInscriptionsMax, { 'label': 'Nombre de places' }) }}
+    {{ form_row(form.duree, { 'label': 'Durée'}) }}
+    {{ form_row(form.infosSortie, { 'label': 'Description et infos'}) }}
+    {{ form_row(form.site, { 'label': 'Ville organisatrice'}) }}
+
     {{ form_widget(form) }}
+
+
+
+    
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+{{ form_start(formLieu) }}
+    {{ form_widget(formLieu) }}
+{{ form_end(formLieu) }}
