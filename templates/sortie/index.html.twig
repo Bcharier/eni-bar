@@ -13,48 +13,57 @@
 
 <h2 class="subtitle">Filtrer les sorties</h2>
 
-{{ form_start(form) }}
+<form method="POST" action="{{path('app_sortie_index')}}">
     <div class="first-column">
+        <h2 class="subtitle">Filtrer les sorties</h2>
         <div class="site-option-container">
-            {{form_label(form.sites)}}
-            {{form_widget(form.sites)}}
+            <label for="site-select">Site :</label>
+            <select name="sites" id="site-select">
+            {% for site in sites %}
+                {% if site.nom == user.site.nom %}
+                    <option value={{site.id}} selected>{{site.nom}}</option>
+                {% else %}
+                    <option value={{site.id}}>{{site.nom}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
         </div>
         <div class="name-option-container">
-            {{form_label(form.nameSearch)}}
-            {{form_widget(form.nameSearch)}}
+            <label for="name-search">Le nom de la sortie contient : </label>
+            <input type="search" name="name-search" id="name-search">
         </div>
         <div class="date-option-container">
-            {{form_label(form.dateStart)}}
-            {{form_widget(form.dateStart)}}
-            {{form_label(form.dateEnd)}}
-            {{form_widget(form.dateEnd)}}
+            <label for="date-start">Entre : </label>
+            <input type="date" name="date-start" id="date-start">
+            <label for="date-end">et : </label>
+            <input type="date" name="date-end" id="date-end">   
         </div>
     </div>
     <div class="second-column">
         <div class="checkbox-container">
             <div class="input-container">
-                {{form_widget(form.checkboxOrganizer)}}
-                {{form_label(form.checkboxOrganizer)}}
+                <input type="checkbox" name="checkbox-organizer" id="checkbox-organizer">
+                <label for="checkbox-organizer">Sorties dont je suis l'organisateur/trice</label>
             </div>
             <div class="input-container">            
-                {{form_widget(form.checkboxRegistered)}}
-                {{form_label(form.checkboxRegistered)}}
+                <input type="checkbox" name="checkboxRegistered" id="checkboxRegistered">
+                <label for="checkboxRegistered">Sorties auxquelles je suis inscrit/e</label>
             </div>
             <div class="input-container">
-                {{form_widget(form.checkboxNotRegistered)}}
-                {{form_label(form.checkboxNotRegistered)}}
+                <input type="checkbox" name="checkboxNotRegistered" id="checkboxNotRegistered">
+                <label for="checkboxNotRegistered">Sorties auxquelles je ne suis pas inscrit/e</label>
             </div>
             <div class="input-container">
-                {{form_widget(form.checkboxPast)}}
-                {{form_label(form.checkboxPast)}}
+                <input type="checkbox" name="checkboxPast" id="checkboxPast">
+                <label for="checkboxPast">Sorties passées</label>
             </div>
         </div>
     </div>
 
     <div class="submit-container">
-        {{form_widget(form.filter)}}
+        <input type="submit" value="Rechercher">
     </div>
-{{ form_end(form) }}
+</form>
 
 <div class="sortie-container">
     <table>

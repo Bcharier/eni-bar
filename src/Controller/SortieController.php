@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\FilterSortieType;
 use App\Form\SortieType;
+use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index')]
-    public function sorties(SortieRepository $sortieRepository, Request $request): Response
+    public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository, Request $request): Response
     {
         $user = $this->getUser();
+
+        $allSites = $siteRepository->findAll();
+
         $filteredSorties = [];
 
         $form = $this->createForm(FilterSortieType::class);
@@ -33,7 +37,8 @@ class SortieController extends AbstractController
         return $this->render('sortie/index.html.twig', [
             'sorties' => $filteredSorties,
             'user' => $user,
-            'form' => $form
+            'form' => $form,
+            'sites' => $allSites
         ]);
     }
 
