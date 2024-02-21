@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, ParticipantRepository $participantRepository): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('app_sortie_index');
         }
 
         // get the login error if there is one
@@ -31,7 +31,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         if($lastUsername) {
-            //sorties
+            return $this->redirectToRoute('app_sortie_index');
         } else {
             return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
         }
