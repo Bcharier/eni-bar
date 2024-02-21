@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{asset('styles/sorties.css')}}">
+    <link rel="stylesheet" href="{{asset('styles/sortie.css')}}">
 {% endblock %}
 
 {% block body %}
@@ -11,9 +11,9 @@
     <p>Participant : {{user.prenom}} {{user.nom|first}}.</p>
 </div>
 
-<form method="POST" action="{{path('app_filterSorties')}}">
+<form method="POST" action="{{path('app_filterSortie')}}">
     <div class="first-column">
-        <h2 class="subtitle">Filtrer les sorties</h2>
+        <h2 class="subtitle">Filtrer les sortie</h2>
         <div class="site-option-container">
             <label for="site-select">Site :</label>
             <select name="sites" id="site-select">
@@ -41,19 +41,19 @@
         <div class="checkbox-container">
             <div class="input-container">
                 <input type="checkbox" name="checkbox-organizer" id="checkbox-organizer">
-                <label for="checkbox-organizer">Sorties dont je suis l'organisateur/trice</label>
+                <label for="checkbox-organizer">Sortie dont je suis l'organisateur/trice</label>
             </div>
             <div class="input-container">            
                 <input type="checkbox" name="checkbox-subscribe" id="checkbox-subscribe">
-                <label for="checkbox-subscribe">Sorties auxquelles je suis inscrit/e</label>
+                <label for="checkbox-subscribe">Sortie auxquelles je suis inscrit/e</label>
             </div>
             <div class="input-container">
                 <input type="checkbox" name="checkbox-not-subscribe" id="checkbox-not-subscribe">
-                <label for="checkbox-not-subscribe">Sorties auxquelles je ne suis pas inscrit/e</label>
+                <label for="checkbox-not-subscribe">Sortie auxquelles je ne suis pas inscrit/e</label>
             </div>
             <div class="input-container">
                 <input type="checkbox" name="checkbox-past" id="checkbox-past">
-                <label for="checkbox-past">Sorties passées</label>
+                <label for="checkbox-past">Sortie passées</label>
             </div>
         </div>
     </div>
@@ -92,5 +92,5 @@
     </table>
 </div>
 
-<a class="button" href="{{ path('app_sorties') }}">Créer une sortie</a>
+<a class="button" href="{{ path('app_sortie_new') }}">Créer une sortie</a>
 {% endblock %}

@@ -22,20 +22,18 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, ParticipantRepository $participantRepository): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('app_sorties');
-        } else {
-
+            return $this->redirectToRoute('app_sortie_index');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        //if($lastUsername) {
-            //sorties
-        //} else {
+        if($lastUsername) {
+            return $this->redirectToRoute('app_sortie_index');
+        } else {
             return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-        //}
         }
 
     }
