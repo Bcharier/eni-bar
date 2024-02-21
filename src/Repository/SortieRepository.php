@@ -33,7 +33,7 @@ class SortieRepository extends ServiceEntityRepository
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.dateHeureDebut', 'DESC');
             $q->andWhere('s.site = :site')
-                ->setParameter('site', $filterData['site']);
+                ->setParameter('site', $filterData['sites']);
         if ($filterData['nameSearch'] != null) {
             $q->andWhere('s.nom LIKE :nameSearch')
                 ->setParameter('nameSearch', '%' . $filterData['nameSearch'] . '%');
@@ -46,19 +46,19 @@ class SortieRepository extends ServiceEntityRepository
             $q->andWhere('s.dateHeureDebut <= :dateEnd')
                 ->setParameter('dateEnd', $filterData['dateEnd']);
         }
-        if (isset($filterData['organizer']) && $filterData['organizer'] != null) {
+        if (isset($filterData['checkboxOrganizer']) && $filterData['checkboxOrganizer'] != null) {
             $q->andWhere('s.organisateur = :organizer')
-                ->setParameter('organizer', $filterData['organizer']);
+                ->setParameter('organizer', $filterData['checkboxOrganizer']);
         }
-        if (isset($filterData['registered']) && $filterData['registered'] != null) {
+        if (isset($filterData['checkboxRegistered']) && $filterData['checkboxRegistered'] != null) {
             $q->andWhere(':registered MEMBER OF s.participants')
-                ->setParameter('registered', $filterData['registered']);
+                ->setParameter('checkboxRegistered', $filterData['checkboxRegistered']);
         }
-        if (isset($filterData['notRegistered']) && $filterData['notRegistered'] != null) {
+        if (isset($filterData['checkboxNotRegistered']) && $filterData['checkboxNotRegistered'] != null) {
             $q->andWhere(':notRegistered NOT MEMBER OF s.participants')
-                ->setParameter('notRegistered', $filterData['notRegistered']);
+                ->setParameter('checkboxNotRegistered', $filterData['checkboxNotRegistered']);
         }
-        if (isset($filterData['passed']) && $filterData['passed']) {
+        if (isset($filterData['checkboxPast']) && $filterData['checkboxPast']) {
             $q->andWhere('s.dateHeureDebut < :now')
                 ->setParameter('now', new \DateTime());
         } else {
