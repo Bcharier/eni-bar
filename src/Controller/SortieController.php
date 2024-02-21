@@ -6,6 +6,8 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Entity\Lieu;
 use App\Form\LieuType;
+use App\Entity\Ville;
+use App\Form\VilleType;
 use App\Repository\SortieRepository;
 use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -83,10 +85,13 @@ class SortieController extends AbstractController
     {
         $sortie = new Sortie();
         $lieu = new Lieu();
+        $ville = new Ville();
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class, $lieu);
+        $formVille = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
+        $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($sortie);
@@ -104,10 +109,19 @@ class SortieController extends AbstractController
             //return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        if ($formVille->isSubmitted() && $formVille->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La ville à été ajouter.');
+            //return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
             'formLieu' => $formLieu,
+            'formVille' => $formVille,
         ]);
     }
 
