@@ -2,9 +2,8 @@
     {% for message in messages %}
         <div id="live-flash-ctn">
             <div id="liveFlash" class="flash" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="flash-header bg-{{ label }}">
+                <div class="flash-header {{ label }}">
                     <strong class="me-auto">Notification</strong>
-                    <small>Maintenant</small>
                     <button type="button" class="btn-close" aria-label="Close">X</button>
                 </div>
                 <div class="flash-body">
