@@ -44,7 +44,7 @@ class RegistrationController extends AbstractController
                 $request
             );
 
-        } else {
+        } else if($form->isSubmitted()) {
             $this->addFlash('error', 'Erreur...');
         }
 

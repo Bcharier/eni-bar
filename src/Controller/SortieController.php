@@ -56,9 +56,10 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($sortie);
-            $sortie->setEtat(1);
+            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 1));
             $entityManager->flush();
 
+            $this->addFlash('success', 'La sortie à été ajouter.');
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 

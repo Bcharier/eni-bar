@@ -42,7 +42,7 @@ class SortieType extends AbstractType
                 'choice_label' => 'nom',
             ])
             ->add('submit', SubmitType::class, array(
-                'label'  => 'Valider',
+                'label'  => 'Enregistrer la sortie',
                 'attr'   =>  array(
                     'class'   => 'submit-button')
                 )
