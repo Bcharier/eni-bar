@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Sortir a l'ENI{% endblock %}</title>
         <!-- favicon -->
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="stylesheet" href="{{ asset('styles/nav.css') }}">
+        <link rel="icon" href="{{ asset('img/sortiraleni.png') }}">
 
         <!-- fonts google -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,18 +15,27 @@
         <!-- styles -->
         <link rel="stylesheet" href="{{ asset('styles/flashes.css') }}">
 
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}
-            {% include 'header.html.twig' %}
-        {% endblock %}
-
-        {% block body %}{% endblock %}
+        <nav>
+            <img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo">
+            <ul>
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('app_villes') }}">Villes</a></li>
+                    <li><a href="" class="strike greyed-out">Sites</a></li>
+                {% endif %}               
+                    <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
+                    <li><a href="{{ path('app_profile') }}">Mon profil</a></li>
+                {% if is_granted('IS_AUTHENTICATED') %}
+                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+                {% endif %}
+            </ul>
+        </nav>
         {% include "_flashes.html.twig" %}
     </body>
+    {% block body %}{% endblock %}  
+    {% block javascripts %}{% endblock %}
 </html>

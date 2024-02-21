@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    #[Route('/index', name: 'app_index')]
     public function index(): Response
     {
         return $this->render('main/index.html.twig', [
@@ -21,6 +21,14 @@ class MainController extends AbstractController
     public function profile(): Response
     {
         return $this->render('profile/index.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
+
+    #[Route('/villes', name: 'app_villes')]
+    public function villes(): Response
+    {
+        return $this->render('villes/index.html.twig', [
             'controller_name' => 'MainController',
         ]);
     }

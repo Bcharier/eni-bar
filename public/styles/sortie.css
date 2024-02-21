@@ -1,0 +1,113 @@
+/* .user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+}
+
+.sortie-container {
+    width: 75%;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;    
+} */
+
+body {
+    font-family: Arial, sans-serif; 
+    background-color: #f2f2f2;
+}
+
+.user-container {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+form {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.first-column,
+.second-column {
+    width: 48%;
+}
+
+.subtitle {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.site-option-container,
+.name-option-container,
+.date-option-container {
+    margin-bottom: 15px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-container .input-container {
+    margin-bottom: 10px;
+}
+
+.sortie-container {
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+.sortie-container a.button {
+    display: block;
+    width: 150px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.sortie-container a.button:hover {
+    background-color: #555;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+}
