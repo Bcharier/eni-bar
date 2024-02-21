@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
@@ -16,9 +17,11 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        $user = new Participant();
-        // $user = $this->getUser();
-        $user = $em->getRepository(Participant::class)->find(1);
+
+        //$user = new Participant();
+        $user = $this->getUser();
+
+        $user = $em->getRepository(Participant::class)->findOneByMail($user->getUserIdentifier());
 
         $form = $this->createForm(ParticipantType::class, $user);
 
