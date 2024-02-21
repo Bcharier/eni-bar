@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\FilterSortieType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
-use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,64 +15,25 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
-    /*
-    #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository): Response
-    {
-        return $this->render('sortie/index.html.twig', [
-            'sortie' => $sortieRepository->findAll(),
-        ]);
-    }
-    */
-
     #[Route('/', name: 'app_sortie_index')]
-    public function sortie(SortieRepository $sortieRepository, SiteRepository $siteRepository): Response
+    public function sorties(SortieRepository $sortieRepository, Request $request): Response
     {
         $user = $this->getUser();
+        $filteredSorties = [];
 
-        $filteredSortie = [];
+        $form = $this->createForm(FilterSortieType::class);
+        $form->handleRequest($request);
 
-        if(isset($_GET['filterData'])) {
-            $filterData = $_GET['filterData'];
-            $filteredSortie = $sortieRepository->findFilteredSortie($filterData);
+
+        if($form->isSubmitted()) {
+            $filterData = $form->getData();
+            $filteredSorties = $sortieRepository->findFilteredSortie($filterData);
         }
 
-        $allSites = $siteRepository->findAllSites();
-
         return $this->render('sortie/index.html.twig', [
-
-            'sorties' => $filteredSortie,
-            'sites' => $allSites,
+            'sorties' => $filteredSorties,
             'user' => $user,
-        ]);
-    }
-
-    #[Route('/filterSortie', name: 'app_filterSortie', methods: 'POST')]
-    public function filterSortie(): Response
-    {
-        $request = Request::createFromGlobals();
-        $site = $request->request->get('sites');
-        $nameSearch = $request->request->get('name-search');
-        $dateStart = $request->request->get('date-start');
-        $dateEnd = $request->request->get('date-end');
-        $organizer = $request->request->get('checkbox-organizer') != null ? $this->getUser()->getId() : null;
-        $registered = $request->request->get('checkbox-registered') != null ? $this->getUser()->getId() : null;
-        $notRegistered = $request->request->get('checkbox-not-registered') != null ? $this->getUser()->getId() : null;
-        $passed = $request->request->get('checkbox-past') != null ? true : false;
-
-        $filterData = [
-            'site' => $site,
-            'nameSearch' => $nameSearch,
-            'dateStart' => $dateStart,
-            'dateEnd' => $dateEnd,
-            'organizer' => $organizer,
-            'registered' => $registered,
-            'notRegistered' => $notRegistered,
-            'passed' => $passed
-        ];
-        
-        return $this->redirectToRoute('app_sortie_index', [
-            'filterData' => $filterData
+            'form' => $form
         ]);
     }
 
@@ -103,6 +64,18 @@ class SortieController extends AbstractController
             'sortie' => $sortie,
         ]);
     }
+
+    // #[Route('/showSortie', name: 'app_sortie_show')]
+    // public function showSortie(SortieRepository $sortieRepository): Response
+    // {
+    //     $request = Request::createFromGlobals();
+    //     $sortieId = $request->query->get('id');
+    //     $sortie = $sortieRepository->find($sortieId);
+
+    //     return $this->render('sorties/showSortie.html.twig', [
+    //         'sortie' => $sortie
+    //     ]);
+    // }
 
     #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
