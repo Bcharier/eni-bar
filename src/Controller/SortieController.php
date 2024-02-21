@@ -135,4 +135,15 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/closed', name: 'app_sortie_closed', methods: ['POST'])]
+    public function closed(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 3));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
 }
