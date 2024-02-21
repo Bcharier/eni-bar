@@ -25,7 +25,7 @@
                     <li><a href="{{ path('app_villes') }}">Villes</a></li>
                     <li><a href="">Sites</a></li>
                 {% endif %}               
-                    <li><a href="">Accueil</a></li>
+                    <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
                     <li><a href="{{ path('app_profile') }}">Mon profil</a></li>
                 {% if is_granted('IS_AUTHENTICATED') %}
                     <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>

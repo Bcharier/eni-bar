@@ -19,14 +19,14 @@ class Site
     private ?string $nom = null;
 
     #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'site')]
-    private Collection $sorties;
+    private Collection $sortie;
 
     #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: 'site')]
     private Collection $participants;
 
     public function __construct()
     {
-        $this->sorties = new ArrayCollection();
+        $this->sortie = new ArrayCollection();
         $this->participants = new ArrayCollection();
     }
 
@@ -50,15 +50,15 @@ class Site
     /**
      * @return Collection<int, Sortie>
      */
-    public function getSorties(): Collection
+    public function getsortie(): Collection
     {
-        return $this->sorties;
+        return $this->sortie;
     }
 
     public function addSorty(Sortie $sorty): static
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties->add($sorty);
+        if (!$this->sortie->contains($sorty)) {
+            $this->sortie->add($sorty);
             $sorty->setSite($this);
         }
 
@@ -67,7 +67,7 @@ class Site
 
     public function removeSorty(Sortie $sorty): static
     {
-        if ($this->sorties->removeElement($sorty)) {
+        if ($this->sortie->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
             if ($sorty->getSite() === $this) {
                 $sorty->setSite(null);

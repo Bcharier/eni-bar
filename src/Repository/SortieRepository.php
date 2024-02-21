@@ -21,7 +21,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function findAllSorties() {
+    public function findAllSortie() {
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.dateHeureDebut', 'DESC')
             ->getQuery();
@@ -29,7 +29,7 @@ class SortieRepository extends ServiceEntityRepository
         return $q->getResult();
     }
 
-    public function findFilteredSorties($filterData) {
+    public function findFilteredSortie($filterData) {
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.dateHeureDebut', 'DESC');
             $q->andWhere('s.site = :site')

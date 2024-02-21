@@ -31,6 +31,14 @@ nav ul li a:hover {
     background-color: #555;
 }
 
+.strike {
+    text-decoration: line-through;
+}
+
+.greyed-out {
+    color :  #CDCDCD;
+}
+
 .logo {
     max-width: 100px;
     height: auto;
