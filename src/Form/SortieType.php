@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Site;
 use App\Entity\Sortie;
@@ -21,14 +22,17 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('etat')
+            ->add('etat', EntityType::class, [
+                'class' => Etat::class,
+                'choice_label' => 'libelle',
+                ])
             ->add('organisateur', EntityType::class, [
                 'class' => Participant::class,
-'choice_label' => 'id',
+                'choice_label' => 'pseudo',
             ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
-'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
         ;
     }
