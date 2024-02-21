@@ -33,20 +33,20 @@
     <div class="second-column">
         <div class="checkbox-container">
             <div class="input-container">
-                {{form_label(form.checkboxOrganizer)}}
                 {{form_widget(form.checkboxOrganizer)}}
+                {{form_label(form.checkboxOrganizer)}}
             </div>
             <div class="input-container">            
-                {{form_label(form.checkboxRegistered)}}
                 {{form_widget(form.checkboxRegistered)}}
+                {{form_label(form.checkboxRegistered)}}
             </div>
             <div class="input-container">
-                {{form_label(form.checkboxNotRegistered)}}
                 {{form_widget(form.checkboxNotRegistered)}}
+                {{form_label(form.checkboxNotRegistered)}}
             </div>
             <div class="input-container">
-                {{form_label(form.checkboxPast)}}
                 {{form_widget(form.checkboxPast)}}
+                {{form_label(form.checkboxPast)}}
             </div>
         </div>
     </div>
@@ -87,17 +87,27 @@
                 <td>
                 <a href="{{ path('app_sortie_show', {id: sortie.id}) }}">Afficher</a>
                 {% if user not in sortie.participants and sortie.etat.id == 2 %}
-                    <a href="{{ path('app_sortie_register', {id: sortie.id}) }}">S'inscrire</a>
+                    <form method="POST" action="{{ path('app_sortie_register', {id: sortie.id}) }}">
+                        <button type="submit">S'inscrire</button>
+                    </form>
                 {% endif %}
                 {% if user in sortie.participants and sortie.etat.id == 2 %}
-                    <a href="{{ path('app_sortie_unregister', {id: sortie.id}) }}">Se désinscrire</a>
+                <form method="POST" action="{{ path('app_sortie_unregister', {id: sortie.id}) }}">
+                    <button type="submit">Se désinscrire</button>
+                </form>
                 {% endif %}
                 {% if user == sortie.organisateur and sortie.etat.id == 1 %}
-                    <a href="{{ path('app_sortie_publish')}}">Publier</a>
+                <form method="POST" action="{{ path('app_sortie_publish', {id: sortie.id}) }}">
+                </form>
+                    <button type="submit">Publier</button>
                 {% endif %}
                 {% if user == sortie.organisateur and sortie.etat.id == 2 %}
-                    <a href="{{ path('app_sortie_edit', {id: sortie.id}) }}">Modifier</a>
-                    <a href="{{ path('app_sortie_cancel', {id: sortie.id}) }}">Annuler</a>
+                <form method="POST" action="{{ path('app_sortie_edit', {id: sortie.id}) }}">
+                    <button type="submit">Modifier</button>
+                </form>
+                <form method="POST" action="{{ path('app_sortie_cancel', {id: sortie.id}) }}">
+                    <button type="submit">Annuler</button>
+                </form
                 {% endif %}
                 </td>
             </tr>
