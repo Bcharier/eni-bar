@@ -54,7 +54,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->organizedSorties = new ArrayCollection();
+        $this->organizedSortie = new ArrayCollection();
         $this->sortiesParticipant = new ArrayCollection();
     }
     #[ORM\Column(length: 255, nullable: true)]

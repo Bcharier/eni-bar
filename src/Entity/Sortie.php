@@ -34,7 +34,7 @@ class Sortie
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $infosSortie = null;
 
-    #[ORM\ManyToOne(inversedBy: 'organizedSorties')]
+    #[ORM\ManyToOne(inversedBy: 'organizedSortie')]
     private ?Participant $organisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'sortie')]
