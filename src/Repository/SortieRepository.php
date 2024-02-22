@@ -52,11 +52,11 @@ class SortieRepository extends ServiceEntityRepository
         }
         if (isset($filterData['checkboxRegistered']) && $filterData['checkboxRegistered'] != null) {
             $q->andWhere(':registered MEMBER OF s.participants')
-                ->setParameter('checkboxRegistered', $filterData['checkboxRegistered']);
+                ->setParameter('registered', $filterData['checkboxRegistered']);
         }
         if (isset($filterData['checkboxNotRegistered']) && $filterData['checkboxNotRegistered'] != null) {
             $q->andWhere(':notRegistered NOT MEMBER OF s.participants')
-                ->setParameter('checkboxNotRegistered', $filterData['checkboxNotRegistered']);
+                ->setParameter('notRegistered', $filterData['checkboxNotRegistered']);
         }
         if (isset($filterData['checkboxPast']) && $filterData['checkboxPast']) {
             $q->andWhere('s.dateHeureDebut < :now')

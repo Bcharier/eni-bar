@@ -106,7 +106,8 @@
                     <button type="submit">Modifier</button>
                 </form>
                 <form method="POST" action="{{ path('app_sortie_cancel', {id: sortie.id}) }}">
-                    <button type="submit">Annuler</button>
+                    <input class="hidden-input" type="hidden" name="sortieIdCancel" value="{{ sortie.id }}">
+                    <button class="cancel-button" type="submit">Annuler</button>
                 </form>
                 <form method="POST" action="{{ path('app_sortie_closed', {id: sortie.id}) }}">
                     <button type="submit">Clôturer</button>
@@ -120,4 +121,5 @@
 </div>
 
 <a class="button" href="{{ path('app_sortie_new') }}">Créer une sortie</a>
+
 {% endblock %}
