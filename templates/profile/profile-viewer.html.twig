@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tab_name_prefix }} {{ viewed_user.getPseudo() }}{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/participant.css') }}">{% endblock %}
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 85%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Profil de {{ viewed_user.getFullName() }} !</h1>
+
+    <div class="viewed-user-ctn">
+        <div class="avatar-ctn">
+            <img src="{{ asset('img/default_avatar.jpg') }}" />
+        </div>
+        <dic class="fields-ctn">
+        <div class="field-ctn">
+            <div class="field-title">Prénom :</div>
+            <div class="field-value">{{ viewed_user.getPrenom() and viewed_user.getPrenom() != "" ? viewed_user.getPrenom() : "Ø" }}</div>
+        </div>
+
+        <div class="field-ctn">
+            <div class="field-title">Nom :</div>
+            
+            <div class="field-value">{{ viewed_user.getNom() and viewed_user.getNom() != "" ? viewed_user.getNom() : "Ø" }}</div>
+        </div>
+
+        <div class="field-ctn">
+            <div class="field-title">Téléphone :</div>
+            <div class="field-value">{{ viewed_user.getTelephone() and viewed_user.getTelephone() != "" ? viewed_user.getTelephone() : "Ø" }}</div>
+        </div>
+
+        <div class="field-ctn">
+            <div class="field-title">Email :</div>
+            <div class="field-value">{{ viewed_user.getMail() }}</div>
+        </div>
+
+        <div class="field-ctn">
+            <div class="field-title">Ville de rattachement :</div>
+            <div class="field-value">{{ viewed_user.getSite().getNom() and viewed_user.getSite().getNom() != "" ? viewed_user.getSite().getNom() : "Ø" }}</div>
+        </div>
+
+        <!-- TEMPLATE -->
+        <div class="field-ctn" style="display : none">
+            <div class="field-title"></div>
+            <div class="field-value"></div>
+        </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

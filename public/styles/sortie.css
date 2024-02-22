@@ -85,3 +85,23 @@ th {
     color: #fff;
     border-radius: 5px;
 }
+
+.container-new {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    background-color: lightgrey;
+}
+
+.container-new form div {
+    margin: 0.3rem;
+}
+.container-new form[name="sortie"] {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.container-new label {
+    display: inline-block;
+    min-width: 200px;
+}

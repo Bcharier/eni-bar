@@ -31,20 +31,30 @@ body {
     width: 70%;
 }
 
-.form-input div label {
+.form-input div label.form-label {
     display: inline-block;
     width: 20%;
     min-width: 80px;
     margin: 5px;
 }
 
-.form-input div input {
+.form-input div input.form-control {
     justify-content: center;
     width: 50%;
     margin: 5px;
 }
 
 .login {
+    margin: auto;
+    width: 85%;
+}
+
+.login .form-footer {
+    margin-top : 1rem;
+}
+
+.login .form-footer a {
+    margin-left : 2rem;
 }
 
 .alert {

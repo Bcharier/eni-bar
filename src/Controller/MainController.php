@@ -9,6 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
+    #[Route('/', name: 'app_index')]
+    public function index(): Response
+    {
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /*
     #[Route('/index', name: 'app_index')]
     public function index(): Response
     {
@@ -16,6 +23,7 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+    */
 
     #[Route('/profile', name: 'app_profile')]
     public function profile(): Response
@@ -25,10 +33,10 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/villes', name: 'app_villes')]
-    public function villes(): Response
+    #[Route('/ville', name: 'app_ville_index')]
+    public function ville(): Response
     {
-        return $this->render('villes/index.html.twig', [
+        return $this->render('ville/index.html.twig', [
             'controller_name' => 'MainController',
         ]);
     }

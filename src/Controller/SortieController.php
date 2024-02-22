@@ -5,6 +5,10 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\FilterSortieType;
 use App\Form\SortieType;
+use App\Entity\Lieu;
+use App\Form\LieuType;
+use App\Entity\Ville;
+use App\Form\VilleType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,19 +45,45 @@ class SortieController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortie = new Sortie();
+        $lieu = new Lieu();
+        $ville = new Ville();
         $form = $this->createForm(SortieType::class, $sortie);
+        $formLieu = $this->createForm(LieuType::class, $lieu);
+        $formVille = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
+        $formLieu->handleRequest($request);
+        $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($sortie);
+            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 1));
             $entityManager->flush();
 
+            $this->addFlash('success', 'La sortie à été ajouter.');
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($formLieu->isSubmitted() && $formLieu->isValid()) {
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le lieu à été ajouter.');
+            //return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($formVille->isSubmitted() && $formVille->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La ville à été ajouter.');
+            //return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
+            'formLieu' => $formLieu,
+            'formVille' => $formVille,
         ]);
     }
 

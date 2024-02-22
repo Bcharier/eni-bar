@@ -22,11 +22,13 @@
             <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo"></a>
             <ul>
                 {% if is_granted('ROLE_USER') %}
-                    <li><a href="{{ path('app_villes') }}">Villes</a></li>
+                    <li><a href="{{ path('app_ville_index') }}">Villes</a></li>
                     <li><a href="" class="strike greyed-out">Sites</a></li>
                 {% endif %}               
                     <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
-                    <li><a href="{{ path('app_profile') }}">Mon profil</a></li>
+                {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{ path('app_profile') }}">Mon profil ({{ user.getFullName() }})</a></li>
+                {% endif %} 
                 {% if is_granted('IS_AUTHENTICATED') %}
                     <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
                 {% else %}
