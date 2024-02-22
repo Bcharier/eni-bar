@@ -40,7 +40,6 @@ nav ul li a:hover {
 }
 
 .logo {
-    max-width: 100px;
-    height: auto;
+    max-width: 80px;
     margin-right: 10px;
 }
