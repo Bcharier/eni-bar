@@ -24,7 +24,7 @@ class LieuType extends AbstractType
 'choice_label' => 'nom',
             ])
             ->add('submit', SubmitType::class, array(
-                'label'  => 'Valider Le Lieu',
+                'label'  => 'Ajouter Le Lieu',
                 'attr'   =>  array(
                     'class'   => 'submit-button')
                 )

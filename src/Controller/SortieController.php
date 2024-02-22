@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
@@ -47,21 +48,60 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $lieu = new Lieu();
         $ville = new Ville();
+        $user = $this->getUser();
         $form = $this->createForm(SortieType::class, $sortie);
+        /*
+        $form = $this->createFormBuilder($sortie)
+            ->add('save', SubmitType::class, ['label' => 'Create Task'])
+            ->add('saveAndAdd', SubmitType::class, ['label' => 'Save and Add'])
+            ->getForm();
+            */
+        //$formPublish = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class, $lieu);
         $formVille = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
+        //$formPublish->handleRequest($request);
         $formLieu->handleRequest($request);
         $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if($form->get('publish')->isClicked()) {
+                $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 2));
+                $this->addFlash('success', 'La sortie à été publié');
+            } else {
+                $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 1));
+                $this->addFlash('success', 'La sortie à été enregistré');
+            }
+
             $entityManager->persist($sortie);
-            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 1));
             $entityManager->flush();
 
-            $this->addFlash('success', 'La sortie à été ajouter.');
+            //$this->addFlash('success', 'La sortie à été ajouter.');
+            //return $this->redirectToRoute($nextAction);
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+    // ... perform some action, such as saving the task to the database
+
+
+    return $this->redirectToRoute($nextAction);
+}
+
+        /*
+        if($formPublish->isSubmitted() && $form->isValid()) {
+            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 2));
+            $entityManager->persist($sortie);
+            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 2));
+            print_r($sortie->getEtat());
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La sortie à été publier.');
+            $this->addFlash(Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        }
+        */
 
         if ($formLieu->isSubmitted() && $formLieu->isValid()) {
             $entityManager->persist($lieu);
@@ -84,6 +124,7 @@ class SortieController extends AbstractController
             'form' => $form,
             'formLieu' => $formLieu,
             'formVille' => $formVille,
+            'user' => $user,
         ]);
     }
 

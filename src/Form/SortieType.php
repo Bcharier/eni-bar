@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 
 class SortieType extends AbstractType
 {
@@ -24,10 +25,13 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
+            /*
             ->add('etat', EntityType::class, [
                 'class' => Etat::class,
                 'choice_label' => 'libelle',
+                'mapped' => false,
                 ])
+            */
             ->add('organisateur', EntityType::class, [
                 //'label' => "Hello",
                 'class' => Participant::class,
@@ -41,12 +45,12 @@ class SortieType extends AbstractType
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
             ])
-            ->add('submit', SubmitType::class, array(
-                'label'  => 'Enregistrer la sortie',
-                'attr'   =>  array(
-                    'class'   => 'submit-button')
-                )
-            )
+            ->add('submit', SubmitType::class, array('label'  => 'Enregistrer la sortie'))
+            ->add('publish', SubmitType::class, array('label'  => 'Publier la sortie'))
+            ->add('cancel', ResetType::class, array('label'  => 'Annuler'))
+            //->add('save', SubmitType::class, ['label' => 'Enregistré la sortie', 'class' => 'submit-button'])
+            //->add('publish', SubmitType::class, ['label' => 'Publié la sortie', 'class' => 'submit-button'])
+            //->getForm();
         ;
     }
 
