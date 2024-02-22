@@ -1,0 +1,21 @@
+.cancel-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+}
+
+.motive-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.button-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+    align-items: center;
+}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\CancelSortieType;
 use App\Form\FilterSortieType;
 use App\Form\SortieType;
 use App\Repository\SiteRepository;
@@ -20,9 +21,6 @@ class SortieController extends AbstractController
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository, Request $request): Response
     {
         $user = $this->getUser();
-
-        $allSites = $siteRepository->findAll();
-
         $filteredSorties = [];
 
         $form = $this->createForm(FilterSortieType::class);
@@ -37,8 +35,7 @@ class SortieController extends AbstractController
         return $this->render('sortie/index.html.twig', [
             'sorties' => $filteredSorties,
             'user' => $user,
-            'form' => $form,
-            'sites' => $allSites
+            'form' => $form
         ]);
     }
 
@@ -88,17 +85,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
-    public function delete(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($sortie);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-    }
-
     #[Route('/{id}/register', name: 'app_sortie_register', methods: ['POST'])]
     public function register(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
@@ -132,12 +118,28 @@ class SortieController extends AbstractController
     }
 
     #[Route('/{id}/cancel', name: 'app_sortie_cancel', methods: ['POST'])]
-    public function cancel(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    public function cancel(Sortie $sortie, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 6));
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+        $form = $this->createForm(CancelSortieType::class, $sortie);
+        $form->handleRequest($request);
 
-        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('submit')->isClicked()) {
+                $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 6));
+                $sortie->setInfosSortie($form->get('infosSortie')->getData());
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            } elseif ($form->get('cancel')->isClicked()) {
+                return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+        return $this->render('sortie/cancelSortie.html.twig', [
+            'sortie' => $sortie,
+            'form' => $form,
+        ]);
     }
 }
