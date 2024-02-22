@@ -112,6 +112,10 @@ class SortieController extends AbstractController
     {
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
+        $formLieu = $this->createForm(LieuType::class);
+        $formLieu->handleRequest($request);
+        $formVille= $this->createForm(VilleType::class);
+        $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -122,6 +126,8 @@ class SortieController extends AbstractController
         return $this->render('sortie/edit.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
+            'formLieu' => $formLieu,
+            'formVille' => $formVille,
         ]);
     }
 
