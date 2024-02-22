@@ -10,6 +10,23 @@
     <h1>Crée une sortie</h1>
 
     {{ include('sortie/_form.html.twig') }}
+    <div class="container-new-lieu">
+    {{ form_start(formLieu) }}
+        <h3>Ajouter un lieu</h3>
+        {{ form_widget(formLieu) }}
+        <div>
+            <button class="btn">{{ button_label|default('+') }}</button>
+        </div>
+    {{ form_end(formLieu) }}
+
+    {{ form_start(formVille) }}
+        <h3>Ajouter une ville</h3>
+        {{ form_widget(formVille) }}
+        <div>
+            <button class="btn">{{ button_label|default('+') }}</button>
+        </div>
+    {{ form_end(formVille) }}
+</div>
 
     <a href="{{ path('app_sortie_index') }}">back to list</a>
 {% endblock %}
