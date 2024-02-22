@@ -21,14 +21,8 @@ class LieuType extends AbstractType
             ->add('longitude')
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
-'choice_label' => 'nom',
+                'choice_label' => 'nom',
             ])
-            ->add('submit', SubmitType::class, array(
-                'label'  => 'Ajouter Le Lieu',
-                'attr'   =>  array(
-                    'class'   => 'submit-button')
-                )
-            )
         ;
     }
 
