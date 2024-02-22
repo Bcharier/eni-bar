@@ -23,6 +23,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('importCsv')->isClicked()) {
+                // L'utilisateur a cliqué sur le bouton d'import CSV
+                $csvFile = $form->get('csvFile')->getData();
+                // Traitement de l'import CSV avec le service CsvImporter
+                $csvImporter->import($csvFile);
+                // Rediriger ou effectuer d'autres actions nécessaires après l'import
+            } else {
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -43,10 +50,10 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 $request
             );
-
-        } else if($form->isSubmitted()) {
-            $this->addFlash('error', 'Erreur...');
         }
+    } else if($form->isSubmitted()) {
+        $this->addFlash('error', 'Erreur...');
+    }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
