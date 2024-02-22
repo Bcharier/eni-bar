@@ -32,8 +32,8 @@ class SortieRepository extends ServiceEntityRepository
     public function findFilteredSortie($filterData) {
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.dateHeureDebut', 'DESC');
-            $q->andWhere('s.site = :site')
-                ->setParameter('site', $filterData['sites']);
+            $q->andWhere('s.site = :site') 
+                ->setParameter('site', $filterData['sites']);       
         if ($filterData['nameSearch'] != null) {
             $q->andWhere('s.nom LIKE :nameSearch')
                 ->setParameter('nameSearch', '%' . $filterData['nameSearch'] . '%');
@@ -61,11 +61,15 @@ class SortieRepository extends ServiceEntityRepository
         if (isset($filterData['checkboxPast']) && $filterData['checkboxPast']) {
             $q->andWhere('s.dateHeureDebut < :now')
                 ->setParameter('now', new \DateTime());
+                $q->andWhere('(s.etat = :etatPast OR s.etat = :etatCanceled) AND s.dateHeureDebut > :archiver')
+                    ->setParameter('etatPast', 5)
+                    ->setParameter('etatCanceled', 6)
+                    ->setParameter('archiver', (new \DateTime())->sub(new \DateInterval('P1M')));
         } else {
             $q->andWhere('s.dateHeureDebut > :now')
                 ->setParameter('now', new \DateTime());
         }
-
+        
         return $q->getQuery()->getResult();
     }
 
