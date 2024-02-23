@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
@@ -16,8 +18,6 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function index(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-
-        //$user = new Participant();
         $user = $this->getUser();
 
         $user = $em->getRepository(Participant::class)->findOneByMail($user->getUserIdentifier());
@@ -38,8 +38,6 @@ class ProfileController extends AbstractController
             $this->addFlash('success', 'Votre profil a bien été mis à jour !');
 
             $em->flush();
-        } else {
-            // $this->addFlash('info', 'Formulaire neuf');
         }
 
         return $this->render('profile/index.html.twig', [

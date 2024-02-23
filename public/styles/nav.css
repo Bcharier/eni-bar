@@ -14,7 +14,7 @@ nav {
 }
 
 nav ul li {
-    display: inline;
+    display: inline-block;
     margin-right: 10px;
 }
 
@@ -43,4 +43,19 @@ nav ul li a:hover {
     max-width: 100px;
     height: auto;
     margin-right: 10px;
+}
+
+.mini-profile-pic {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid 0.1rem #fff;
+    padding: 0.2rem;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
