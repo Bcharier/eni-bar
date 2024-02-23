@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SortieType extends AbstractType
 {
@@ -25,7 +26,7 @@ class SortieType extends AbstractType
             ->add('duree', NumberType::class, [ 'html5' => true, 'attr' => ['size' => 10, 'data-append-text' => 'minutes']])
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
-            ->add('infosSortie')
+            ->add('infosSortie', TextareaType::class)
             /*
             ->add('etat', EntityType::class, [
                 'class' => Etat::class,

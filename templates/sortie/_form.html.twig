@@ -1,32 +1,34 @@
-<div class="container-new">
-{{ form_start(form) }}
+{# {{ form_start(form) }} 
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
+    {#
     {{ form_row(form.nom, { 'label': 'Nom de la sortie' }) }}
     {{ form_row(form.dateHeureDebut, { 'label': 'Date et heure de la sortie' }) }}
     {{ form_row(form.dateLimiteInscription, { 'label': 'Date limite d\'inscription' }) }}
     {{ form_row(form.nbInscriptionsMax, { 'label': 'Nombre de places' }) }}
     {{ form_row(form.duree, { 'label': 'Durée'}) }}
     {{ form_row(form.infosSortie, { 'label': 'Description et infos'}) }}
-    {{ form_row(form.site, { 'label': 'Ville organisatrice'}) }}
-    {# {{ form_widget(form) }} #}
-    {# <button class="btn">{{ button_label|default('Save') }}</button> #}
-    {# {{ form_row(formPublish.submit, { 'label': 'Publier la sortie'}) }} #}
-{{ form_end(form) }}
-
+    #}
+{{ form_start(form)}}
+<div class="container-new">
     <div class="container-new-lieu">
-    {{ form_start(formLieu) }}
-        {{ form_widget(formLieu) }}
-        <div>
-            <button class="btn">{{ button_label|default('+') }}</button>
-        </div>
-    {{ form_end(formLieu) }}
-
-    {{ form_start(formVille) }}
-        {{ form_widget(formVille) }}
-        <div>
-            <button class="btn">{{ button_label|default('+') }}</button>
-        </div>
-    {{ form_end(formVille) }}
+    <div><label for="sortie_nom">Nom de la sortie: </label>{{ form_widget(form.nom)}}</div>
+    <div><label for="sortie_dateHeureDebut">Date et heure de la sortie: </label>{{ form_widget(form.dateHeureDebut) }}</div>
+    <div><label for="sortie_dateLimiteInscription">Date limite d'inscription: </label>{{ form_widget(form.dateLimiteInscription)}}</div>
+    <div><label for="sortie_nbInscriptionsMax">Nombre de places: </label>{{ form_widget(form.nbInscriptionsMax)}}</div>
+    <div><label for="sortie_duree">Durée: </label>{{ form_widget(form.duree)}}</div>
+    <div><label for="sortie_infosSortie">Description et infos: </label>{{ form_widget(form.infosSortie)}}</div>
+    <div><label>Ville organisatrice :</label><span>{{ app.user.getSite().getNom() }}</span></div>
+    <div><label for="lieu_ville">Ville: </label>{{ form_widget(formLieu.ville)}}</div>
+    <div><label for="sortie_lieu">Lieu:</label>{{ form_widget(form.lieu) }}</div>
+    <div><label for="lieu_rue">Rue: </label>{{ form_widget(formLieu.rue, {'attr' : { 'disabled': true}})}}</div>
+    <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true}})}}</div>
+    <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true}})}}</div>
+    <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true}})}}</div>
+    {{ form_widget(form.submit) }}
+    {{ form_widget(form.publish) }}
+    {{ form_widget(form.cancel) }}
+    </div>
 </div>
-
-
-</div>
+{{ form_end(form)}}
