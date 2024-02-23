@@ -10,8 +10,8 @@
   padding-left: 1rem;
 }
 .filters-wrapper .filters-ctn input[type=text] {
-  border: auto;
   border-radius: 10px;
+  padding-left: 0.5rem;
 }
 .filters-wrapper .filters-ctn input[type=button] {
   border-radius: 0px;
