@@ -9,7 +9,7 @@
     <h1>Register</h1>
 
     {{ form_errors(registrationForm) }}
-    {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm, { 'attr' : {'enctype': 'multipart/form-data'}}) }}
     {{ form_widget(registrationForm) }}
     <button class="btn btn-primary" type="submit" name="{{ registrationForm.importCsv.vars.full_name }}">Import CSV</button>
     {{ form_end(registrationForm) }}
