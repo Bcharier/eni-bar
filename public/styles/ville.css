@@ -1,0 +1,78 @@
+/* FORMULAIRE MISE À JOUR VILLE */
+#ville div {
+  display: flex;
+}
+/* LISTE DES VILLES */
+.filters-wrapper {
+  padding: 0.2rem 0px 2rem 0px;
+}
+.filters-wrapper .filters-ctn {
+  padding-left: 1rem;
+}
+.filters-wrapper .filters-ctn input[type=text] {
+  border-radius: 10px;
+  padding-left: 0.5rem;
+}
+.filters-wrapper .filters-ctn input[type=button] {
+  border-radius: 0px;
+  padding: 0.2em 1rem;
+}
+.towns-wrapper {
+  padding: 1rem;
+}
+.towns-wrapper h1 {
+  text-align: center;
+}
+.towns-wrapper form[name=ville] {
+  display: block ruby;
+}
+.towns-wrapper form[name=ville] #ville > div {
+  margin: 0.2rem;
+}
+.towns-wrapper form[name=ville] #ville label {
+  display: inline-block;
+  text-align: right;
+  padding-right: 0.5rem;
+  width: 100px;
+}
+.towns-wrapper form[name=ville] .submit-button-wrapper {
+  position: relative;
+  bottom: 0px;
+  right: 0px;
+}
+.towns {
+  border: 3px solid #06161E;
+  border-spacing: 0;
+  border-collapse: collapse;
+  max-height: 50vh;
+  overflow-y: auto;
+  display: inline flow-root list-item;
+}
+.towns thead {
+  position: sticky;
+  top: 0px;
+  left: 0px;
+}
+.towns .towns-row.header {
+  background: #06161E;
+  color: #ffffff;
+}
+.towns .towns-row:nth-child(odd):not(.header) {
+  background: #CDCDCD;
+}
+.towns .towns-row.new-town {
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+}
+.towns .towns-row .towns-cell {
+  padding: 0.5rem;
+}
+.towns .towns-row .towns-cell:not(:first-child) {
+  border-left: 2px solid #000000;
+}
+.towns .towns-row .towns-cell a,
+.towns .towns-row .towns-cell form {
+  display: inline;
+  padding: 0px 0.5rem;
+}

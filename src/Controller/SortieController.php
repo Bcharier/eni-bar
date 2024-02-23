@@ -107,11 +107,15 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['POST'])]
+    #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
+        $formLieu = $this->createForm(LieuType::class);
+        $formLieu->handleRequest($request);
+        $formVille= $this->createForm(VilleType::class);
+        $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -122,6 +126,8 @@ class SortieController extends AbstractController
         return $this->render('sortie/edit.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
+            'formLieu' => $formLieu,
+            'formVille' => $formVille,
         ]);
     }
 
@@ -181,5 +187,16 @@ class SortieController extends AbstractController
             'sortie' => $sortie,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
+    public function delete(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($sortie);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
 }

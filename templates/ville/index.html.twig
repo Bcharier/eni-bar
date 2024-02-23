@@ -1,37 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ville index{% endblock %}
+{% block title %}{{ tab_name_prefix }} Liste des villes{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/ville.css') }}">{% endblock %}
 
 {% block body %}
-    <h1>Ville index</h1>
+    
+    <div class="towns-wrapper">
+        <h1>Gérer les villes</h1>
 
-    <table class="table">
+    <div class="filters-wrapper">
+        <h2>Filter les villes</h2>
+        <div class="filters-ctn">
+            <label for="">Le nom contient :</label>
+            <input type="text" name="" />
+            <input type="button" value="Rechercher" />
+        </div>
+    </div>
+    <table class="towns table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>CodePostal</th>
-                <th>actions</th>
+            <tr class="towns-row header">
+                <th class="towns-cell header">Nom</th>
+                <th class="towns-cell header">Code Postal</th>
+                <th class="towns-cell header">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for ville in villes %}
-            <tr>
-                <td>{{ ville.id }}</td>
-                <td>{{ ville.nom }}</td>
-                <td>{{ ville.codePostal }}</td>
-                <td>
-                    <a href="{{ path('app_ville_show', {'id': ville.id}) }}">show</a>
-                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">edit</a>
+            <tr class="towns-row">
+                <td class="towns-cell">{{ ville.nom }}</td>
+                <td class="towns-cell">{{ ville.codePostal }}</td>
+                <td class="towns-cell">
+                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
+                    <form id="form_delete_town_{{ ville.id }}" method="POST" action="{{ path('app_ville_delete_by_id', {'id': ville.id}) }}"><input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ville.id) }}"><a onclick="if(confirm('Êtes vous sûr(e) de vouloir supprimer {{ ville.nom }} ?')) { document.getElementById('form_delete_town_{{ ville.id}}').submit();  } else { return false; }" href="#">Supprimer</a></form>
                 </td>
             </tr>
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
+            <tr class="towns-row">
+                <td class="towns-cell" colspan="3">Il n'existe pas de ville pour l'instant.</td>
             </tr>
         {% endfor %}
+            <tr class="towns-row new-town">
+                <form method="POST" action="{{ path('app_ville_new') }}">
+                <td class="towns-cell"><input name="ville[nom]" required="required" type="text" /></td>
+                <td class="towns-cell"><input name="ville[codePostal]" required="required" type="text" /></td>
+                <td class="towns-cell"><input type="hidden" name="ville[_token]" value="{{ csrf_token('ville') }}"><input type="submit" value="Ajouter" /></td>
+                </form>
+            </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_ville_new') }}">Create new</a>
+    </div>
 {% endblock %}

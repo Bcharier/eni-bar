@@ -9,6 +9,9 @@ form #participant div label {
 form #participant div input {
   margin: 0.2rem;
 }
+form #participant div div:has(>button) {
+  border: 2px solid white;
+}
 .viewed-user-ctn {
   display: flex;
 }
