@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class SortieType extends AbstractType
 {
@@ -21,7 +22,7 @@ class SortieType extends AbstractType
         $builder
             ->add('nom')
             ->add('dateHeureDebut')
-            ->add('duree')
+            ->add('duree', NumberType::class, [ 'html5' => true, 'attr' => ['size' => 10, 'data-append-text' => 'minutes']])
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
@@ -45,12 +46,9 @@ class SortieType extends AbstractType
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
             ])
-            ->add('submit', SubmitType::class, array('label'  => 'Enregistrer la sortie'))
-            ->add('publish', SubmitType::class, array('label'  => 'Publier la sortie'))
-            ->add('cancel', ResetType::class, array('label'  => 'Annuler'))
-            //->add('save', SubmitType::class, ['label' => 'Enregistré la sortie', 'class' => 'submit-button'])
-            //->add('publish', SubmitType::class, ['label' => 'Publié la sortie', 'class' => 'submit-button'])
-            //->getForm();
+            ->add('submit', SubmitType::class, array('label' => 'Enregistrer la sortie', 'row_attr' => ['class' => 'row enregistrer'], 'attr' => ['class' => 'button enregistrer',]))
+            ->add('publish', SubmitType::class, array('label'  => 'Publier la sortie', 'row_attr' => ['class' => 'row publier'], 'attr' => ['class' => 'button publier',]))
+            ->add('cancel', ResetType::class, array('label'  => 'Annuler', 'row_attr' => ['class' => 'row annuler'], 'attr' => ['class' => 'button annuler',]))
         ;
     }
 

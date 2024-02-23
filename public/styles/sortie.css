@@ -101,15 +101,38 @@ th {
     background-color: lightgrey;
 }
 
-.container-new form div {
+.container-new div {
     margin: 0.3rem;
+}
+
+.container-new form[name="sortie"] div {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 .container-new form[name="sortie"] {
     display: flex;
     flex-flow: column wrap;
+    width: 40%;
 }
 
 .container-new label {
     display: inline-block;
-    min-width: 200px;
+    min-width: 100px;
+}
+
+.container-new > form > div:has(> button) {
+    display: inline-block;
+    background-color: lightpink;
+}
+
+.container-new-lieu form {
+    background-color: lightblue;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.container-new-lieu form h3 {
+    width: 100%;
 }
