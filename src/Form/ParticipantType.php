@@ -32,7 +32,7 @@ class ParticipantType extends AbstractType
                     'class'   => 'submit-button')))
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profil',
-                'required' => false,
+                'required' => false
             ])
         ;
     }

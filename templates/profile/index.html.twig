@@ -3,20 +3,59 @@
 {% block title %}{{ tab_name_prefix }}  Hello ProfileController!{% endblock %}
 {% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/participant.css') }}">{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 85%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Bonjour {{ user.getFullName() }} !</h1>
+<h1>Bonjour {{ user.getFullName() }} !</h1>
+
+<div class="form-container">
 
     {{ form_start(form, { 'attr' : {'enctype': 'multipart/form-data'}}) }}
+
+<div class="image-container">
+        {{ form_label(form.imageFile) }}
+        {{ form_widget(form.imageFile, {'attr': {'class': 'profile-picture'}}) }}
+</div>
+
+{# <img src="{{ asset('img/userProfile/' ~ user.getImageName())}}" alt=""> #}
+
+<div class="info-container">
+
+    <div class="input-container">
+        {{ form_label(form.prenom, 'Prénom') }}
+        {{ form_widget(form.prenom) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.nom, 'Nom') }}
+        {{ form_widget(form.nom) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.pseudo)}}
+        {{ form_widget(form.pseudo) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.mail, 'mail') }}
+        {{ form_widget(form.mail) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.password, 'Mot de passe') }}
+        {{ form_widget(form.password) }}
+    </div>
+    <div class="input-container">
+        {{ form_label(form.telephone, 'Téléphone') }}
+        {{ form_widget(form.telephone) }}
+    </div>
+        <div class="button-container">
+                {{form_label(form.submit)}}
+                {{form_widget(form.submit)}}
+
+                {{form_label(form.reset)}}
+                {{form_widget(form.reset)}}
+        </div>
+</div>
+
+
 
     {{form_end(form)}}
 
 </div>
-
-    <img src="{{asset('userData/images/userProfile/')}}{{ user.getImageName()}}" alt="">
 
 {% endblock %}

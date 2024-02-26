@@ -20,8 +20,6 @@ class ProfileController extends AbstractController
     {
         $user = $this->getUser();
 
-        $user = $em->getRepository(Participant::class)->findOneByMail($user->getUserIdentifier());
-
         $form = $this->createForm(ParticipantType::class, $user);
 
         // dire au formulaire de gérer la requête
@@ -37,6 +35,7 @@ class ProfileController extends AbstractController
             );
             $this->addFlash('success', 'Votre profil a bien été mis à jour !');
 
+            $em->persist($user);
             $em->flush();
         }
 

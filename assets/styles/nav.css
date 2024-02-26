@@ -51,8 +51,6 @@ nav ul li a:hover {
     height: 2rem;
     object-fit: cover;
     border-radius: 50%;
-    border: solid 0.1rem #fff;
-    padding: 0.2rem;
 }
 
 .profile-link {

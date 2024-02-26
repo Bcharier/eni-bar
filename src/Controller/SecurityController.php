@@ -16,37 +16,26 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use App\Service\SendMailService;
 
-#[Route('/login')]
 class SecurityController extends AbstractController
 {
-    /*
-    #[Route(path: '/', name: 'app_home')]
-    public function home(): Response
-    {
-        return $this->redirectToRoute('app_login');
-    }
 
     #[Route(path: '/login', name: 'app_login')]
-    */
-
-    #[Route(path: '/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, ParticipantRepository $participantRepository): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_sortie_index');
-        }
 
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
 
-        if($this->getUser()) {
+        if ($this->getUser() && !$this->getUser()->isActif()) {
+            return $this->redirectToRoute('app_logout', ['deactivatedUser' => $deactivateddUser]);
+        } elseif ($this->getUser()) {
             return $this->redirectToRoute('app_sortie_index');
         } else {
-        }
-            return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+            // get the login error if there is one
+            $error = $authenticationUtils->getLastAuthenticationError();
+            // last username entered by the user
+            $lastUsername = $authenticationUtils->getLastUsername();
 
+            return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        }
     }
 
     #[Route('/password_reset', name:'forgotten_password')]
@@ -58,7 +47,6 @@ class SecurityController extends AbstractController
         SendMailService $mail
     ): Response
     {
-        //return $this->render('security/reset_password_request.html.twig');
         $form = $this->createForm(ResetPasswordRequestFormType::class);
 
         $form->handleRequest($request);
@@ -154,15 +142,9 @@ class SecurityController extends AbstractController
     }
 
 
-
-
-
-
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
         return $this->redirectToRoute('app_login');
     }
-
 }

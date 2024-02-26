@@ -21,7 +21,7 @@
         <nav>
             <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo"></a>
             <ul>
-                {% if is_granted('ROLE_USER') %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_ville_index') }}">Villes</a></li>
                     <li><a href="" class="strike greyed-out">Sites</a></li>
                 {% endif %}               

@@ -1,0 +1,43 @@
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 3rem;
+  max-width: 60%;
+  margin: auto;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.vich-image {
+  display: flex;
+  flex-direction: column;
+}
+
+.vich-image > input {
+  order: 1;
+}
+
+.vich-image > a > img {
+  width: 15rem;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}

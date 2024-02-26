@@ -347,6 +347,11 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface, 
         return $this->imageSize;
     }
 
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
     public function serialize()
     {
         return serialize(array(

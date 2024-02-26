@@ -35,6 +35,8 @@
 <form class="login" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">{{ inactiveUserMessage.messageKey|trans(inactiveUserMessage.messageData, 'security') }}</div>
+
     {% endif %}
 
     {% if app.user %}
