@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tab_name_prefix }} Liste des sites{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/site.css') }}">{% endblock %}
+
+{% block body %}
+    
+    <div class="sites-wrapper">
+        <h1>Gérer les sites</h1>
+
+    <div class="filters-wrapper">
+        <h2>Filter les sites</h2>
+        <div class="filters-ctn">
+            <label for="">Le nom contient :</label>
+            <input type="text" name="" />
+            <input type="button" value="Rechercher" />
+        </div>
+    </div>
+    <table class="sites table">
+        <thead>
+            <tr class="sites-row header">
+                <th class="sites-cell header">Nom</th>
+                <th class="sites-cell header">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for site in sites %}
+            <tr class="sites-row">
+                <td class="sites-cell">{{ site.nom }}</td>
+                <td class="sites-cell">
+                    <a href="{{ path('app_site_edit', {'id': site.id}) }}">Modifier</a>
+                    <form id="form_delete_site_{{ site.id }}" method="POST" action="{{ path('app_site_delete_by_id', {'id': site.id}) }}"><input type="hidden" name="_token" value="{{ csrf_token('delete' ~ site.id) }}"><a onclick="if(confirm('Êtes vous sûr(e) de vouloir supprimer {{ site.nom }} ?')) { document.getElementById('form_delete_site_{{ site.id}}').submit();  } else { return false; }" href="#">Supprimer</a></form>
+                </td>
+            </tr>
+        {% else %}
+            <tr class="sites-row">
+                <td class="sites-cell" colspan="3">Il n'existe pas de site pour l'instant.</td>
+            </tr>
+        {% endfor %}
+            <tr class="sites-row new-site">
+                <form method="POST" action="{{ path('app_site_new') }}">
+                <td class="sites-cell"><input name="site[nom]" required="required" type="text" /></td>
+                <td class="sites-cell"><input type="hidden" name="site[_token]" value="{{ csrf_token('site') }}"><input type="submit" value="Ajouter" /></td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
