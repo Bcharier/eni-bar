@@ -26,28 +26,15 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
             $csvFile = $form->get('csvFile')->getData();
             if ($csvFile instanceof UploadedFile) {
-                // Obtenez le chemin temporaire du fichier
+                // On récupère le chemin temporaire du fichier
                 $tempFilePath = $csvFile->getRealPath();
-
-                // Traitez le fichier CSV (exemple : lecture des lignes)
+                // Traitement du fichier
                 $csvData = $this->readCsvFile($tempFilePath);
-
-                // Importez les utilisateurs (exemple : stockez-les dans une variable)
-                $importedUsers = $this->importUsers($csvData);
-
-                // Faites quelque chose avec les utilisateurs importés, par exemple :
-                // $this->handleImportedUsers($importedUsers);
-
-                // Ajoutez un message flash pour informer de l'importation réussie
+                // Import des utilisateurs
+                $this->importUsers($csvData);
+                // Message flash pour informer de l'importation réussie
                 $this->addFlash('success', 'Users imported successfully.');
             }
             $user->setAdministrateur(0);
@@ -86,7 +73,6 @@ class RegistrationController extends AbstractController
             $user->setPseudo($userData['Pseudo']);
             $user->setSite($userData['Site']);
             $user->setPassword(password_hash($userData['plainPassword'], PASSWORD_BCRYPT));
-
             // Ajoutez l'utilisateur à la liste des utilisateurs importés
             $importedUsers[] = $user;
         }
@@ -98,10 +84,8 @@ class RegistrationController extends AbstractController
     {
         // Lire le contenu du fichier CSV
         $csvData = file_get_contents($filePath);
-
         // Créer un objet Serializer avec l'encodeur CSV
         $serializer = new Serializer([], [new CsvEncoder()]);
-
         // Décoder le contenu CSV en un tableau associatif
         return $serializer->decode($csvData, 'csv');
     }
