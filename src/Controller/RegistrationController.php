@@ -7,11 +7,14 @@ use App\Form\RegistrationFormType;
 use App\Security\AppCustomAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class RegistrationController extends AbstractController
 {
@@ -23,13 +26,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('importCsv')->isClicked()) {
-                // L'utilisateur a cliqué sur le bouton d'import CSV
-                $csvFile = $form->get('csvFile')->getData();
-                // Traitement de l'import CSV avec le service CsvImporter
-                $csvImporter->import($csvFile);
-                // Rediriger ou effectuer d'autres actions nécessaires après l'import
-            } else {
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -37,6 +33,23 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $csvFile = $form->get('csvFile')->getData();
+            if ($csvFile instanceof UploadedFile) {
+                // Obtenez le chemin temporaire du fichier
+                $tempFilePath = $csvFile->getRealPath();
+
+                // Traitez le fichier CSV (exemple : lecture des lignes)
+                $csvData = $this->readCsvFile($tempFilePath);
+
+                // Importez les utilisateurs (exemple : stockez-les dans une variable)
+                $importedUsers = $this->importUsers($csvData);
+
+                // Faites quelque chose avec les utilisateurs importés, par exemple :
+                // $this->handleImportedUsers($importedUsers);
+
+                // Ajoutez un message flash pour informer de l'importation réussie
+                $this->addFlash('success', 'Users imported successfully.');
+            }
             $user->setAdministrateur(0);
             $user->setActif(1);
 
@@ -50,13 +63,46 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 $request
             );
+
+        } else if($form->isSubmitted()) {
+            $this->addFlash('error', 'Erreur...');
         }
-    } else if($form->isSubmitted()) {
-        $this->addFlash('error', 'Erreur...');
-    }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    private function importUsers(array $csvData): array
+    {
+        $importedUsers = [];
+
+        foreach ($csvData as $userData) {
+            // Créez un nouvel utilisateur en utilisant les données CSV
+            $user = new Participant();
+            $user->setMail($userData['Mail']);
+            $user->setNom($userData['Nom']);
+            $user->setPrenom($userData['Prenom']);
+            $user->setPseudo($userData['Pseudo']);
+            $user->setSite($userData['Site']);
+            $user->setPassword(password_hash($userData['plainPassword'], PASSWORD_BCRYPT));
+
+            // Ajoutez l'utilisateur à la liste des utilisateurs importés
+            $importedUsers[] = $user;
+        }
+
+        return $importedUsers;
+    }
+
+    private function readCsvFile(string $filePath): array
+    {
+        // Lire le contenu du fichier CSV
+        $csvData = file_get_contents($filePath);
+
+        // Créer un objet Serializer avec l'encodeur CSV
+        $serializer = new Serializer([], [new CsvEncoder()]);
+
+        // Décoder le contenu CSV en un tableau associatif
+        return $serializer->decode($csvData, 'csv');
     }
 }

@@ -11,8 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
@@ -29,7 +28,7 @@ class RegistrationFormType extends AbstractType
                 'choice_label' => 'nom',
             ])
             ->add('plainPassword', PasswordType::class, [
-                                // instead of being set onto the object directly,
+                // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
@@ -45,12 +44,13 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('importCsv', SubmitType::class, [
-                'label' => 'Import CSV',
-                'attr' => ['class' => 'btn btn-primary'],
-            ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profil',
+                'required' => false,
+            ])
+            ->add('csvFile', FileType::class, [
+                'label' => 'Importer des utilisateurs',
+                'mapped' => false,
                 'required' => false,
             ])
         ;
