@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Sortie;
 use App\Entity\Lieu;
+use App\Entity\Participant;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -34,6 +35,7 @@ class SortieCrudController extends AbstractCrudController
             NumberField::new('nbInscriptionsMax'),
             TextEditorField::new('InfosSortie'),
             AssociationField::new('lieu')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Lieu::class, 'choice_label' => 'nom']),
+            AssociationField::new('organisateur')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Participant::class, 'choice_label' => 'pseudo']),
         ];
     }
     /*
