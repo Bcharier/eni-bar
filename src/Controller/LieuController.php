@@ -5,11 +5,18 @@ namespace App\Controller;
 use App\Entity\Lieu;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 #[Route('/lieu')]
 class LieuController extends AbstractController
@@ -78,4 +85,62 @@ class LieuController extends AbstractController
 
         return $this->redirectToRoute('app_lieu_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /*
+    #[Route('/api/index', name: 'app_get_lieu', methods: ['GET'])]
+    public function getLieu(Request $request, Lieu $lieu, EntityManagerInterface $em): Response
+    {
+        //$lieu = $em->getRepository(Lieu::class)->findOneByMail($user->getUserIdentifier());
+        //$lieu = $em->getRepository(Lieu::class)->findAll();
+        return $this->json([
+            'message' => 'welcome to your new controller!',
+            'path' => 'src/Controller/BookController.php',
+        ]);
+    }*/
+    #[Route('/api/get/{ville_id}', name: 'app_api_lieu', methods: ['GET'])]
+    public function api(LieuRepository $lieuRepository, SerializerInterface $serializer, $ville_id): JsonResponse 
+    {
+        $output = [];
+        $lieux = $lieuRepository->findByVille($ville_id);
+        foreach ($lieux as $lieu){
+            if($lieu->getId() > 0) {
+            $output[]=array($lieu->getId(),$lieu->getNom(), $lieu->getVille()->getNom());
+            }
+        }
+        return  new JsonResponse($output);
+        /*
+        $lieux = $lieuRepository->findAll();
+        $data = $serializer->serialize($lieuRepository->findAll(), 'json');;
+        return new JsonResponse($data, Response::HTTP_OK, [], true);
+
+
+
+
+        $encoder = new JsonEncoder();
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function (object $object, string $format, array $context): string {
+                return $lieu->getNom();
+            },
+        ];
+        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        var_dump($serializer->serialize($lieux, 'json'));
+        */
+
+        /*
+        $lieux = $serializer->serialize($lieux, 'json', [
+            AbstractNormalizer::CIRCULAR_REFERENCE_LIMIT => 20 // Does nothing !
+        ]);
+        $response = new Response($lieux);
+
+        $response->headers->set('Content-Type', 'application/json');
+        */
+
+
+
+
+
+    }
+
 }

@@ -3,32 +3,59 @@
 namespace App\Entity;
 
 use App\Repository\LieuRepository;
+//use Doctrine\ORM\Mapping\ClassMetadataInfo;
+//use ApiPlatform\Doctrine\Orm\Extension\EagerLoadingExtension;
+//use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+//use ApiPlatform\Metadata\ApiFilter;
+
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\ConferenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'lieu:item']),
+        new GetCollection(normalizationContext: ['groups' => 'lieu:list'])
+    ],
+    order: ['year' => 'DESC', 'city' => 'ASC'],
+    paginationEnabled: false,
+)]
 class Lieu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['lieu:list', 'lieu:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['lieu:list', 'lieu:item'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['lieu:list', 'lieu:item'])]
     private ?string $rue = null;
 
     #[ORM\Column]
+    #[Groups(['lieu:list', 'lieu:item'])]
     private ?float $latitude = null;
 
     #[ORM\Column]
+    #[Groups(['lieu:list', 'lieu:item'])]
     private ?float $longitude = null;
 
     #[ORM\ManyToOne(inversedBy: 'lieux')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['lieu:list', 'lieu:item'])]
     private ?Ville $ville = null;
 
     #[ORM\OneToMany(targetEntity: Sortie::class, mappedBy: 'lieu')]
@@ -37,6 +64,11 @@ class Lieu
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom;
     }
 
     public function getId(): ?int
