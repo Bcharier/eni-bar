@@ -1,14 +1,14 @@
 @import "_colors.less";
 
-/* FORMULAIRE MISE À JOUR VILLE */
+/* FORMULAIRE MISE À JOUR SITE */
 
-#ville {
+#site {
     div {
         display: flex;
     }
 }
 
-/* LISTE DES VILLES */
+/* LISTE DES SITES */
 .filters-wrapper {
     padding: 0.2rem 0px 2rem 0px;
 
@@ -27,15 +27,15 @@
     }
 }
 
-.towns-wrapper {
+.sites-wrapper {
     padding: 1rem;
     h1 {
         text-align: center;
     }
 
-    form[name=ville] {
+    form[name=site] {
         display: block ruby;
-        #ville {
+        #site {
             >div {
                 margin: 0.2rem;
             }
@@ -54,7 +54,7 @@
     }
 }
 
-.towns {
+.sites {
     border: 3px solid @dark-blue;
     border-spacing : 0;
     border-collapse : collapse;
@@ -73,7 +73,7 @@
         
     }
 
-    .towns-row {
+    .sites-row {
         &.header {
             background: @dark-blue;
             color: @white;
@@ -83,14 +83,13 @@
             background: @light-grey;
         }
 
-        &.new-town {
+        &.new-site {
             position: sticky;
             bottom: 0px;
             left: 0px;
-            border : 0px 0px 0px 1px solid black
         }
 
-        td.towns-cell {
+        td.sites-cell {
             &:not(first-of-type) {
                 border-left : 2px solid @black;
             }

@@ -1,8 +1,8 @@
-/* FORMULAIRE MISE À JOUR VILLE */
-#ville div {
+/* FORMULAIRE MISE À JOUR SITE */
+#site div {
   display: flex;
 }
-/* LISTE DES VILLES */
+/* LISTE DES SITES */
 .filters-wrapper {
   padding: 0.2rem 0px 2rem 0px;
 }
@@ -17,30 +17,30 @@
   border-radius: 0px;
   padding: 0.2em 1rem;
 }
-.towns-wrapper {
+.sites-wrapper {
   padding: 1rem;
 }
-.towns-wrapper h1 {
+.sites-wrapper h1 {
   text-align: center;
 }
-.towns-wrapper form[name=ville] {
+.sites-wrapper form[name=site] {
   display: block ruby;
 }
-.towns-wrapper form[name=ville] #ville > div {
+.sites-wrapper form[name=site] #site > div {
   margin: 0.2rem;
 }
-.towns-wrapper form[name=ville] #ville label {
+.sites-wrapper form[name=site] #site label {
   display: inline-block;
   text-align: right;
   padding-right: 0.5rem;
   width: 100px;
 }
-.towns-wrapper form[name=ville] .submit-button-wrapper {
+.sites-wrapper form[name=site] .submit-button-wrapper {
   position: relative;
   bottom: 0px;
   right: 0px;
 }
-.towns {
+.sites {
   border: 3px solid #06161E;
   border-spacing: 0;
   border-collapse: collapse;
@@ -48,32 +48,31 @@
   overflow-y: auto;
   display: inline flow-root list-item;
 }
-.towns thead {
+.sites thead {
   position: sticky;
   top: 0px;
   left: 0px;
 }
-.towns .towns-row.header {
+.sites .sites-row.header {
   background: #06161E;
   color: #ffffff;
 }
-.towns .towns-row:nth-child(odd):not(.header) {
+.sites .sites-row:nth-child(odd):not(.header) {
   background: #CDCDCD;
 }
-.towns .towns-row.new-town {
+.sites .sites-row.new-site {
   position: sticky;
   bottom: 0px;
   left: 0px;
-  border: 0px 0px 0px 1px solid black;
 }
-.towns .towns-row td.towns-cell {
+.sites .sites-row td.sites-cell {
   padding: 0.5rem;
 }
-.towns .towns-row td.towns-cell:not(first-of-type) {
+.sites .sites-row td.sites-cell:not(first-of-type) {
   border-left: 2px solid #000000;
 }
-.towns .towns-row td.towns-cell a,
-.towns .towns-row td.towns-cell form {
+.sites .sites-row td.sites-cell a,
+.sites .sites-row td.sites-cell form {
   display: inline;
   padding: 0px 0.5rem;
 }
