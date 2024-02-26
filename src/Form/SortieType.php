@@ -7,6 +7,7 @@ use App\Entity\Participant;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Lieu;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SortieType extends AbstractType
 {
@@ -33,7 +35,6 @@ class SortieType extends AbstractType
                 'choice_label' => 'libelle',
                 'mapped' => false,
                 ])
-            */
             ->add('organisateur', EntityType::class, [
                 //'label' => "Hello",
                 'class' => Participant::class,
@@ -43,8 +44,8 @@ class SortieType extends AbstractType
                 'class' => Site::class,
                 'choice_label' => 'nom',
             ])
-            ->add('lieu', EntityType::class, [
-                'class' => Lieu::class,
+            */
+            ->add('lieu', ChoiceType::class, [
                 'choice_label' => 'nom',
             ])
             ->add('submit', SubmitType::class, array('label' => 'Enregistrer la sortie', 'row_attr' => ['class' => 'row enregistrer'], 'attr' => ['class' => 'button enregistrer',]))

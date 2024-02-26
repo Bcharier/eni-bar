@@ -26,6 +26,8 @@
     <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true}})}}</div>
     <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true}})}}</div>
     <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true}})}}</div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    {{ form_row(form._token) }}
     {{ form_widget(form.submit) }}
     {{ form_widget(form.publish) }}
     {{ form_widget(form.cancel) }}
