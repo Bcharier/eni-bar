@@ -13,7 +13,8 @@
   border-radius: 10px;
   padding-left: 0.5rem;
 }
-.filters-wrapper .filters-ctn input[type=button] {
+.filters-wrapper .filters-ctn input[type=button],
+.filters-wrapper .filters-ctn input[type=submit] {
   border-radius: 0px;
   padding: 0.2em 1rem;
 }

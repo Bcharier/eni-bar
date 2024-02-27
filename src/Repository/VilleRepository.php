@@ -45,4 +45,16 @@ class VilleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findVillesThatcontains($value): array {
+    $result = $this->createQueryBuilder('v')
+    ->where('v.nom LIKE :value')
+    ->setParameter('value' , '%'.$value.'%')
+    ->getQuery()
+    ->getResult();
+
+    return $result;
+}
+
+
 }

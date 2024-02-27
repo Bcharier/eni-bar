@@ -28,4 +28,14 @@ class SiteRepository extends ServiceEntityRepository
 
         return $q->getResult();
     }
+
+    public function findSitesThatcontains($value): array {
+        $result = $this->createQueryBuilder('v')
+        ->where('v.nom LIKE :value')
+        ->setParameter('value' , '%'.$value.'%')
+        ->getQuery()
+        ->getResult();
+    
+        return $result;
+    }
 }

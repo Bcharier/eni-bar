@@ -14,12 +14,19 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/ville')]
 class VilleController extends AbstractController
 {
-    #[Route('/', name: 'app_ville_index', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository): Response
+    #[Route('/', name: 'app_ville_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, VilleRepository $villeRepository): Response
     {
-        return $this->render('ville/index.html.twig', [
-            'villes' => $villeRepository->findAll(),
-        ]);
+        if($request->request->get('name-filter') && trim($request->request->get('name-filter') != "")) {
+          return $this->render('ville/index.html.twig', [
+              'villes' => $villeRepository->findVillesThatcontains($request->request->get('name-filter')),
+              'search' => $request->request->get('name-filter'),
+          ]);
+        } else {
+          return $this->render('ville/index.html.twig', [
+              'villes' => $villeRepository->findAll(),
+          ]);
+        }
     }
 
     #[Route('/new', name: 'app_ville_new', methods: ['GET', 'POST'])]
