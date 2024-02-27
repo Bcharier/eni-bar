@@ -13,7 +13,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
@@ -26,26 +25,15 @@ class SortieCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        //yield AssociationField::new('lieu');
-        //yield AssociationField::new('lieu')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Lieu::class, 'choice_label' => 'nom']);
         return [
-            //IdField::new('id'),
             TextField::new('nom'),
             DateTimeField::new('dateHeureDebut'),
             NumberField::new('duree'),
             DateTimeField::new('dateLimiteInscription'),
             NumberField::new('nbInscriptionsMax'),
-            TextEditorField::new('InfosSortie'),
+            TextEditorField::new('infosSortie')->setLabel('Description de la sortie'),
             AssociationField::new('lieu')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Lieu::class, 'choice_label' => 'nom']),
             AssociationField::new('organisateur')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Participant::class, 'choice_label' => 'pseudo']),
-        ];
-    }
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            TextField::new('nom'),
-            TextEditorField::new('infosSortie')->setLabel('Description de la sortie'),
             AssociationField::new('site')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Site::class, 'choice_label' => 'nom']),
             AssociationField::new('etat')->setFormType(EntityType::class)->setFormTypeOptions(['class' => Etat::class, 'choice_label' => 'libelle']),
         ];
