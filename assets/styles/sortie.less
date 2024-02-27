@@ -157,3 +157,19 @@ tbody tr td:last-child {
     width: fit-content;
     margin: 2rem auto;
 }
+
+@media screen and (max-width: @mobile) {
+
+    form {
+        flex-direction: column;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .first-column, .second-column {
+        width: 100%;
+    }
+}
+

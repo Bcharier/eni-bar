@@ -78,7 +78,7 @@ body .sf-toolbar-clearer {
 }
 nav {
   background-color: #06161E;
-  color: white;
+  color: #ffffff;
   padding: 10px;
   text-align: right;
   display: flex;
@@ -88,10 +88,8 @@ nav ul li {
   display: inline-block;
   margin-right: 10px;
 }
-nav ul li a,
-nav ul li a:visited {
-  text-decoration: none;
-  color: white;
+nav ul li a {
+  color: #ffffff;
   font-weight: bold;
   padding: 5px 10px;
   border-radius: 5px;
@@ -100,16 +98,9 @@ nav ul li a:visited {
 nav ul li a:hover {
   background-color: #06161E;
 }
-.strike {
-  text-decoration: line-through;
-}
-.greyed-out {
-  color: #CDCDCD;
-}
 .logo {
   max-width: 100px;
   height: auto;
-  margin-right: 10px;
 }
 .mini-profile-pic {
   width: 2rem;
@@ -142,4 +133,58 @@ nav ul li::after {
 nav ul li:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+.mobile-menu-icon,
+.exit-mobile {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .nav-open {
+    display: flex;
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    width: 100%;
+    height: 95%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    background-color: #ffffff;
+    z-index: 100;
+    padding-top: 5rem;
+  }
+  nav ul li a {
+    color: #06161E;
+  }
+  nav ul li a:hover {
+    background-color: #ffffff;
+  }
+  .mobile-menu-icon {
+    display: block;
+    width: 4rem;
+    object-fit: contain;
+    cursor: pointer;
+    filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(53deg) brightness(109%) contrast(109%);
+  }
+  nav ul li {
+    display: block;
+  }
+  .show-icon {
+    display: inline-block;
+    filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(53deg) brightness(109%) contrast(109%);
+    width: 3rem;
+    object-fit: contain;
+    cursor: pointer;
+    padding-right: 0.5rem;
+  }
+  .hide-icon {
+    display: none;
+  }
 }

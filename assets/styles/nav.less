@@ -5,47 +5,45 @@ body {
     margin: 0;
     padding: 0;
   }
+
   body .sf-toolbar-clearer {
     max-height: 0px;
   }
+
   .go-back-link {
     display: inline-block;
     margin-bottom: 1rem;
   }
+
   nav {
     background-color: @dark-blue;
-    color: white;
+    color: @white;
     padding: 10px;
     text-align: right;
     display: flex;
     justify-content: space-between;
   }
+
   nav ul li {
       display: inline-block;
       margin-right: 10px;
   }
-  nav ul li a,
-  nav ul li a:visited {
-    text-decoration: none;
-    color: white;
+
+  nav ul li a {
+    color: @white;
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
+
   nav ul li a:hover {
     background-color: @dark-blue;
   }
-  .strike {
-    text-decoration: line-through;
-  }
-  .greyed-out {
-    color: #CDCDCD;
-  }
+
   .logo {
     max-width: 100px;
     height: auto;
-    margin-right: 10px;
   }
   
   .mini-profile-pic {
@@ -84,4 +82,67 @@ body {
   nav ul li:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+  }
+
+  .mobile-menu-icon, .exit-mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: @mobile) {
+    body {
+      overflow-x: hidden;
+    }
+    .nav-menu {
+      display: none;
+    }
+
+    .nav-open {
+      display: flex;
+      position: absolute;
+      top: 5rem;
+      left: 0;
+      width: 100%;
+      height: 95%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+      background-color: @white;
+      z-index: 100;
+      padding-top: 5rem;
+    }
+
+    nav ul li a {
+      color: @dark-blue;
+    }
+
+    nav ul li a:hover {
+      background-color: @white;
+    }
+
+    .mobile-menu-icon {
+      display: block;
+      width: 4rem;
+      object-fit: contain;
+      cursor: pointer; 
+      filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(53deg) brightness(109%) contrast(109%);     
+    }
+   
+    nav ul li {
+      display: block;
+    }
+
+    .show-icon {
+      display: inline-block;
+      filter: invert(100%) sepia(0%) saturate(7465%) hue-rotate(53deg) brightness(109%) contrast(109%);     
+      width: 3rem;
+      object-fit: contain;
+      cursor: pointer;
+      padding-right: 0.5rem;
+    }
+
+    .hide-icon {
+      display: none;
+    }
+
   }

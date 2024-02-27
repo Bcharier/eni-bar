@@ -20,7 +20,7 @@
     <body>
         <nav>
             <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo"></a>
-            <ul>
+            <ul class="nav-menu">
                 <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_ville_index') }}">Villes</a></li>
@@ -38,9 +38,13 @@
                     <li><a href="{{ path('app_login') }}">Se connecter</a></li>
                 {% endif %}
             </ul>
+            <img class="mobile-menu-icon" src="{{asset('/img/menu.png')}}" alt="Menu de navigation mobile">
+            <img class="exit-mobile" src="{{asset('/img/annuler.png')}}" alt="Quitter le menu mobile">
         </nav>
         {% include "_flashes.html.twig" %}
     </body>
     {% block body %}{% endblock %}  
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('JS/nav.js') }}"></script>
+    {% endblock %}
 </html>
