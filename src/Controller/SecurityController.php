@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
 
 
         if ($this->getUser() && !$this->getUser()->isActif()) {
-            return $this->redirectToRoute('app_logout', ['deactivatedUser' => $deactivateddUser]);
+            return $this->redirectToRoute('app_logout');
         } elseif ($this->getUser()) {
             return $this->redirectToRoute('app_sortie_index');
         } else {

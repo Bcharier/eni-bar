@@ -1,0 +1,155 @@
+@import 'utility.less';
+
+.user-container {
+    text-align: right;
+    padding: 1rem 1.5rem 1rem 1rem;
+    background-color: @dark-blue;
+    color: @white;
+    width: 15rem;
+    margin-left: auto;
+    border-radius: 0 0 0 0.5rem;
+}
+
+h1 {
+    padding-left: 5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 5rem;
+}
+
+.first-column,
+.second-column {
+    width: 40%;
+}
+
+.first-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.5rem 1rem;
+}
+
+.checkbox-container .input-container {
+    margin-bottom: 10px;
+}
+
+.submit-container {
+    width: fit-content;
+    margin: auto;
+}
+
+.sortie-container {
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: @dark-blue;
+    color: @white;
+}
+
+.input-container label{
+    display: inline-block;
+    border: 0.1rem solid @dark-blue;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .2s;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+.input-container label:hover {
+    background-color: @blue;
+    color: @white;
+}
+
+.input-container input[type="checkbox"]:checked + label {
+    border: 0.1rem solid @blue;
+    background-color: @blue;
+    color: #fff;
+    transition: all .2s;
+}
+
+.input-container input[type="checkbox"] {
+  display: absolute;
+}
+.input-container input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+.input-container input[type="checkbox"]:focus + label {
+  border: 0.1rem solid @blue;
+}
+
+select {
+    background-color: @white;
+    padding: 0.2rem 1rem;
+    border: 0.1rem solid @dark-blue;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.name-option-container > input {
+    border: none;
+    border-bottom: solid 0.1rem @dark-blue;
+    padding: 0.1rem;
+    font-size: 0.9rem;
+}
+
+.name-option-container > input:focus {
+    outline: none;
+}
+
+.button-container {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+tbody tr td:last-child {
+    width: 13rem;
+    margin: auto;
+}
+
+.button-create {
+    display: flex;
+    width: fit-content;
+    margin: 2rem auto;
+}

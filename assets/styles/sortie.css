@@ -1,138 +1,199 @@
-body {
-    font-family: Arial, sans-serif; 
-    background-color: #f2f2f2;
+body,
+html,
+p,
+h1,
+h2,
+h3,
+input,
+::placeholder {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.button {
+  cursor: pointer;
+  background-color: #ffffff;
+  padding: 0.2rem 1rem;
+  border: solid 0.1rem #06161E;
+  border-radius: 1rem;
+  transition: all 0.2s;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.button-large {
+  font-size: 1.3rem;
+}
+.button:hover {
+  background-color: #004f67;
+  color: #ffffff;
+}
+.button-filter {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: solid 0.1rem #CDCDCD;
+  background-color: #ffffff;
+  color: #06161E;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.button-filter:hover {
+  background-color: #004f67;
+  color: #ffffff;
+}
+.button-filter-selected {
+  background-color: #004f67;
+  color: #ffffff;
+}
 .user-container {
-    text-align: left;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    width: 10%;
-    margin-left: auto;
-    margin-right: 20px;
-    border-radius: 5px;
+  text-align: right;
+  padding: 1rem 1.5rem 1rem 1rem;
+  background-color: #06161E;
+  color: #ffffff;
+  width: 15rem;
+  margin-left: auto;
+  border-radius: 0 0 0 0.5rem;
 }
-
+h1 {
+  padding-left: 5rem;
+}
 form {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
 }
-
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 5rem;
+}
 .first-column,
 .second-column {
-    width: 48%;
+  width: 40%;
 }
-
-.subtitle {
-    text-align: left;
-    color: #333;
-    font-size: 1.2em;
-    margin-left: 20px;
-    margin-bottom: 10px;
+.first-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
-
-.site-option-container,
-.name-option-container,
-.date-option-container {
-    margin-bottom: 15px;
-}
-
 .checkbox-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.5rem 1rem;
 }
-
 .checkbox-container .input-container {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-
+.submit-container {
+  width: fit-content;
+  margin: auto;
+}
 .sortie-container {
-    margin: 20px;
+  margin: 20px;
 }
-
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
-
 th {
-    background-color: #333;
-    color: white;
+  background-color: #06161E;
+  color: #ffffff;
 }
-
-.sortie-container a.button {
-    display: block;
-    width: 150px;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    margin: 20px;
+.input-container label {
+  display: inline-block;
+  border: 0.1rem solid #06161E;
+  border-radius: 25px;
+  white-space: nowrap;
+  margin: 3px 0px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+  cursor: pointer;
+  padding: 8px 12px;
 }
-
-.sortie-container a.button:hover {
-    background-color: #555;
+.input-container label:hover {
+  background-color: #004f67;
+  color: #ffffff;
 }
-
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-left: 20px;
-    text-decoration: none;
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
+.input-container input[type="checkbox"]:checked + label {
+  border: 0.1rem solid #004f67;
+  background-color: #004f67;
+  color: #fff;
+  transition: all 0.2s;
 }
-
-.container-new {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    background-color: lightgrey;
+.input-container input[type="checkbox"] {
+  display: absolute;
 }
-
-.container-new div {
-    margin: 0.3rem;
+.input-container input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
 }
-
-.container-new form[name="sortie"] div {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+.input-container input[type="checkbox"]:focus + label {
+  border: 0.1rem solid #004f67;
 }
-.container-new form[name="sortie"] {
-    display: flex;
-    flex-flow: column wrap;
-    width: 40%;
+select {
+  background-color: #ffffff;
+  padding: 0.2rem 1rem;
+  border: 0.1rem solid #06161E;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
-
-.container-new label {
-    display: inline-block;
-    min-width: 100px;
+.name-option-container > input {
+  border: none;
+  border-bottom: solid 0.1rem #06161E;
+  padding: 0.1rem;
+  font-size: 0.9rem;
 }
-
-.container-new > form > div:has(> button) {
-    display: inline-block;
-    background-color: lightpink;
+.name-option-container > input:focus {
+  outline: none;
 }
-
-.container-new-lieu form {
-    background-color: lightblue;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+.button-container {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
-
-.container-new-lieu form h3 {
-    width: 100%;
+tbody tr td:last-child {
+  width: 13rem;
+  margin: auto;
+}
+.button-create {
+  display: flex;
+  width: fit-content;
+  margin: 2rem auto;
 }

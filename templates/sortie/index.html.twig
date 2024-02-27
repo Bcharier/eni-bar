@@ -11,42 +11,44 @@
     <p>Participant : {{user.prenom}} {{user.nom|first}}.</p>
 </div>
 
-<h2 class="subtitle">Filtrer les sorties</h2>
+<h1 class="page-title">Filtrer les sorties</h1>
 
 {{ form_start(form) }}
-    <div class="first-column">
-        <div class="site-option-container">
-            {{form_label(form.sites)}}
-            {{form_widget(form.sites)}}
-        </div>
-        <div class="name-option-container">
-            {{form_label(form.nameSearch)}}
-            {{form_widget(form.nameSearch)}}
-        </div>
-        <div class="date-option-container">
-            {{form_label(form.dateStart)}}
-            {{form_widget(form.dateStart)}}
-            {{form_label(form.dateEnd)}}
-            {{form_widget(form.dateEnd)}}
-        </div>
-    </div>
-    <div class="second-column">
-        <div class="checkbox-container">
-            <div class="input-container">
-                {{form_widget(form.checkboxOrganizer)}}
-                {{form_label(form.checkboxOrganizer)}}
+    <div class="filters">
+        <div class="first-column">
+            <div class="site-option-container">
+                {{form_label(form.sites)}}
+                {{form_widget(form.sites)}}
             </div>
-            <div class="input-container">            
-                {{form_widget(form.checkboxRegistered)}}
-                {{form_label(form.checkboxRegistered)}}
+            <div class="name-option-container">
+                {{form_label(form.nameSearch)}}
+                {{form_widget(form.nameSearch)}}
             </div>
-            <div class="input-container">
-                {{form_widget(form.checkboxNotRegistered)}}
-                {{form_label(form.checkboxNotRegistered)}}
+            <div class="date-option-container">
+                {{form_label(form.dateStart)}}
+                {{form_widget(form.dateStart)}}
+                {{form_label(form.dateEnd)}}
+                {{form_widget(form.dateEnd)}}
             </div>
-            <div class="input-container">
-                {{form_widget(form.checkboxPast)}}
-                {{form_label(form.checkboxPast)}}
+        </div>
+        <div class="second-column">
+            <div class="checkbox-container">
+                <div class="input-container">
+                    {{form_widget(form.checkboxOrganizer)}}
+                    {{form_label(form.checkboxOrganizer)}}
+                </div>
+                <div class="input-container">            
+                    {{form_widget(form.checkboxRegistered)}}
+                    {{form_label(form.checkboxRegistered)}}
+                </div>
+                <div class="input-container">
+                    {{form_widget(form.checkboxNotRegistered)}}
+                    {{form_label(form.checkboxNotRegistered)}}
+                </div>
+                <div class="input-container">
+                    {{form_widget(form.checkboxPast)}}
+                    {{form_label(form.checkboxPast)}}
+                </div>
             </div>
         </div>
     </div>
@@ -63,7 +65,7 @@
             <th>Nom de la sortie</th>
             <th>Date de la sortie</th>
             <th>Clôture</th>
-            <th>Inscrits/Places</th>
+            <th>Inscrits / Places</th>
             <th>Etat</th>
             <th>Inscrit</th>
             <th>Organisateur</th>
@@ -84,42 +86,45 @@
                 {% endif %}
                 </td>
                 <td>{{sortie.organisateur.pseudo}}</td>
-                <td>
-                <a href="{{ path('app_sortie_show', {id: sortie.id}) }}">Afficher</a>
-                {% if user not in sortie.participants and sortie.etat.id == 2 %}
-                    <form method="POST" action="{{ path('app_sortie_register', {id: sortie.id}) }}">
-                        <button type="submit">S'inscrire</button>
+                    <td>
+                    <div class="button-container">
+                    <form action="{{ path('app_sortie_show', {id: sortie.id}) }}">
+                        <button class="button" type="submit">Afficher</button>
                     </form>
-                {% endif %}
-                {% if user in sortie.participants and sortie.etat.id == 2 %}
-                <form method="POST" action="{{ path('app_sortie_unregister', {id: sortie.id}) }}">
-                    <button type="submit">Se désinscrire</button>
-                </form>
-                {% endif %}
-                {% if user == sortie.organisateur and sortie.etat.id == 1 %}
-                <form method="POST" action="{{ path('app_sortie_publish', {id: sortie.id}) }}">
-                </form>
-                    <button type="submit">Publier</button>
-                {% endif %}
-                {% if user == sortie.organisateur and sortie.etat.id == 2 %}
-                <form method="POST" action="{{ path('app_sortie_edit', {id: sortie.id}) }}">
-                    <button type="submit">Modifier</button>
-                </form>
-                <form method="POST" action="{{ path('app_sortie_cancel', {id: sortie.id}) }}">
-                    <input class="hidden-input" type="hidden" name="sortieIdCancel" value="{{ sortie.id }}">
-                    <button class="cancel-button" type="submit">Annuler</button>
-                </form>
-                <form method="POST" action="{{ path('app_sortie_closed', {id: sortie.id}) }}">
-                    <button type="submit">Clôturer</button>
-                </form>
-                {% endif %}
-                </td>
+                    {% if user not in sortie.participants and sortie.etat.id == 2 %}
+                        <form method="POST" action="{{ path('app_sortie_register', {id: sortie.id}) }}">
+                            <button class="button" type="submit">S'inscrire</button>
+                        </form>
+                    {% endif %}
+                    {% if user in sortie.participants and sortie.etat.id == 2 %}
+                    <form method="POST" action="{{ path('app_sortie_unregister', {id: sortie.id}) }}">
+                        <button class="button" type="submit">Se désinscrire</button>
+                    </form>
+                    {% endif %}
+                    {% if user == sortie.organisateur and sortie.etat.id == 1 %}
+                    <form method="POST" action="{{ path('app_sortie_publish', {id: sortie.id}) }}">
+                        <button class="button" type="submit">Publier</button>
+                    </form>
+                    {% endif %}
+                    {% if user == sortie.organisateur and sortie.etat.id == 2 %}
+                    <form method="POST" action="{{ path('app_sortie_edit', {id: sortie.id}) }}">
+                        <button class="button" type="submit">Modifier</button>
+                    </form>
+                    <form method="POST" action="{{ path('app_sortie_cancel', {id: sortie.id}) }}">
+                        <input class="hidden-input" type="hidden" name="sortieIdCancel" value="{{ sortie.id }}">
+                        <button class="button cancel-button" type="submit">Annuler</button>
+                    </form>
+                    {% endif %}
+                    </td>
+                </div>
             </tr>
         {% endfor %}
     </tbody>
     </table>
 </div>
 
-<a class="button" href="{{ path('app_sortie_new') }}">Créer une sortie</a>
+<a class="button button-large button-create" href="{{ path('app_sortie_new') }}">Créer une sortie</a>
+
+<script src="{{ asset('JS/sortie.js')}}"></script>
 
 {% endblock %}
