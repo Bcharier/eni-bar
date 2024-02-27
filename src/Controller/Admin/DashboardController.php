@@ -16,6 +16,7 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Menu\MenuItemInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 #use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 #use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 

@@ -23,6 +23,8 @@ class ParticipantCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield AssociationField::new('site');
+        /*
         return [
             TextField::new('nom'),
             TextField::new('prenom'),

@@ -60,6 +60,12 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface, 
         $this->organizedSortie = new ArrayCollection();
         $this->sortiesParticipant = new ArrayCollection();
     }
+
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $resetToken = null;
 
