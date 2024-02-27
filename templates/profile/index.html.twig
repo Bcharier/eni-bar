@@ -14,9 +14,6 @@
         {{ form_label(form.imageFile) }}
         {{ form_widget(form.imageFile, {'attr': {'class': 'profile-picture'}}) }}
 </div>
-
-{# <img src="{{ asset('img/userProfile/' ~ user.getImageName())}}" alt=""> #}
-
 <div class="info-container">
 
     <div class="input-container">
@@ -44,11 +41,11 @@
         {{ form_widget(form.telephone) }}
     </div>
         <div class="button-container">
-                {{form_label(form.submit)}}
-                {{form_widget(form.submit)}}
+            {{form_label(form.submit)}}
+            {{form_widget(form.submit)}}
 
-                {{form_label(form.reset)}}
-                {{form_widget(form.reset)}}
+            {{form_label(form.reset)}}
+            {{form_widget(form.reset)}}
         </div>
 </div>
 

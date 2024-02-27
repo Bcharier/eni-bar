@@ -1,3 +1,70 @@
+body,
+html,
+p,
+h1,
+h2,
+h3,
+input,
+::placeholder {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.button {
+  cursor: pointer;
+  background-color: #ffffff;
+  padding: 0.2rem 1rem;
+  border: solid 0.1rem #06161E;
+  border-radius: 1rem;
+  transition: all 0.2s;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.button-large {
+  font-size: 1.3rem;
+}
+.button:hover {
+  background-color: #004f67;
+  color: #ffffff;
+}
+.button-filter {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: solid 0.1rem #CDCDCD;
+  background-color: #ffffff;
+  color: #06161E;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.button-filter:hover {
+  background-color: #004f67;
+  color: #ffffff;
+}
+.button-filter-selected {
+  background-color: #004f67;
+  color: #ffffff;
+}
 form {
   display: flex;
   justify-content: center;
@@ -7,27 +74,22 @@ form {
   max-width: 60%;
   margin: auto;
 }
-
 .image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 .vich-image {
   display: flex;
   flex-direction: column;
 }
-
 .vich-image > input {
   order: 1;
 }
-
 .vich-image > a > img {
   width: 15rem;
 }
-
 .info-container {
   display: flex;
   flex-direction: column;
@@ -35,9 +97,40 @@ form {
   justify-content: center;
   gap: 1rem;
 }
-
 .input-container {
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+/* 
+CSS pour le visionnage d'un autre profil utilisateur 
+*/
+h1 {
+  display: flex;
+  width: fit-content;
+  margin: 3rem auto;
+}
+.viewed-profile-container {
+  display: flex;
+  width: fit-content;
+  margin: 5rem auto;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+img {
+  width: 20rem;
+  object-fit: contain;
+}
+.field-container {
+  display: flex;
+  gap: 1rem;
+}
+.field-title {
+  font-weight: 700;
+}
+.back-button {
+  width: fit-content;
+  display: flex;
+  margin: auto;
 }

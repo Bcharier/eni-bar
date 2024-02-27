@@ -25,11 +25,11 @@ class ParticipantType extends AbstractType
             ->add('reset', ResetType::class, array(
                 'label'  => 'Annuler modifications',
                 'attr'   =>  array(
-                    'class'   => 'reset-button')))
+                    'class'   => 'button reset-button')))
             ->add('submit', SubmitType::class, array(
                 'label'  => 'Valider',
                 'attr'   =>  array(
-                    'class'   => 'submit-button')))
+                    'class'   => 'button submit-button')))
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profil',
                 'required' => false

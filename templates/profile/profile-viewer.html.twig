@@ -8,47 +8,42 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Profil de {{ viewed_user.getFullName() }} !</h1>
 
-    <div class="viewed-user-ctn">
-        <div class="avatar-ctn">
-            <img src="{{ asset('img/default_avatar.jpg') }}" />
-        </div>
-        <dic class="fields-ctn">
-        <div class="field-ctn">
-            <div class="field-title">Prénom :</div>
-            <div class="field-value">{{ viewed_user.getPrenom() and viewed_user.getPrenom() != "" ? viewed_user.getPrenom() : "Ø" }}</div>
-        </div>
+    <h1 class="page-title">Profil de {{ viewed_user.getFullName() }} !</h1>
 
-        <div class="field-ctn">
-            <div class="field-title">Nom :</div>
-            
-            <div class="field-value">{{ viewed_user.getNom() and viewed_user.getNom() != "" ? viewed_user.getNom() : "Ø" }}</div>
-        </div>
+    <div class="viewed-profile-container">
+        <img src="{{ asset('img/userProfile/' ~ viewed_user.getImageName())}}" alt="">
+        <div class="info-container">
+            <div class="field-container">
+                <p class="field-title">Prénom :</p>
+                <p class="field-value">{{ viewed_user.getPrenom() and viewed_user.getPrenom() != "" ? viewed_user.getPrenom() : "Ø" }}</p>
+            </div>
 
-        <div class="field-ctn">
-            <div class="field-title">Téléphone :</div>
-            <div class="field-value">{{ viewed_user.getTelephone() and viewed_user.getTelephone() != "" ? viewed_user.getTelephone() : "Ø" }}</div>
-        </div>
+            <div class="field-container">
+                <div class="field-title">Nom :</div>
+                <div class="field-value">{{ viewed_user.getNom() and viewed_user.getNom() != "" ? viewed_user.getNom() : "Ø" }}</div>
+            </div>
 
-        <div class="field-ctn">
-            <div class="field-title">Email :</div>
-            <div class="field-value">{{ viewed_user.getMail() }}</div>
-        </div>
+            <div class="field-container">
+                <div class="field-title">Pseudo :</div>
+                <div class="field-value">{{ viewed_user.getPseudo() and viewed_user.getPseudo() != "" ? viewed_user.getPseudo() : "Ø" }}</div>
+            </div>
 
-        <div class="field-ctn">
-            <div class="field-title">Ville de rattachement :</div>
-            <div class="field-value">{{ viewed_user.getSite().getNom() and viewed_user.getSite().getNom() != "" ? viewed_user.getSite().getNom() : "Ø" }}</div>
-        </div>
+            <div class="field-container">
+                <div class="field-title">Téléphone :</div>
+                <div class="field-value">{{ viewed_user.getTelephone() and viewed_user.getTelephone() != "" ? viewed_user.getTelephone() : "Ø" }}</div>
+            </div>
 
-        <!-- TEMPLATE -->
-        <div class="field-ctn" style="display : none">
-            <div class="field-title"></div>
-            <div class="field-value"></div>
-        </div>
-        </div>
+            <div class="field-container">
+                <div class="field-title">Email :</div>
+                <div class="field-value">{{ viewed_user.getMail() }}</div>
+            </div>
 
+            <div class="field-container">
+                <div class="field-title">Ville de rattachement :</div>
+                <div class="field-value">{{ viewed_user.getSite().getNom() and viewed_user.getSite().getNom() != "" ? viewed_user.getSite().getNom() : "Ø" }}</div>
+            </div>
+        </div>
     </div>
-</div>
+    <a href="{{path('app_sortie_show', {id: sortie.id})}}" class="button back-button">Revenir à la sortie</a>
 {% endblock %}

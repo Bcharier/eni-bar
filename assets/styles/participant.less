@@ -1,3 +1,6 @@
+@import '_colors.less';
+@import 'utility.less';
+
 form {
     display: flex;
     justify-content: center;
@@ -42,3 +45,41 @@ form {
     gap: 0;
   }
   
+
+/* 
+CSS pour le visionnage d'un autre profil utilisateur 
+*/
+h1 {
+  display: flex;
+  width: fit-content;
+  margin: 3rem auto;
+}
+
+  .viewed-profile-container {
+    display: flex;
+    width: fit-content;
+    margin: 5rem auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+
+  img {
+    width: 20rem;
+    object-fit: contain;
+  }
+
+  .field-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .field-title {
+    font-weight: 700;
+  }
+
+  .back-button {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+  }

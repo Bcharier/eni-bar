@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Asset\Package;
@@ -47,7 +48,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{id}', name: 'app_profile_viewer', requirements:['id' => '\d+'])]
-    public function profileViewer(string $id, EntityManagerInterface $em, Request $request): Response
+    public function profileViewer(string $id, EntityManagerInterface $em, Request $request, Sortie $sortie): Response
     {
         $user = $this->getUser();
         $viewed_user = $em->getRepository(Participant::class)->findOneById($id);
@@ -55,6 +56,7 @@ class ProfileController extends AbstractController
             'controller_name' => 'ProfileController',
             'viewed_user' => $viewed_user,
             'user' => $user,
+            'sortie' => $sortie,
         ]);
     }
 }
