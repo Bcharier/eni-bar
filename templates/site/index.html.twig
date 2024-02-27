@@ -11,9 +11,11 @@
     <div class="filters-wrapper">
         <h2>Filter les sites</h2>
         <div class="filters-ctn">
-            <label for="">Le nom contient :</label>
-            <input type="text" name="" />
-            <input type="button" value="Rechercher" />
+            <form method="POST" action="{{ path('app_site_index') }}">
+                <label for="">Le nom contient :</label>
+                <input type="text" name="name-filter" {% if search is defined %} value="{{ search }}" {% endif %} />
+                <input type="submit" value="Rechercher" />
+            </form>
         </div>
     </div>
     <table class="sites table">
@@ -34,7 +36,13 @@
             </tr>
         {% else %}
             <tr class="sites-row">
-                <td class="sites-cell" colspan="3">Il n'existe pas de site pour l'instant.</td>
+                <td class="sites-cell" colspan="3">
+                {% if search is defined %}
+                    Aucun nom de site ne correspond à la recherche.
+                {% else %}
+                    Il n'existe pas de site pour l'instant.
+                {% endif %}
+                </td>
             </tr>
         {% endfor %}
             <tr class="sites-row new-site">

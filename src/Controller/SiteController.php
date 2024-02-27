@@ -14,12 +14,19 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/site')]
 class SiteController extends AbstractController
 {
-    #[Route('/', name: 'app_site_index', methods: ['GET'])]
-    public function index(SiteRepository $siteRepository): Response
+    #[Route('/', name: 'app_site_index', methods: ['POST', 'GET'])]
+    public function index(Request $request, SiteRepository $siteRepository): Response
     {
-        return $this->render('site/index.html.twig', [
-            'sites' => $siteRepository->findAll(),
-        ]);
+        if($request->request->get('name-filter') && trim($request->request->get('name-filter') != "")) {
+            return $this->render('site/index.html.twig', [
+                'sites' => $siteRepository->findSitesThatcontains($request->request->get('name-filter')),
+                'search' => $request->request->get('name-filter'),
+            ]);
+          } else {
+            return $this->render('site/index.html.twig', [
+                'sites' => $siteRepository->findAll(),
+            ]);
+          }
     }
 
     #[Route('/new', name: 'app_site_new', methods: ['GET', 'POST'])]
