@@ -44,8 +44,16 @@ class SortieType extends AbstractType
                 'class' => Site::class,
                 'choice_label' => 'nom',
             ])
-            */
             ->add('lieu', ChoiceType::class, [
+                'choices' => [],
+                'choice_label' => 'nom',
+                'required' => true,
+                'mapped' => false,
+                'by_reference' => false,
+            ])
+            */
+            ->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
                 'choice_label' => 'nom',
             ])
             ->add('submit', SubmitType::class, array('label' => 'Enregistrer la sortie', 'row_attr' => ['class' => 'row enregistrer'], 'attr' => ['class' => 'button enregistrer',]))

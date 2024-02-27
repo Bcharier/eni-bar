@@ -23,14 +23,17 @@ document.getElementById('lieu_ville').addEventListener('change', function() {
                 document.getElementById('lieu_latitude').value = '';
             } else {
                 // Si des lieux sont disponibles
-                for (var lieu in lieux) {
-                    if (lieux.hasOwnProperty(lieu)) {
-                        var option = document.createElement('option');
-                        option.value = lieux[lieu]['id'];
-                        option.text = lieux[lieu]['nom'];
-                        lieuSelect.appendChild(option);
+                lieux.forEach(k => {
+                    let option = document.createElement('option');
+                    option.value = k['id'];
+                    option.text = k['nom'];
+                    lieuSelect.appendChild(option);
+                });
+                /*
+                for (let k in lieux) {
                     }
                 }
+                */
                 // Une fois la liste déroulante Lieu remplie pour la première fois,
                 // mettez à jour les champs "lieu_rue", "lieu_longitude" et "lieu_latitude"
                 updateLieuFields();
@@ -47,10 +50,7 @@ document.getElementById('lieu_ville').addEventListener('change', function() {
     xhr.open('GET', '/get-ville-cp/' + villeId, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("HELLO")
             var villeDetails = JSON.parse(xhr.responseText);
-            console.log(villeDetails);
-            // Mettre à jour l'input "ville_codePostal" avec le code postal de la ville
             document.getElementById('ville_codePostal').value = villeDetails.cp;
         }
     };

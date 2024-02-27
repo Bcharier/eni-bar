@@ -21,12 +21,12 @@
     <div><label for="sortie_infosSortie">Description et infos: </label>{{ form_widget(form.infosSortie)}}</div>
     <div><label>Ville organisatrice :</label><span>{{ app.user.getSite().getNom() }}</span></div>
     <div><label for="lieu_ville">Ville: </label>{{ form_widget(formLieu.ville)}}</div>
-    <div><label for="sortie_lieu">Lieu:</label>{{ form_widget(form.lieu) }}</div>
+    <div><label for="sortie_lieu">Hey Lieu:</label>{{ form_widget(form.lieu) }}</div>
     <div><label for="lieu_rue">Rue: </label>{{ form_widget(formLieu.rue, {'attr' : { 'disabled': true}})}}</div>
     <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true}})}}</div>
     <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true}})}}</div>
     <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true}})}}</div>
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('sortie') }}"> #}
     {{ form_row(form._token) }}
     {{ form_widget(form.submit) }}
     {{ form_widget(form.publish) }}
@@ -34,3 +34,7 @@
     </div>
 </div>
 {{ form_end(form)}}
+
+{% block javascripts %}
+    <script src="/js/cree_sortie.js"></script>
+{% endblock %}
