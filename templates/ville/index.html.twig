@@ -11,10 +11,13 @@
     <div class="filters-wrapper">
         <h2>Filter les villes</h2>
         <div class="filters-ctn">
-            <label for="">Le nom contient :</label>
-            <input type="text" name="" />
-            <input type="button" value="Rechercher" />
+            <form method="POST" action="{{ path('app_ville_index') }}">
+                <label for="">Le nom contient :</label>
+                <input type="text" name="name-filter" {% if search is defined %} value="{{ search }}" {% endif %} />
+                <input type="submit" value="Rechercher" />
+            </form>
         </div>
+        
     </div>
     <table class="towns table">
         <thead>
@@ -36,7 +39,13 @@
             </tr>
         {% else %}
             <tr class="towns-row">
-                <td class="towns-cell" colspan="3">Il n'existe pas de ville pour l'instant.</td>
+                <td class="towns-cell" colspan="3">
+                {% if search is defined %}
+                    Aucun nom de ville ne correspond à la recherche.
+                {% else %}
+                    Il n'existe pas de ville pour l'instant.
+                {% endif %}
+                </td>
             </tr>
         {% endfor %}
             <tr class="towns-row new-town">

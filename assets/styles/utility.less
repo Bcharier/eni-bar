@@ -1,0 +1,71 @@
+@import '_colors.less';
+
+body, html, p, h1, h2, h3, input, ::placeholder {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.button {
+    cursor: pointer;
+    background-color: @white;
+    padding: 0.2rem 1rem;
+    border: solid 0.1rem @dark-blue;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.button-large {
+    font-size: 1.3rem;
+}
+
+.button:hover {
+    background-color: @blue;
+    color: @white;
+}
+
+.button-filter {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: solid 0.1rem @light-grey;
+    background-color: @white;
+    color: @dark-blue;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s
+}
+
+.button-filter:hover {
+    background-color: @blue;
+    color: @white;
+}
+
+.button-filter-selected {
+    background-color: @blue;
+    color: @white;
+}

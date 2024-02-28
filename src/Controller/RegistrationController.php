@@ -11,14 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager, SiteRepository $siteRepository): Response
+    public function register(Request $request, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager, SiteRepository $siteRepository): Response
     {
         $user = new Participant();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -53,9 +52,7 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 $request
             );
-
-        } else if ($form->isSubmitted()) 
-        {
+        } elseif($form->isSubmitted()) {
             $this->addFlash('error', 'Erreur...');
         }
 

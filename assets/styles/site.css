@@ -1,0 +1,79 @@
+/* FORMULAIRE MISE À JOUR SITE */
+#site div {
+  display: flex;
+}
+/* LISTE DES SITES */
+.filters-wrapper {
+  padding: 0.2rem 0px 2rem 0px;
+}
+.filters-wrapper .filters-ctn {
+  padding-left: 1rem;
+}
+.filters-wrapper .filters-ctn input[type=text] {
+  border-radius: 10px;
+  padding-left: 0.5rem;
+}
+.filters-wrapper .filters-ctn input[type=button],
+.filters-wrapper .filters-ctn input[type=submit] {
+  border-radius: 0px;
+  padding: 0.2em 1rem;
+}
+.sites-wrapper {
+  padding: 1rem;
+}
+.sites-wrapper h1 {
+  text-align: center;
+}
+.sites-wrapper form[name=site] {
+  display: block ruby;
+}
+.sites-wrapper form[name=site] #site > div {
+  margin: 0.2rem;
+}
+.sites-wrapper form[name=site] #site label {
+  display: inline-block;
+  text-align: right;
+  padding-right: 0.5rem;
+  width: 100px;
+}
+.sites-wrapper form[name=site] .submit-button-wrapper {
+  position: relative;
+  bottom: 0px;
+  right: 0px;
+}
+.sites {
+  border: 3px solid #06161E;
+  border-spacing: 0;
+  border-collapse: collapse;
+  max-height: 50vh;
+  overflow-y: auto;
+  display: inline flow-root list-item;
+}
+.sites thead {
+  position: sticky;
+  top: 0px;
+  left: 0px;
+}
+.sites .sites-row.header {
+  background: #06161E;
+  color: #ffffff;
+}
+.sites .sites-row:nth-child(odd):not(.header) {
+  background: #CDCDCD;
+}
+.sites .sites-row.new-site {
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+}
+.sites .sites-row td.sites-cell {
+  padding: 0.5rem;
+}
+.sites .sites-row td.sites-cell:not(first-of-type) {
+  border-left: 2px solid #000000;
+}
+.sites .sites-row td.sites-cell a,
+.sites .sites-row td.sites-cell form {
+  display: inline;
+  padding: 0px 0.5rem;
+}

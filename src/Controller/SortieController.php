@@ -55,8 +55,6 @@ class SortieController extends AbstractController
         $formLieu = $this->createForm(LieuType::class, $lieu);
         $formVille = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
-        $formLieu->handleRequest($request);
-        $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -74,6 +72,7 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        /*
         if ($formLieu->isSubmitted() && $formLieu->isValid()) {
             $entityManager->persist($lieu);
             $entityManager->flush();
@@ -89,6 +88,7 @@ class SortieController extends AbstractController
             $this->addFlash('success', 'La ville à été ajouter.');
             return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
         }
+        */
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
@@ -102,7 +102,7 @@ class SortieController extends AbstractController
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
-        return $this->render('sortie/show.html.twig', [
+        return $this->render('sortie/showSortie.html.twig', [
             'sortie' => $sortie,
         ]);
     }

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tab_name_prefix }} Modifier le site "{{ site.nom }}"{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/site.css') }}">{% endblock %}
+
+{% block body %}
+    <div class="sites-wrapper">
+    <h1>Modifier le site "{{ site.nom }}"</h1>
+
+    <span class="go-back-link"><a href="{{ path('app_site_index') }}">‹ Retourner à la liste des sites</a></span>
+
+    {{ include('site/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div>
+{% endblock %}

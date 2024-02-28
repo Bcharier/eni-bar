@@ -10,7 +10,7 @@
         <!-- fonts google -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
         <!-- styles -->
         <link rel="stylesheet" href="{{ asset('styles/flashes.css') }}">
@@ -21,13 +21,13 @@
         <nav>
             <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo"></a>
             <ul>
-                {% if is_granted('ROLE_USER') %}
+                <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('app_ville_index') }}">Villes</a></li>
-                    <li><a href="" class="strike greyed-out">Sites</a></li>
+                    <li><a href="{{ path('app_site_index') }}">Sites</a></li>
                 {% endif %}               
-                    <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
                 {% if is_granted('ROLE_USER') %}
-                    <li><a class='profile-link' href="{{ path('app_profile') }}">Mon profil ({{ app.user.getFullName() }}) <img class='mini-profile-pic' src="{{asset('/img/userProfile/')}}{{ user.getImageName()}}" alt=""></a></li>
+                    <li><a class='profile-link' href="{{ path('app_profile') }}">Mon profil ({{ app.user.getFullName() }}) <img class='mini-profile-pic' src="{{asset('/img/userProfile/')}}{{ app.user.getImageName()}}" alt=""></a></li>
                 {% endif %} 
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('admin') }}">Dashboard</a></li>

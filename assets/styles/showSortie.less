@@ -1,0 +1,58 @@
+@import '_colors.less';
+@import 'utility.less';
+
+h1 {
+    width: fit-content;
+    margin: 2rem auto;
+}
+
+.info-container {
+    display: flex;
+    width: 50%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.first-column, .second-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sortie-info > span {
+    font-weight: 700;
+    margin-right: 1rem;
+}
+
+.participants-container {
+    display: flex;
+    width: 30%;
+    margin: 5rem auto;
+}
+
+table {
+    width: 100%;
+    border: solid 0.1rem @dark-blue;
+    text-align: center;
+}
+
+th {
+    background-color: @dark-blue;
+    color: @white;
+}
+
+td, th {
+    border: solid 0.1rem @light-grey;
+    padding: 0.5rem 0;
+}
+
+.link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+

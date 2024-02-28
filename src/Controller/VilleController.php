@@ -14,14 +14,19 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/ville')]
 class VilleController extends AbstractController
 {
-    #[Route('/', name: 'app_ville_index', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository): Response
+    #[Route('/', name: 'app_ville_index', methods: ['GET', 'POST'])]
+    public function index(Request $request, VilleRepository $villeRepository): Response
     {
-        $user = $this->getUser();
-        return $this->render('ville/index.html.twig', [
-            'villes' => $villeRepository->findAll(),
-            'user' => $user,
-        ]);
+        if($request->request->get('name-filter') && trim($request->request->get('name-filter') != "")) {
+          return $this->render('ville/index.html.twig', [
+              'villes' => $villeRepository->findVillesThatcontains($request->request->get('name-filter')),
+              'search' => $request->request->get('name-filter'),
+          ]);
+        } else {
+          return $this->render('ville/index.html.twig', [
+              'villes' => $villeRepository->findAll(),
+          ]);
+        }
     }
 
     #[Route('/new', name: 'app_ville_new', methods: ['GET', 'POST'])]
@@ -35,6 +40,7 @@ class VilleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($ville);
             $entityManager->flush();
+            $this->addFlash('success', 'La ville "'. $ville->getNom() .'" a bien été ajoutée !');
 
             return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -65,6 +71,7 @@ class VilleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash('success', 'La ville "'. $ville->getNom() .'" a bien été modifiée !');
 
             return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,8 +87,10 @@ class VilleController extends AbstractController
     public function delete(Request $request, Ville $ville, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ville->getId(), $request->request->get('_token'))) {
+            $name = $ville->getNom();
             $entityManager->remove($ville);
             $entityManager->flush();
+            $this->addFlash('success', 'La ville "'. $name .'" a bien été supprimée !');
         }
 
         return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
@@ -91,8 +100,10 @@ class VilleController extends AbstractController
     public function deleteById(Request $request, Ville $ville, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ville->getId(), $request->request->get('_token'))) {
+            $name = $ville->getNom();
             $entityManager->remove($ville);
             $entityManager->flush();
+            $this->addFlash('success', 'La ville "'. $name .'" a bien été supprimée !');
         }
 
         return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
