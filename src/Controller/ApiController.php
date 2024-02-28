@@ -31,6 +31,13 @@ class ApiController extends AbstractController
         return new JsonResponse($lieuxArray);
     }
 
+    #[Route('/get-ville-by-lieu/{lieuId}', name: 'get_ville_by_lieu')]
+    public function getVilleByLieu(int $lieuId, LieuRepository $lieuRepository): JsonResponse
+    {
+        $res = $lieuRepository->findOneById($lieuId);
+        return new JsonResponse($res->getVille()->getId());
+    }
+
     #[Route('/get-lieu-details/{id}', name: 'get_ville_by_id')]
     public function getLieuById(int $id, LieuRepository $lieuRepository): JsonResponse
     {
