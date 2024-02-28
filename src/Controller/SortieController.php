@@ -58,6 +58,8 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $sortie->setOrganisateur($this->getUser());
+            $sortie->setSite($this->getUser()->getSite());
             if($form->get('publish')->isClicked()) {
                 $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 2));
                 $this->addFlash('success', 'La sortie à été publié');
@@ -72,26 +74,7 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        /*
-        if ($formLieu->isSubmitted() && $formLieu->isValid()) {
-            $entityManager->persist($lieu);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Le lieu à été ajouter.');
-            return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
-        }
-
-        if ($formVille->isSubmitted() && $formVille->isValid()) {
-            $entityManager->persist($ville);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'La ville à été ajouter.');
-            return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
-        }
-        */
-
         return $this->render('sortie/new.html.twig', [
-            'sortie' => $sortie,
             'form' => $form,
             'formLieu' => $formLieu,
             'formVille' => $formVille,
