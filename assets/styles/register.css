@@ -1,0 +1,39 @@
+.registration-form {
+    max-width: 400px;
+    margin: auto;
+}
+
+.registration-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.registration-form input,
+.registration-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.registration-form .custom-file-label::after {
+    content: "Choisir un fichier";
+}
+
+.registration-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.registration-form button:hover {
+    background-color: #45a049;
+}
+
+.registration-form .form-error-message {
+    color: red;
+    margin-top: 5px;
+}
