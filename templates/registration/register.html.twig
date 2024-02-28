@@ -21,7 +21,7 @@
     {{ form_end(registrationForm) }} #}
 
 
-{{ form_start(registrationForm) }}
+{{ form_start(registrationForm, { 'attr' : {'enctype': 'multipart/form-data'}}) }}
     {{ form_widget(registrationForm) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(registrationForm) }}

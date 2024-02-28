@@ -1,0 +1,85 @@
+@import '_colors.less';
+@import 'utility.less';
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 3rem;
+    max-width: 60%;
+    margin: auto;
+  }
+  
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .vich-image {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .vich-image > input {
+    order: 1;
+  }
+  
+  .vich-image > a > img {
+    width: 15rem;
+  }
+  
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+
+/* 
+CSS pour le visionnage d'un autre profil utilisateur 
+*/
+h1 {
+  display: flex;
+  width: fit-content;
+  margin: 3rem auto;
+}
+
+  .viewed-profile-container {
+    display: flex;
+    width: fit-content;
+    margin: 5rem auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+
+  img {
+    width: 20rem;
+    object-fit: contain;
+  }
+
+  .field-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .field-title {
+    font-weight: 700;
+  }
+
+  .back-button {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+  }

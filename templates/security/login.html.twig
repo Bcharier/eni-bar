@@ -11,63 +11,39 @@
 
 
 
-<div class="form-center">
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header text-white bg-{{ label }}">
-                    <strong class="me-auto">Notification</strong>
-                    <small>Maintenant</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    {{ message }}
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-{% endfor %}
-
-
-
+<div class="form-container">
+<h1 class="page-title">Connexion</h1>
 
 <form class="login" method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% else %}
-
     <div class="form-input">
-    <div>
-        <label class="form-label" for="inputmailParticipant">Email</label>
-        <input type="text" value="{{ last_username }}" name="mailParticipant" id="inputmailParticipant" class="form-control" autocomplete="username" required autofocus>
-    </div>
-    <div>
-        <label class="form-label" for="inputPassword">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    </div>
+        <div class="input-group">
+            <label class="form-label" for="inputmailParticipant">Email</label>
+            <input type="text" value="{{ last_username }}" name="mailParticipant" id="inputmailParticipant" class="form-control" autocomplete="username" placeholder="Entrez votre adresse email" required autofocus>
+        </div>
+        <div class="input-group">
+            <label class="form-label" for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Entrez votre mot de passe" required>
+            <a href="{{ path('forgotten_password') }}" class="forgotten-password">Mot de passe oublié ?</a>
 
-    <div>
-        <input type="checkbox" name="_remember_me" checked />
-        <label for="_remember_me">Keep me logged in</label>
-    </div>
+        </div>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-    <div class="form-footer">
-    <button class="btn btn-lg btn-primary" type="submit">
-       Connexion 
-    </button>
-    <a href="{{ path('forgotten_password') }}" class="btn btn-secondary mt-3">Mot de passe oublié</a>
+
+        <div class="input-group remember-me">
+            <input type="checkbox" name="_remember_me" checked />
+            <label for="_remember_me">Rester connecté</label>
+        </div>
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
+        <div class="form-footer">
+            <button class="button button-large" type="submit">Connexion </button>
+        </div>
     </div>
 </form>
 </div>
-    {% endif %}
 {% endblock %}

@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ParticipantType extends AbstractType
 {
@@ -24,11 +25,15 @@ class ParticipantType extends AbstractType
             ->add('reset', ResetType::class, array(
                 'label'  => 'Annuler modifications',
                 'attr'   =>  array(
-                    'class'   => 'reset-button')))
+                    'class'   => 'button reset-button')))
             ->add('submit', SubmitType::class, array(
                 'label'  => 'Valider',
                 'attr'   =>  array(
-                    'class'   => 'submit-button')))
+                    'class'   => 'button submit-button')))
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Photo de profil',
+                'required' => false
+            ])
         ;
     }
 

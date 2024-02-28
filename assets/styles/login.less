@@ -1,0 +1,88 @@
+@import 'utility.less';
+@import '_colors.less';
+
+.form-container {
+    width: 25%;
+    margin:auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    border: solid 0.1rem @dark-blue;
+    padding: 5rem;
+}
+
+form {
+    width: 100%;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    gap: 1rem;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group > label {
+    font-size: 0.9rem;
+}
+
+.input-group > input {
+    border: none;
+    border-bottom: solid 0.1rem @dark-blue;
+}
+
+.input-group > input:focus {
+    outline: none;
+}
+
+.remember-me {
+    flex-direction: row;
+}
+
+.remember-me > input {
+    accent-color: @blue;
+}
+
+.forgotten-password {
+    text-align: right;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    transition: all 0.2s;
+}
+
+.forgotten-password:hover {
+    color: @blue;
+    opacity: 1;
+}
+
+.form-footer {
+    margin-top: 2rem;
+}
+
+.alert {
+    width: 100%;
+    padding: 1rem 0;
+    color: @pale-red;
+}
+
+input {
+    font-size: 1rem;
+    color: @blue;
+}

@@ -20,7 +20,7 @@
             padding-left: 0.5rem;
         }
 
-        input[type=button] {
+        input[type=button], input[type=submit] {
             border-radius: 0px;
             padding: 0.2em 1rem;
         }
@@ -87,10 +87,11 @@
             position: sticky;
             bottom: 0px;
             left: 0px;
+            border : 0px 0px 0px 1px solid black
         }
 
-        .towns-cell {
-            &:not(:first-child) {
+        td.towns-cell {
+            &:not(first-of-type) {
                 border-left : 2px solid @black;
             }
             

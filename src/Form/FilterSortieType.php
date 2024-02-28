@@ -20,6 +20,7 @@ class FilterSortieType extends AbstractType
         $builder
             ->add('sites', EntityType::class, [
                 'class' => Site::class,
+                'label' => 'Site',
                 'choice_label' => 'nom',
                 'query_builder' => function(SiteRepository $siteRepository) {
                     return $siteRepository->createQueryBuilder('s')
@@ -27,16 +28,16 @@ class FilterSortieType extends AbstractType
                 },
             ])
             ->add('nameSearch', SearchType::class, [
-                'label' => 'Rechercher',
+                'label' => 'Rechercher : ',
                 'required' => false,
             ])
             ->add('dateStart', DateType::class, [
-                'label' => 'Entre',
+                'label' => 'Entre ',
                 'required' => false,
                 'widget' => 'single_text',
             ])
             ->add('dateEnd', DateType::class, [
-                'label' => 'et',
+                'label' => ' et ',
                 'required' => false,
                 'widget' => 'single_text',
             ])
@@ -58,6 +59,9 @@ class FilterSortieType extends AbstractType
             ])
             ->add('filter', SubmitType::class, [
                 'label' => 'Rechercher',
+                'attr' => [
+                    'class' => 'button button-large',
+                ],
             ])
         ;
     }
