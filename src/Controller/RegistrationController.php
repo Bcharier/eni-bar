@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\RegistrationFormType;
+use App\Repository\SiteRepository;
 use App\Security\AppCustomAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,14 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager, SiteRepository $siteRepository): Response
     {
         $user = new Participant();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -29,16 +27,17 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $csvFile = $form->get('csvFile')->getData();
             if ($csvFile instanceof UploadedFile) {
-                // On récupère le chemin temporaire du fichier
-                $tempFilePath = $csvFile->getRealPath();
-
                 // Traitement du fichier
-                $csvData = $this->readCsvFile($tempFilePath);
+                $csvData = $this->readCsvFile($csvFile);
 
                 // Import des utilisateurs
-                $this->importUsers($csvData);
+                $importedUsers = $this->importUsers($csvData, $siteRepository);
+                
+                foreach ($importedUsers as $user) {
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                }
 
-                // Message flash pour informer de l'importation réussie
                 $this->addFlash('success', 'Users imported successfully.');
             }
             $user->setAdministrateur(0);
@@ -65,45 +64,41 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    private function readCsvFile(string $filePath): array
+    private function readCsvFile(UploadedFile $filePath)
     {
-        // Lire le contenu du fichier CSV
-        $csvData = file_get_contents($filePath);
-
-        // Créer un objet Serializer avec l'encodeur CSV
-        
-        $serializer = new Serializer( [new ObjectNormalizer()], [new CsvEncoder(['delimiter' => ";"])]);
-        // Décoder le contenu CSV en un tableau associatif
-        $decodedData = $serializer->decode($csvData, 'csv');
-        
-        $participants = [];
-
-        // Assurez-vous que le tableau $decodedData n'est pas vide
-        if (!empty($decodedData)) {
-            foreach ($decodedData as $row) {
-                // Désérialisez chaque ligne du CSV en un objet Participant
-                $participant = $serializer->deserialize($row["mail;nom;prenom;pseudo;site;password"], Participant::class, 'csv');
-                
-                // Ajoutez l'objet Participant au tableau
-                $participants[] = $participant;
+        try {
+            $csv = [];
+            if (($handle = fopen($filePath->getPathname(), "r")) !== false) {
+                $headers = fgetcsv($handle);
+                $headers = array_map('trim', $headers);
+                while (($data = fgetcsv($handle)) !== false) {
+                    $csv [] = $data;
+                }
+                fclose($handle);
             }
+            return $csv;
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
-        return $participants;
     }
 
-    private function importUsers(array $csvData): array
+    private function importUsers(array $csvData, SiteRepository $siteRepository): array
     {
         $importedUsers = [];
-
+        
         foreach ($csvData as $userData) {
             // Créez un nouvel utilisateur en utilisant les données CSV
+            $site = $siteRepository->find($userData[4]);
+
             $user = new Participant();
-            $user->setMail($userData['Mail']);
-            $user->setNom($userData['Nom']);
-            $user->setPrenom($userData['Prenom']);
-            $user->setPseudo($userData['Pseudo']);
-            $user->setSite($userData['Site']);
-            $user->setPassword(password_hash($userData['Password'], PASSWORD_BCRYPT));
+            $user->setMail($userData[0]);
+            $user->setNom($userData[1]);
+            $user->setPrenom($userData[2]);
+            $user->setPseudo($userData[3]);
+            $user->setSite($site);
+            $user->setPassword(password_hash($userData[5], PASSWORD_BCRYPT));
+            $user->setAdministrateur($userData[6]);
+            $user->setActif(true);
             // Ajoutez l'utilisateur à la liste des utilisateurs importés
             $importedUsers[] = $user;
         }
