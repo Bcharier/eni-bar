@@ -33,7 +33,7 @@ class SortieRepository extends ServiceEntityRepository
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.dateHeureDebut', 'DESC');
             $q->andWhere('s.site = :site') 
-                ->setParameter('site', $filterData['sites']);       
+                ->setParameter('site', $filterData['sites']);
         if ($filterData['nameSearch'] != null) {
             $q->andWhere('s.nom LIKE :nameSearch')
                 ->setParameter('nameSearch', '%' . $filterData['nameSearch'] . '%');
@@ -80,5 +80,15 @@ class SortieRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $q->getResult();
+    }
+
+    public function updateOngoingSorties() {
+        $q = $this->createQueryBuilder('s')
+            ->update(Sortie::class, 's')
+            ->set('s.etat', 3)
+            ->where('s.etat = 2')
+            ->andWhere('s.dateHeureDebut <= :now')
+            ->setParameter('now', new \DateTime());
+        $q->getQuery()->execute();
     }
 }

@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
                     $entityManager->flush();
                 }
 
-                $this->addFlash('success', 'Users imported successfully.');
+                $this->addFlash('success', 'L\'importation a été effectuée');
             }
             $user->setAdministrateur(0);
             $user->setActif(1);
@@ -45,14 +45,14 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Votre inscription à bien été faite!');
-            // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
             );
-        } elseif($form->isSubmitted()) {
+
+        } else if ($form->isSubmitted()) {
             $this->addFlash('error', 'Erreur...');
         }
 

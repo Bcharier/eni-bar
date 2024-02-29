@@ -1,15 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ tab_name_prefix }}S'enregistrer{% endblock %}
+
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('styles/register.css') }}">{% endblock %}
 
 {% block body %}
 
-    <h1>Register</h1>
+<div class="form-container">
+    <h1 class="page-title">Créer un utilisateur</h1>
 
     {{ form_errors(registrationForm) }}
-    {{ form_start(registrationForm, { 'attr' : {'enctype': 'multipart/form-data'}}) }}
-        {{ form_widget(registrationForm) }}
-        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_start(registrationForm, { 'attr' : {'enctype': 'multipart/form-data', 'class': 'form-input'} }) }}
+
+    <div class="input-group">
+        {{ form_label(registrationForm.csvFile, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(registrationForm.csvFile, {'attr': {'class': 'inputfile'}}) }}
+    </div>
+
+    <input type="submit" class="btn btn-primary" {{ button_label|default('S\'inscrire') }}>
     {{ form_end(registrationForm) }}
+</div>
 
 {% endblock %}
