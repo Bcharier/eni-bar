@@ -12,12 +12,14 @@ use App\Form\LieuType;
 use App\Entity\Ville;
 use App\Form\VilleType;
 use App\Repository\SortieRepository;
+use App\Service\UpdateStateService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/sortie')]
@@ -45,6 +47,31 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /*
+    #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
+    public function updateOngoingSorties(SortieRepository $sortieRepository): Response
+    {
+        $res = $sortieRepository->updateOngoingSorties();
+        if($res && $res == 1) {
+          $message = " sortie a été mise à jour";
+        } else {
+          $message = " sorties ont été mises à jour";
+        }
+        $message = $res." ".$message;
+        $this->addFlash('success', $message);
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+    */
+
+    #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
+    public function updateOngoingSorties(UpdateStateService $updateStateService): Response
+    {
+        $res = $updateStateService->updateOngoingSorties();
+
+        $this->addFlash('success', 'L`état des sorties est mis à jour');
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -59,6 +86,8 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $sortie->setOrganisateur($this->getUser());
+            $sortie->setSite($this->getUser()->getSite());
             if($form->get('publish')->isClicked()) {
                 $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 2));
                 $this->addFlash('success', 'La sortie à été publié');
@@ -74,7 +103,6 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/new.html.twig', [
-            'sortie' => $sortie,
             'form' => $form,
             'formLieu' => $formLieu,
             'formVille' => $formVille,

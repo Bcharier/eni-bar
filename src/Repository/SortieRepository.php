@@ -81,6 +81,17 @@ class SortieRepository extends ServiceEntityRepository
             ->addSelect('p')
             ->getQuery();
 
-        return $q->getSingleResult();
+        return $q->getResult();
+    }
+
+    public function updateOngoingSorties() {
+        $q = $this->createQueryBuilder('s')
+            ->update(Sortie::class, 's')
+            ->set('s.etat', 3)
+            ->where('s.etat = 2')
+            ->andWhere('s.dateHeureDebut <= :now')
+            ->setParameter('now', new \DateTime());
+
+        return $q->getQuery()->execute();
     }
 }

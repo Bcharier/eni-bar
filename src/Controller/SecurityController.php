@@ -23,7 +23,6 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, ParticipantRepository $participantRepository): Response
     {
 
-
         if ($this->getUser() && !$this->getUser()->isActif()) {
             return $this->redirectToRoute('app_logout');
         } elseif ($this->getUser()) {
