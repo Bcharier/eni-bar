@@ -29,7 +29,7 @@
     {% else %}
     <div><label for="lieu_ville">Ville: </label>{{ form_widget(formLieu.ville)}}</div>
     {% endif %}
-    <div><label for="sortie_lieu">Lieu:</label>{{ form_widget(form.lieu) }}</div>
+    <div><label for="sortie_lieu">Lieu:</label>{{ form_widget(form.lieu) }}<a href="{{ path('') }}" class="a-button">+</a></div>
     <div><label for="lieu_rue">Rue: </label>{{ form_widget(formLieu.rue, {'attr' : { 'disabled': true}})}}</div>
     {% if sortie is defined %}
         <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true , 'value' : sortie.lieu.ville.codePostal}})}}</div>

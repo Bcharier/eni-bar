@@ -18,10 +18,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
+    #[Route('/test', name: 'app_test', methods: ['GET'])]
+    public function test(EntityManagerInterface $manager, SortieRepository $sortieRepository) : Response 
+    {
+        $res = $sortieRepository->findBy(['date_heure_debut' >= new DateTime()]);
+        dd($res);
+        foreach($res as $sortie) {
+            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 3));
+        }
+        $manager->persist($newSite);
+        $manager->flush();
+    }
+
     #[Route('/', name: 'app_sortie_index')]
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository, Request $request): Response
     {
@@ -182,4 +195,5 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
