@@ -54,10 +54,8 @@
     border: 3px solid @dark-blue;
     border-spacing : 0;
     border-collapse : collapse;
-
     max-height: 50vh;
     overflow-y: auto;
-    display: inline flow-root list-item;
 
     thead {
         position: sticky;
@@ -87,14 +85,24 @@
                 border-left : 2px solid @black;
             }
             
-            padding: 0.5rem;
+            padding: 0.5rem 3rem;
+            text-align: center;
 
-            a, form {
-                display: inline;
-                padding: 0px 0.5rem;
+            @media screen and (max-width: @mobile){
+                padding: 0.5rem 0;
+            }
+
+            input {
+                border-radius: 1rem;
             }
         }
     }
+
+    .towns-row > td:last-child > * {
+        display: flex;
+        margin: 0.5rem auto;
+        width: fit-content;
+    }   
 }
 
 @media screen and (max-width: @mobile) {
@@ -117,7 +125,14 @@
         }
     }
     .towns-cell > input {
-        width: 8rem;
+        width: 11rem;
     }
+
+    .towns-row > td:last-child > * {
+        display: flex;
+        margin: 0.5rem auto;
+        width: fit-content;
+    }   
+    
     
 }

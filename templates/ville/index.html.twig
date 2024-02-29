@@ -33,8 +33,11 @@
                 <td class="towns-cell">{{ ville.nom }}</td>
                 <td class="towns-cell">{{ ville.codePostal }}</td>
                 <td class="towns-cell">
-                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
-                    <form id="form_delete_town_{{ ville.id }}" method="POST" action="{{ path('app_ville_delete_by_id', {'id': ville.id}) }}"><input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ville.id) }}"><a onclick="if(confirm('Êtes vous sûr(e) de vouloir supprimer {{ ville.nom }} ?')) { document.getElementById('form_delete_town_{{ ville.id}}').submit();  } else { return false; }" href="#">Supprimer</a></form>
+                    <a class="button" href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
+                    <form id="form_delete_town_{{ ville.id }}" method="POST" action="{{ path('app_ville_delete_by_id', {'id': ville.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ville.id) }}">
+                        <a class="button" onclick="if(confirm('Êtes vous sûr(e) de vouloir supprimer {{ ville.nom }} ?')) { document.getElementById('form_delete_town_{{ ville.id}}').submit();  } else { return false; }" href="#">Supprimer</a>
+                    </form>
                 </td>
             </tr>
         {% else %}

@@ -1,4 +1,5 @@
 @import "_colors.less";
+@import 'utility.less';
 
 /* FORMULAIRE MISE À JOUR SITE */
 
@@ -18,11 +19,6 @@
         input[type=text] {
             border-radius: 10px;
             padding-left: 0.5rem;
-        }
-
-        input[type=button], input[type=submit] {
-            border-radius: 0px;
-            padding: 0.2em 1rem;
         }
     }
 }
@@ -58,19 +54,13 @@
     border: 3px solid @dark-blue;
     border-spacing : 0;
     border-collapse : collapse;
-
     max-height: 50vh;
     overflow-y: auto;
-    display: inline flow-root list-item;
 
     thead {
         position: sticky;
         top: 0px;
         left: 0px;
-    }
-
-    tbody {
-        
     }
 
     .sites-row {
@@ -94,17 +84,60 @@
                 border-left : 2px solid @black;
             }
             
-            padding: 0.5rem;
+            padding: 0.5rem 5rem;
+            text-align: center;
 
-            a, form {
-                display: inline;
-                padding: 0px 0.5rem;
+            @media screen and (max-width: @mobile){
+                padding: 0.5rem 0;
             }
 
-            &.header {
 
+            input {
+                border-radius: 1rem;
             }
 
         }
     }
+
+    .sites-row > td:last-child > * {
+        display: flex;
+        margin: 0.5rem auto;
+        width: fit-content;
+    }   
+}
+
+@media screen and (max-width: @mobile)
+{
+    h1 {
+        margin: 1rem 0;
+    }
+
+    table {
+        margin: auto;
+        width: 100%;
+    }
+
+    
+    .filters-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            > * {
+                width: fit-content;
+            }
+        }
+    }
+
+    .sites-row > td:last-child > * {
+        display: flex;
+        margin: 0.5rem auto;
+        width: fit-content;
+    }   
+    
 }
