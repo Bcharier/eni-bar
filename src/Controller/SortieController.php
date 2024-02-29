@@ -44,6 +44,14 @@ class SortieController extends AbstractController
         ]);
     }
 
+    #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
+    public function updateOngoingSorties(SortieRepository $sortieRepository): Response
+    {
+        $res = $sortieRepository->updateOngoingSorties();
+        $this->addFlash('success', 'L`état des sorties est mis à jour');
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
