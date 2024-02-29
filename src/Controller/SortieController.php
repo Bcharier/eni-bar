@@ -12,6 +12,7 @@ use App\Form\LieuType;
 use App\Entity\Ville;
 use App\Form\VilleType;
 use App\Repository\SortieRepository;
+use App\Service\UpdateStateService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,18 +24,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
-    #[Route('/test', name: 'app_test', methods: ['GET'])]
-    public function test(EntityManagerInterface $manager, SortieRepository $sortieRepository) : Response 
-    {
-        $res = $sortieRepository->findBy(['date_heure_debut' >= new DateTime()]);
-        dd($res);
-        foreach($res as $sortie) {
-            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 3));
-        }
-        $manager->persist($newSite);
-        $manager->flush();
-    }
-
     #[Route('/', name: 'app_sortie_index')]
     public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository, Request $request): Response
     {
@@ -57,10 +46,21 @@ class SortieController extends AbstractController
         ]);
     }
 
+    /*
     #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
     public function updateOngoingSorties(SortieRepository $sortieRepository): Response
     {
         $res = $sortieRepository->updateOngoingSorties();
+        $this->addFlash('success', 'L`état des sorties est mis à jour');
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+    */
+
+    #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
+    public function updateOngoingSorties(UpdateStateService $updateStateService): Response
+    {
+        $res = $updateStateService->updateOngoingSorties();
+
         $this->addFlash('success', 'L`état des sorties est mis à jour');
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }

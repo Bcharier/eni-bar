@@ -15,7 +15,7 @@ class WatchDogScheduleProvider implements ScheduleProviderInterface
     public function getSchedule(): Schedule
     {
         return (new Schedule())->add(
-            RecurringMessage::every('2 seconds', new WatchDogMessage())
+            RecurringMessage::every('60 seconds', new WatchDogMessage())
         );
     }
 }
