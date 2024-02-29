@@ -44,10 +44,39 @@ form {
     flex-direction: column;
     gap: 0;
   }
+
+@media screen and (max-width: @mobile) {
+  form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+
+    .image-container {
+      gap: 1rem;
+
+      .vich-image {
+        gap: 1rem;
+      }
+    } 
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    margin: auto;
+  
+  }
+}
   
 
 /* 
-CSS pour le visionnage d'un autre profil utilisateur 
+Visionnage d'un autre profil utilisateur 
 */
 h1 {
   display: flex;

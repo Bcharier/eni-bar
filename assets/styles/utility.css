@@ -65,3 +65,8 @@ table {
   background-color: #004f67;
   color: #ffffff;
 }
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 12px;
+  }
+}

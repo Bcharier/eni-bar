@@ -18,12 +18,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index')]
-    public function sorties(SortieRepository $sortieRepository, SiteRepository $siteRepository, Request $request): Response
+    public function sorties(SortieRepository $sortieRepository, Request $request): Response
     {
         $user = $this->getUser();
         $filteredSorties = [];
@@ -71,24 +72,6 @@ class SortieController extends AbstractController
 
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
-
-        /*
-        if ($formLieu->isSubmitted() && $formLieu->isValid()) {
-            $entityManager->persist($lieu);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Le lieu à été ajouter.');
-            return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
-        }
-
-        if ($formVille->isSubmitted() && $formVille->isValid()) {
-            $entityManager->persist($ville);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'La ville à été ajouter.');
-            return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
-        }
-        */
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
@@ -198,5 +181,45 @@ class SortieController extends AbstractController
         }
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/api/get/{id}', name: 'app_api_sortie', methods: ['GET'])]
+    public function getSortieById(Sortie $sortie): JsonResponse
+    {
+        $participants = $sortie->getParticipants();
+        $participantsArray = [];
+
+        foreach($participants as $participant) {
+            $participantsArray[] = array('id' => $participant->getId(),
+                                        'nom' => $participant->getNom(),
+                                        'prenom' => $participant->getPrenom(),
+                                        'site' => $participant->getSite()->getNom());
+        }
+
+        $ville = array('id' => $sortie->getLieu()->getVille()->getId(),
+                        'nom' => $sortie->getLieu()->getVille()->getNom(),
+                        'codePostal' => $sortie->getLieu()->getVille()->getCodePostal());
+
+        $lieu = array('id' => $sortie->getLieu()->getId(),
+                        'nom' => $sortie->getLieu()->getNom(),
+                        'rue' => $sortie->getLieu()->getRue(),
+                        'latitude' => $sortie->getLieu()->getLatitude(),
+                        'longitude' => $sortie->getLieu()->getLongitude());
+        
+        $output = array('id' => $sortie->getId(),
+                        'nom' => $sortie->getNom(),
+                        'dateHeureDebut' => $sortie->getDateHeureDebut()->format('d-m-Y H:i:s'),
+                        'duree' => $sortie->getDuree(),
+                        'limite' => $sortie->getDateLimiteInscription()->format('d-m-Y H:i:s'),
+                        'nbInscriptionsMax' => $sortie->getNbInscriptionsMax(),
+                        'infosSortie' => $sortie->getInfosSortie(),
+                        'etat' => $sortie->getEtat()->getLibelle(),
+                        'lieu' => $lieu,
+                        'ville' => $ville,
+                        'organisateur' => $sortie->getOrganisateur()->getNom(),
+                        'site' => $sortie->getSite()->getNom(),
+                        'participants' => $participantsArray);
+
+        return new JsonResponse($output);
     }
 }

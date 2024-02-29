@@ -14,7 +14,7 @@
             <form method="POST" action="{{ path('app_ville_index') }}">
                 <label for="">Le nom contient :</label>
                 <input type="text" name="name-filter" {% if search is defined %} value="{{ search }}" {% endif %} />
-                <input type="submit" value="Rechercher" />
+                <input class="button" type="submit" value="Rechercher" />
             </form>
         </div>
         
@@ -52,7 +52,7 @@
                 <form method="POST" action="{{ path('app_ville_new') }}">
                 <td class="towns-cell"><input name="ville[nom]" required="required" type="text" /></td>
                 <td class="towns-cell"><input name="ville[codePostal]" required="required" type="text" /></td>
-                <td class="towns-cell"><input type="hidden" name="ville[_token]" value="{{ csrf_token('ville') }}"><input type="submit" value="Ajouter" /></td>
+                <td class="towns-cell"><input type="hidden" name="ville[_token]" value="{{ csrf_token('ville') }}"><input class="button" type="submit" value="Ajouter" /></td>
                 </form>
             </tr>
         </tbody>

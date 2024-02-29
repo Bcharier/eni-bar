@@ -32,8 +32,8 @@ class SortieRepository extends ServiceEntityRepository
     public function findFilteredSortie($filterData) {
         $q = $this->createQueryBuilder('s')
             ->orderBy('s.dateHeureDebut', 'DESC');
-            $q->andWhere('s.site = :site') 
-                ->setParameter('site', $filterData['sites']);       
+            $q->andWhere('s.site = :site')
+                ->setParameter('site', $filterData['sites']);
         if ($filterData['nameSearch'] != null) {
             $q->andWhere('s.nom LIKE :nameSearch')
                 ->setParameter('nameSearch', '%' . $filterData['nameSearch'] . '%');
@@ -77,8 +77,10 @@ class SortieRepository extends ServiceEntityRepository
         $q = $this->createQueryBuilder('s')
             ->andWhere('s.id = :id')
             ->setParameter('id', $id)
+            ->innerJoin('s.participants', 'p')
+            ->addSelect('p')
             ->getQuery();
 
-        return $q->getResult();
+        return $q->getSingleResult();
     }
 }
