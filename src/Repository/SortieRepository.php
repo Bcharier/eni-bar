@@ -89,6 +89,7 @@ class SortieRepository extends ServiceEntityRepository
             ->where('s.etat = 2')
             ->andWhere('s.dateHeureDebut <= :now')
             ->setParameter('now', new \DateTime());
-        $q->getQuery()->execute();
+
+        return $q->getQuery()->execute();
     }
 }

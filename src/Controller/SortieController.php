@@ -51,7 +51,13 @@ class SortieController extends AbstractController
     public function updateOngoingSorties(SortieRepository $sortieRepository): Response
     {
         $res = $sortieRepository->updateOngoingSorties();
-        $this->addFlash('success', 'L`état des sorties est mis à jour');
+        if($res && $res == 1) {
+          $message = " sortie a été mise à jour";
+        } else {
+          $message = " sorties ont été mises à jour";
+        }
+        $message = $res." ".$message;
+        $this->addFlash('success', $message);
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
     */
