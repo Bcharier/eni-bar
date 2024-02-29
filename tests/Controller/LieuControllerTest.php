@@ -28,6 +28,11 @@ class LieuControllerTest extends WebTestCase
         $this->manager->flush();
     }
 
+    private function getRepository(): EntityRepository
+    {
+        return $this->manager->getRepository(Lieu::class);
+    }
+    
     public function testIndex(): void
     {
         $crawler = $this->client->request('GET', $this->path);
@@ -67,7 +72,6 @@ class LieuControllerTest extends WebTestCase
         $fixture->setRue('My Title');
         $fixture->setLatitude('My Title');
         $fixture->setLongitude('My Title');
-        $fixture->setVille('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -88,7 +92,6 @@ class LieuControllerTest extends WebTestCase
         $fixture->setRue('Value');
         $fixture->setLatitude('Value');
         $fixture->setLongitude('Value');
-        $fixture->setVille('Value');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -122,7 +125,6 @@ class LieuControllerTest extends WebTestCase
         $fixture->setRue('Value');
         $fixture->setLatitude('Value');
         $fixture->setLongitude('Value');
-        $fixture->setVille('Value');
 
         $this->manager->remove($fixture);
         $this->manager->flush();

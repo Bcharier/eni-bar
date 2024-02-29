@@ -28,6 +28,11 @@ class SiteControllerTest extends WebTestCase
         $this->manager->flush();
     }
 
+    private function getRepository(): EntityRepository
+    {
+        return $this->manager->getRepository(Site::class);
+    }
+
     public function testIndex(): void
     {
         $crawler = $this->client->request('GET', $this->path);

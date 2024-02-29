@@ -15,6 +15,11 @@ class ParticipantControllerTest extends WebTestCase
     private EntityRepository $repository;
     private string $path = '/participant/';
 
+    private function getRepository(): EntityRepository
+    {
+        return $this->manager->getRepository(Participant::class);
+    }
+
     public function testNew(): void
     {
         $this->markTestIncomplete();
