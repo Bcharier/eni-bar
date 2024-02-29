@@ -86,7 +86,6 @@ class RegistrationController extends AbstractController
         foreach ($csvData as $userData) {
             // Créez un nouvel utilisateur en utilisant les données CSV
             $site = $siteRepository->find($userData[4]);
-
             $user = new Participant();
             $user->setMail($userData[0]);
             $user->setNom($userData[1]);
