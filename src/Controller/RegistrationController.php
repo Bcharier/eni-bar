@@ -46,11 +46,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Votre inscription à bien été faite!');
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            return $this->redirectToRoute('app_login');
 
         } else if ($form->isSubmitted()) {
             $this->addFlash('error', 'Erreur...');
