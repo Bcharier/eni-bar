@@ -1,0 +1,3 @@
+﻿Mail,Nom,Prenom,Pseudo,Site,Password,Admin
+FirstUser@test.com,First,User,TestFirstUser,1,banane,0
+SecondUser@test.com,Second,User,TestSecondUser,2,banane,1
