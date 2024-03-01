@@ -47,14 +47,13 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/{id}', name: 'app_profile_viewer', requirements:['id' => '\d+'])]
-    public function profileViewer(string $id, EntityManagerInterface $em, Request $request, Sortie $sortie): Response
+    #[Route('/profile/{id}/{sortie}', name: 'app_profile_viewer', requirements:['id' => '\d+', 'sortie' => '\d+'])]
+    public function profileViewer(Participant $participant, Sortie $sortie): Response
     {
         $user = $this->getUser();
-        $viewed_user = $em->getRepository(Participant::class)->findOneById($id);
         return $this->render('profile/profile-viewer.html.twig', [
             'controller_name' => 'ProfileController',
-            'viewed_user' => $viewed_user,
+            'viewed_user' => $participant,
             'user' => $user,
             'sortie' => $sortie,
         ]);

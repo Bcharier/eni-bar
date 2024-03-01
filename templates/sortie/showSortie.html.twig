@@ -49,9 +49,9 @@
                 <td>{{participant.pseudo}}</td>
                 <td>{{participant.prenom}} {{participant.nom}}</td>
                 <td>
-                    <form action="{{ path('app_profile_viewer', {id: participant.id, sortie: sortie.id}) }}" method="POST">
-                        <button class="button" type="submit">Voir le profil</button>
-                    </form>
+                    <a class="button" href="{{ path('app_profile_viewer', {id: participant.id, sortie: sortie.id}) }}">
+                        Voir le profil
+                    </a>
                 </td>
             </tr>
         {% endfor %}

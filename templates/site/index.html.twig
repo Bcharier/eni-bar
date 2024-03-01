@@ -31,10 +31,14 @@
                 <td class="sites-cell">{{ site.nom }}</td>
                 <td class="sites-cell">
                     <a class="button" href="{{ path('app_site_edit', {'id': site.id}) }}">Modifier</a>
+                    {% if site.sortie[0] is not defined %}
                     <form id="form_delete_site_{{ site.id }}" method="POST" action="{{ path('app_site_delete_by_id', {'id': site.id}) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ site.id) }}">
                     <a class="button" onclick="if(confirm('Êtes vous sûr(e) de vouloir supprimer {{ site.nom }} ?')) { document.getElementById('form_delete_site_{{ site.id}}').submit();  } else { return false; }" href="#">Supprimer</a>
                     </form>
+                    {% else %}
+                        <button disabled="disabled" class="button disabled" title="Impossible de supprimer un site lié à une activité existante">Supprimer</button>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

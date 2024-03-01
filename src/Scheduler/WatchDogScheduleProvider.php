@@ -3,11 +3,11 @@
 namespace App\Scheduler;
 
 use App\Scheduler\Message\WatchDogMessage;
-use App\Scheduler\Message\Foo;
 use Symfony\Component\Scheduler\Schedule;
 use Symfony\Component\Scheduler\RecurringMessage;
 use Symfony\Component\Scheduler\Attribute\AsSchedule;
 use Symfony\Component\Scheduler\ScheduleProviderInterface;
+
 
 #[AsSchedule('watchdog')]
 class WatchDogScheduleProvider implements ScheduleProviderInterface
