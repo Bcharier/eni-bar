@@ -39,12 +39,19 @@ table {
   font-size: 1rem;
   font-weight: 400;
 }
+.button.disabled {
+  cursor: not-allowed;
+}
 .button-large {
   font-size: 1.3rem;
 }
 .button:hover {
   background-color: #004f67;
   color: #ffffff;
+}
+.button.disabled:hover {
+  background-color: #ffffff;
+  color: #6d6d6d;
 }
 .button-filter {
   padding: 0.5rem 1rem;
@@ -85,9 +92,24 @@ form {
   align-items: center;
   justify-content: center;
 }
+.image-container label {
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
 .vich-image {
   display: flex;
   flex-direction: column;
+}
+.vich-image div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.vich-image div label {
+  font-weight: 400;
+  order: 2;
+  margin-bottom: 0;
 }
 .vich-image > input {
   order: 1;
