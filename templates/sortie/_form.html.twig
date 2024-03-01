@@ -38,8 +38,13 @@
     <div class="button-container">
         {{ form_widget(form.submit) }}
         {{ form_widget(form.publish) }}
+        {% if sortie is defined %}
+            {{ form_widget(form.delete)}}</div>
+        {% else %}
+            {{ form_widget(form.delete, {'action': 'app_ville_show', 'method': 'POST', 'attr' : { 'hidden': true }})}}</div>
+        {% endif %}
         <a class="button" href="{{ path('app_sortie_index') }}">Annuler</a>
-
+    {{ form_widget(form.cancel) }}
     </div>
 </div>
 {{ form_end(form)}}

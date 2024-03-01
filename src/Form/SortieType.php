@@ -35,6 +35,8 @@ class SortieType extends AbstractType
             ])
             ->add('submit', SubmitType::class, array('label' => 'Enregistrer la sortie', 'row_attr' => ['class' => 'row enregistrer'], 'attr' => ['class' => 'button enregistrer',]))
             ->add('publish', SubmitType::class, array('label'  => 'Publier la sortie', 'row_attr' => ['class' => 'row publier'], 'attr' => ['class' => 'button publier',]))
+            ->add('delete', SubmitType::class, array('label'  => 'Supprimer la sortie', 'row_attr' => ['class' => 'row supprimer'], 'attr' => ['class' => 'button supprimer',]))
+            ->add('cancel', ResetType::class, array('label'  => 'Annuler', 'row_attr' => ['class' => 'row annuler'], 'attr' => ['class' => 'button annuler',]))
         ;
     }
 
