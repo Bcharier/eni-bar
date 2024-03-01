@@ -70,6 +70,12 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('now', new \DateTime());
         }
         
+        /*
+        echo $q->getQuery()->getSql();
+        echo "<br /><br />";
+        var_dump($q->getQuery()->getParameters());
+        */
+
         return $q->getQuery()->getResult();
     }
 

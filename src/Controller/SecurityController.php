@@ -30,6 +30,7 @@ class SecurityController extends AbstractController
         } else {
             // get the login error if there is one
             $error = $authenticationUtils->getLastAuthenticationError();
+            if(!is_null($error)) {$this->addFlash('error', $error->getMessage());}
             // last username entered by the user
             $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -50,7 +51,7 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()) {
             //On va chercher l'utilisateur par son email
             //$user = $usersRepository->findOneByEmail($form->get('mail')->getData());
             $user = $usersRepository->findOneByMail($form->get('mail')->getData());
@@ -71,7 +72,7 @@ class SecurityController extends AbstractController
 
                 // Envoi du mail
                 $mail->send(
-                    'no-reply@e-commerce.fr',
+                    'no-reply@sortiraleni.fr',
                     $user->getMail(),
                     'Réinitialisation de mot de passe',
                     'password_reset',

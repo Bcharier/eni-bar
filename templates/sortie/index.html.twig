@@ -13,7 +13,11 @@
 
 <h1 class="page-title">Filtrer les sorties</h1>
 
-{{ form_start(form) }}
+{{ form_start(form, { 'attr': { 'id': 'filter_sortie'}}) }}
+    <!-- Loader -->
+    <div class="loader">
+        <img src="{{ asset('img/loader.gif')}}" alt="Chargement en cours...">
+    </div>
     <div class="filters">
         <div class="first-column">
             <div class="site-option-container">
@@ -33,17 +37,17 @@
         </div>
         <div class="second-column">
             <div class="checkbox-container">
-                <div class="input-container">
-                    {{form_widget(form.checkboxOrganizer)}}
-                    {{form_label(form.checkboxOrganizer)}}
-                </div>
                 <div class="input-container">            
-                    {{form_widget(form.checkboxRegistered)}}
+                    {{form_widget(form.checkboxRegistered, { 'attr': { 'onclick': 'exclusiveFilters(true);'}})}}
                     {{form_label(form.checkboxRegistered)}}
                 </div>
                 <div class="input-container">
-                    {{form_widget(form.checkboxNotRegistered)}}
+                    {{form_widget(form.checkboxNotRegistered, { 'attr': { 'onclick': 'exclusiveFilters(false);'}})}}
                     {{form_label(form.checkboxNotRegistered)}}
+                </div>
+                <div class="input-container">
+                    {{form_widget(form.checkboxOrganizer)}}
+                    {{form_label(form.checkboxOrganizer)}}
                 </div>
                 <div class="input-container">
                     {{form_widget(form.checkboxPast)}}
@@ -167,6 +171,7 @@
 
 <a class="button button-large button-create" href="{{ path('app_sortie_new') }}">Créer une sortie</a>
 <script src="{{asset('/JS/sortie.js')}}"></script>
+<script src="{{asset('/JS/form.js')}}"></script>
 {% endblock %}
 
 
