@@ -58,8 +58,9 @@ class FilterSortieType extends AbstractType
                 'required' => false,
             ])
             ->add('filter', SubmitType::class, [
-                'label' => 'Rechercher',
+                'label' => 'Rechercher222',
                 'attr' => [
+                    'action' => 'google.fr',
                     'class' => 'button button-large',
                 ],
             ])

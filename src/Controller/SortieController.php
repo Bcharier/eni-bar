@@ -47,22 +47,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-    /*
-    #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
-    public function updateOngoingSorties(SortieRepository $sortieRepository): Response
-    {
-        $res = $sortieRepository->updateOngoingSorties();
-        if($res && $res == 1) {
-          $message = " sortie a été mise à jour";
-        } else {
-          $message = " sorties ont été mises à jour";
-        }
-        $message = $res." ".$message;
-        $this->addFlash('success', $message);
-        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-    }
-    */
-
     #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
     public function updateOngoingSorties(UpdateStateService $updateStateService): Response
     {

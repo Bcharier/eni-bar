@@ -30,6 +30,7 @@ class SecurityController extends AbstractController
         } else {
             // get the login error if there is one
             $error = $authenticationUtils->getLastAuthenticationError();
+            if(!is_null($error)) {$this->addFlash('error', $error->getMessage());}
             // last username entered by the user
             $lastUsername = $authenticationUtils->getLastUsername();
 
