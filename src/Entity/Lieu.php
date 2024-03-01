@@ -3,22 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\LieuRepository;
-//use Doctrine\ORM\Mapping\ClassMetadataInfo;
-//use ApiPlatform\Doctrine\Orm\Extension\EagerLoadingExtension;
-//use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-//use ApiPlatform\Metadata\ApiFilter;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use App\Repository\ConferenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JsonSerializable;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 #[ApiResource(
@@ -29,7 +22,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
     order: ['year' => 'DESC', 'city' => 'ASC'],
     paginationEnabled: false,
 )]
-class Lieu
+class Lieu implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -164,5 +157,15 @@ class Lieu
         }
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed {
+        return [
+            'id' => $this->id,
+            'nom' => $this->nom,
+            'rue' => $this->rue,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+        ];
     }
 }

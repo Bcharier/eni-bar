@@ -29,28 +29,6 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
-            /*
-            ->add('etat', EntityType::class, [
-                'class' => Etat::class,
-                'choice_label' => 'libelle',
-                'mapped' => false,
-                ])
-            ->add('organisateur', EntityType::class, [
-                'class' => Participant::class,
-                'choice_label' => 'pseudo',
-            ])
-            ->add('site', EntityType::class, [
-                'class' => Site::class,
-                'choice_label' => 'nom',
-            ])
-            ->add('lieu', ChoiceType::class, [
-                'choices' => [],
-                'choice_label' => 'nom',
-                'required' => true,
-                'mapped' => false,
-                'by_reference' => false,
-            ])
-            */
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nom',

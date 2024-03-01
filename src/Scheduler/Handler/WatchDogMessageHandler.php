@@ -2,42 +2,45 @@
 
 namespace App\Scheduler\Handler;
 
-use App\Entity\Participant;
 use App\Scheduler\Message\WatchDogMessage;
-use App\Entity\Sortie;
 use App\Service\UpdateStateService;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final class WatchDogMessageHandler
+class WatchDogMessageHandler
 {
-    public function __construct(private SortieRepository $sortieRepository, private EntityManagerInterface $manager, private UpdateStateService $updateStateService) 
-    {
+  public function __construct(private SortieRepository $sortieRepository, private EntityManagerInterface $manager, private UpdateStateService $updateStateService)
+  {
+  }
+
+  public function __invoke(WatchDogMessage $message)
+  {
+    // Handling OnGoing Sorties
+    $res = $this->updateStateService->updateOngoingSorties();
+    print_r($this->formatLogMessage($res)."\n\r");
+
+    // Handling Passed Sorties
+
+    // Handling 
+  }
+
+  public function formatLogMessage(int $nbLines)
+  {
+    $logMessage = $nbLines;
+    switch($nbLines) {
+      case 0:
+      case 1:
+        $logMessage = 'sortie a été mise à jour';
+      break;
+      default:
+        $logMessage = "sorties ont été mises à jour";
+      break;
 
     }
-
-    public function __invoke(WatchDogMessage $message)
-    {
-        $this->updateStateService->updateOngoingSorties();
-        return $message;
-        /*
-
-        //selectionner toutes les sorties qui ont une date de début inférieur à maintenant, et que leur état soit "plublié", changer leur état à "en cours" 
-        $res = $sortieRepository->updateOngoingSorties();
-
-        $res = $this->sortieRepository->findBy(['date_heure_debut' => new Date()]);
-        foreach($sortie as $res) {
-            $sortie->setEtat($entityManager->getReference('App\Entity\Etat', 3));
-        }
-        //$newSite = new Site();
-        //$newSite->setNom("Hello");
-        $this->manager->persist($newSite);
-        $this->manager->flush();
-        //$services = $message->getServices();
-        // logic to handle your services below
-        // ...
-        */
-    }
+    date_default_timezone_set('Europe/Paris');
+    $logMessage = "[".date("Y-m-d h:i")."] ".$nbLines . " " . $logMessage.' de l`état "Publiée" vers "En cours"';
+    return $logMessage;
+  }
 }

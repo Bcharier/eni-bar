@@ -1,60 +1,49 @@
-{# {{ form_start(form) }} 
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }} #}
-    {#
-    {{ form_row(form.nom, { 'label': 'Nom de la sortie' }) }}
-    {{ form_row(form.dateHeureDebut, { 'label': 'Date et heure de la sortie' }) }}
-    {{ form_row(form.dateLimiteInscription, { 'label': 'Date limite d\'inscription' }) }}
-    {{ form_row(form.nbInscriptionsMax, { 'label': 'Nombre de places' }) }}
-    {{ form_row(form.duree, { 'label': 'Durée'}) }}
-    {{ form_row(form.infosSortie, { 'label': 'Description et infos'}) }}
-    #}
 {{ form_start(form)}}
 <div class="container-new">
+
     <div class="container-new-lieu">
-    <div><label for="sortie_nom">Nom de la sortie: </label>{{ form_widget(form.nom)}}</div>
-    <div><label for="sortie_dateHeureDebut">Date et heure de la sortie: </label>{{ form_widget(form.dateHeureDebut) }}</div>
-    <div><label for="sortie_dateLimiteInscription">Date limite d'inscription: </label>{{ form_widget(form.dateLimiteInscription)}}</div>
-    <div><label for="sortie_nbInscriptionsMax">Nombre de places: </label>{{ form_widget(form.nbInscriptionsMax)}}</div>
-    <div><label for="sortie_duree">Durée: </label>{{ form_widget(form.duree)}}</div>
-    <div><label for="sortie_infosSortie">Description et infos: </label>{{ form_widget(form.infosSortie)}}</div>
-    <div><label>Ville organisatrice :</label><span>{{ app.user.getSite().getNom() }}</span></div>
-    {% if sortie is defined %}
-        <select id="lieu_ville" name="{{ field_name(formLieu.ville) }}" class="form-control">
-            {% for label, value in field_choices(formLieu.ville) %}
-                <option value="{{ value }}"  {% if value == sortie.lieu.ville.id %} selected {% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-    {% else %}
-    <div><label for="lieu_ville">Ville: </label>{{ form_widget(formLieu.ville)}}</div>
-    {% endif %}
-    <div><label for="sortie_lieu">Lieu:</label>{{ form_widget(form.lieu) }}<a href="{{ path('app_lieu_new') }}" class="a-button">+</a></div>
-    <div><label for="lieu_rue">Rue: </label>{{ form_widget(formLieu.rue, {'attr' : { 'disabled': true}})}}</div>
-    {% if sortie is defined %}
-        <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true , 'value' : sortie.lieu.ville.codePostal}})}}</div>
-    {% else %}
-        <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true }})}}</div>
-    {% endif %}
-    {% if sortie is defined %}
-        <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true, 'value' : sortie.lieu.latitude }})}}</div>
-    {% else %}
-        <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true}})}}</div>
-    {% endif %}
-    {% if sortie is defined %}
-        <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true, 'value' : sortie.lieu.longitude }})}}</div>
-    {% else %}
-        <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true}})}}</div>
-    {% endif %}
-    {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('sortie') }}"> #}
+        <div class="first-column">
+            <div><label for="sortie_nom">Nom de la sortie: </label>{{ form_widget(form.nom)}}</div>
+            <div><label for="sortie_dateHeureDebut">Date et heure de la sortie: </label>{{ form_widget(form.dateHeureDebut) }}</div>
+            <div><label for="sortie_dateLimiteInscription">Date limite d'inscription: </label>{{ form_widget(form.dateLimiteInscription)}}</div>
+            <div><label for="sortie_nbInscriptionsMax">Nombre de places: </label>{{ form_widget(form.nbInscriptionsMax)}}</div>
+            <div><label for="sortie_duree">Durée: </label>{{ form_widget(form.duree)}}</div>
+            <div><label for="sortie_infosSortie">Description et infos: </label>{{ form_widget(form.infosSortie)}}</div>
+        </div>
+        <div class="second-column">
+            <div><label>Ville organisatrice :</label><span>{{ app.user.getSite().getNom() }}</span></div>
+            {% if sortie is defined %}
+                <select id="lieu_ville" name="{{ field_name(formLieu.ville) }}" class="form-control">
+                    {% for label, value in field_choices(formLieu.ville) %}
+                        <option value="{{ value }}"  {% if value == sortie.lieu.ville.id %} selected {% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+            <div><label for="lieu_ville">Ville: </label>{{ form_widget(formLieu.ville)}}</div>
+            {% endif %}
+            <div class="lieu-input-container"><label for="sortie_lieu">Lieu:</label>{{ form_widget(form.lieu, {'attr': {'class': 'select-lieu'}}) }}<a class="a-button"><img src="{{ asset('/img/plus.png') }}" alt="Ajouter un nouveau lieu"></a></div>
+            <div><label for="lieu_rue">Rue: </label>{{ form_widget(formLieu.rue, {'attr' : { 'disabled': true}})}}</div>
+            {% if sortie is defined %}
+                <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true , 'value' : sortie.lieu.ville.codePostal}})}}</div>
+                <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true, 'value' : sortie.lieu.latitude }})}}</div>
+                <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true, 'value' : sortie.lieu.longitude }})}}</div>
+            {% else %}
+                <div><label for="ville_codePostal">Code postal: </label>{{ form_widget(formVille.codePostal, {'attr' : { 'disabled': true }})}}</div>
+                <div><label for="lieu_latitude">Latitude: </label>{{ form_widget(formLieu.latitude, {'attr' : { 'disabled': true}})}}</div>
+                <div><label for="lieu_longitude">Longitude: </label>{{ form_widget(formLieu.longitude, {'attr' : { 'disabled': true}})}}</div>
+            {% endif %}
+        </div>
+    </div>
     {{ form_row(form._token) }}
-    {{ form_widget(form.submit) }}
-    {{ form_widget(form.publish) }}
-    {% if sortie is defined %}
-        {{ form_widget(form.delete)}}</div>
-    {% else %}
-        {{ form_widget(form.delete, {'action': 'app_ville_show', 'method': 'POST', 'attr' : { 'hidden': true }})}}</div>
-    {% endif %}
+    <div class="button-container">
+        {{ form_widget(form.submit) }}
+        {{ form_widget(form.publish) }}
+        {% if sortie is defined %}
+            {{ form_widget(form.delete)}}</div>
+        {% else %}
+            {{ form_widget(form.delete, {'action': 'app_ville_show', 'method': 'POST', 'attr' : { 'hidden': true }})}}</div>
+        {% endif %}
+        <a class="button" href="{{ path('app_sortie_index') }}">Annuler</a>
     {{ form_widget(form.cancel) }}
     </div>
 </div>

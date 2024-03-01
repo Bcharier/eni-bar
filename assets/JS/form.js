@@ -1,3 +1,7 @@
+function get(id) {
+    return document.getElementById(id);
+}
+
 function sauvegarderDansSessionStorage(formID) {
     // Récupérer le formulaire
     var form = document.getElementById(formID);
@@ -122,4 +126,12 @@ function loader() {
         var loader = document.querySelector('.loader');
         loader.style.display = 'none'; // Masquer le loader
     });
+}
+
+function exclusiveFilters(registered) {
+    if(registered) {
+        get("filter_sortie_checkboxNotRegistered").checked = false;
+    } else {
+        get("filter_sortie_checkboxRegistered").checked = false;
+    }
 }

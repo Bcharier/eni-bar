@@ -37,17 +37,17 @@
         </div>
         <div class="second-column">
             <div class="checkbox-container">
-                <div class="input-container">
-                    {{form_widget(form.checkboxOrganizer)}}
-                    {{form_label(form.checkboxOrganizer)}}
-                </div>
                 <div class="input-container">            
-                    {{form_widget(form.checkboxRegistered)}}
+                    {{form_widget(form.checkboxRegistered, { 'attr': { 'onclick': 'exclusiveFilters(true);'}})}}
                     {{form_label(form.checkboxRegistered)}}
                 </div>
                 <div class="input-container">
-                    {{form_widget(form.checkboxNotRegistered)}}
+                    {{form_widget(form.checkboxNotRegistered, { 'attr': { 'onclick': 'exclusiveFilters(false);'}})}}
                     {{form_label(form.checkboxNotRegistered)}}
+                </div>
+                <div class="input-container">
+                    {{form_widget(form.checkboxOrganizer)}}
+                    {{form_label(form.checkboxOrganizer)}}
                 </div>
                 <div class="input-container">
                     {{form_widget(form.checkboxPast)}}

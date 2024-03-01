@@ -10,7 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/ville')]
 class VilleController extends AbstractController
 {
@@ -91,6 +93,8 @@ class VilleController extends AbstractController
             $entityManager->remove($ville);
             $entityManager->flush();
             $this->addFlash('success', 'La ville "'. $name .'" a bien été supprimée !');
+        } else {
+            $this->addFlash('error', 'Vous n`avez pas le droit de faire cela !');
         }
 
         return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
@@ -99,11 +103,13 @@ class VilleController extends AbstractController
     #[Route('/delete/{id}', name: 'app_ville_delete_by_id', methods: ['POST'])]
     public function deleteById(Request $request, Ville $ville, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$ville->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$ville->getId(), $request->request->get('_token')) && $ville->getLieux()[0] == null) {
             $name = $ville->getNom();
             $entityManager->remove($ville);
             $entityManager->flush();
             $this->addFlash('success', 'La ville "'. $name .'" a bien été supprimée !');
+        } else {
+            $this->addFlash('error', 'Vous n`avez pas le droit de faire cela !');
         }
 
         return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);

@@ -41,16 +41,18 @@ class FilterSortieType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
             ])
-            ->add('checkboxOrganizer', CheckboxType::class, [
-                'label' => 'Sorties dont je suis l\'organisateur/trice',
-                'required' => false,
-            ])
             ->add('checkboxRegistered', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je suis inscrit/e',
                 'required' => false,
+                'attr' => ['id' => 'checkboxRegisteredFilter'],
             ])
             ->add('checkboxNotRegistered', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je ne suis pas inscrit/e',
+                'required' => false,
+                'attr' => ['id' => 'checkboxNotRegisteredFilter'],
+            ])
+            ->add('checkboxOrganizer', CheckboxType::class, [
+                'label' => 'Sorties dont je suis l\'organisateur/trice',
                 'required' => false,
             ])
             ->add('checkboxPast', CheckboxType::class, [
@@ -58,7 +60,7 @@ class FilterSortieType extends AbstractType
                 'required' => false,
             ])
             ->add('filter', SubmitType::class, [
-                'label' => 'Rechercher222',
+                'label' => 'Rechercher',
                 'attr' => [
                     'action' => 'google.fr',
                     'class' => 'button button-large',
