@@ -94,11 +94,13 @@ class SiteController extends AbstractController
     #[Route('/delete/{id}', name: 'app_site_delete_by_id', methods: ['POST'])]
     public function deleteById(Request $request, Site $site, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$site->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$site->getId(), $request->request->get('_token')) && $site->getSortie()[0] == null) {
             $name = $site->getNom();
             $entityManager->remove($site);
             $entityManager->flush();
-            $this->addFlash('success', 'La ville "'. $name .'" a bien été supprimé !');
+            $this->addFlash('success', 'La ville "'. $name .'" a bien été supprimée !');
+        } else {
+            $this->addFlash('error', 'Vous n`avez pas le droit de faire cela !');
         }
 
         return $this->redirectToRoute('app_site_index', [], Response::HTTP_SEE_OTHER);

@@ -2,7 +2,7 @@
 
 namespace App\Scheduler\Message;
 
-final class WatchDogMessage
+class WatchDogMessage
 {
-
+  
 }

@@ -39,6 +39,10 @@ table {
     text-align: center;
     font-size: 1rem;
     font-weight: 400;
+
+    &.disabled {
+        cursor: not-allowed;
+    }
 }
 
 .button-large {
@@ -48,6 +52,11 @@ table {
 .button:hover {
     background-color: @blue;
     color: @white;
+}
+
+.button.disabled:hover {
+    background-color: @white;
+    color: @disabled-grey;
 }
 
 .button-filter {

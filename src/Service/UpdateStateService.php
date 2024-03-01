@@ -10,9 +10,9 @@ class UpdateStateService
     {
     }
 
-    public function updateOngoingSorties(): void
+    public function updateOngoingSorties(): int
     {
-        $this->sortieRepository->updateOngoingSorties();
+        return $this->sortieRepository->updateOngoingSorties();
     }
 }        
 
