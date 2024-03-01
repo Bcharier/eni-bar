@@ -32,7 +32,7 @@ table {
   cursor: pointer;
   background-color: #ffffff;
   padding: 0.2rem 1rem;
-  border: solid 0.1rem #06161E;
+  border: solid 0.1rem #073b4c;
   border-radius: 1rem;
   transition: all 0.2s;
   text-align: center;
@@ -46,7 +46,7 @@ table {
   font-size: 1.3rem;
 }
 .button:hover {
-  background-color: #004f67;
+  background-color: #118ab2;
   color: #ffffff;
 }
 .button.disabled:hover {
@@ -58,18 +58,18 @@ table {
   border-radius: 0.5rem;
   border: solid 0.1rem #CDCDCD;
   background-color: #ffffff;
-  color: #06161E;
+  color: #073b4c;
   font-size: 1rem;
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s;
 }
 .button-filter:hover {
-  background-color: #004f67;
+  background-color: #118ab2;
   color: #ffffff;
 }
 .button-filter-selected {
-  background-color: #004f67;
+  background-color: #118ab2;
   color: #ffffff;
 }
 @media screen and (max-width: 768px) {
@@ -116,7 +116,7 @@ table {
   right: 0px;
 }
 .towns {
-  border: 3px solid #06161E;
+  border: 3px solid #073b4c;
   border-spacing: 0;
   border-collapse: collapse;
   max-height: 50vh;
@@ -128,7 +128,7 @@ table {
   left: 0px;
 }
 .towns .towns-row.header {
-  background: #06161E;
+  background: #073b4c;
   color: #ffffff;
 }
 .towns .towns-row:nth-child(odd):not(.header) {

@@ -5,7 +5,7 @@
         <title>{% block title %}Sortir a l'ENI{% endblock %}</title>
         <!-- favicon -->
         <link rel="stylesheet" href="{{ asset('styles/nav.css') }}">
-        <link rel="icon" href="{{ asset('img/sortiraleni.png') }}">
+        <link rel="icon" href="{{ asset('img/logo_no_shadow.png') }}">
 
         <!-- fonts google -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,7 @@
     </head>
     <body>
         <nav>
-            <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/sortiraleni.png') }}" alt="Logo" class="logo"></a>
+            <a href="{{ path('app_sortie_index') }}"><img src="{{ asset('img/logo_no_shadow.png') }}" alt="Logo" class="logo"></a>
             <ul class="nav-menu">
                 <li><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
                 {% if is_granted('ROLE_ADMIN') %}

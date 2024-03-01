@@ -32,38 +32,50 @@ table {
   cursor: pointer;
   background-color: #ffffff;
   padding: 0.2rem 1rem;
-  border: solid 0.1rem #06161E;
+  border: solid 0.1rem #073b4c;
   border-radius: 1rem;
   transition: all 0.2s;
   text-align: center;
   font-size: 1rem;
   font-weight: 400;
 }
+.button.disabled {
+  cursor: not-allowed;
+}
 .button-large {
   font-size: 1.3rem;
 }
 .button:hover {
-  background-color: #004f67;
+  background-color: #118ab2;
   color: #ffffff;
+}
+.button.disabled:hover {
+  background-color: #ffffff;
+  color: #6d6d6d;
 }
 .button-filter {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   border: solid 0.1rem #CDCDCD;
   background-color: #ffffff;
-  color: #06161E;
+  color: #073b4c;
   font-size: 1rem;
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s;
 }
 .button-filter:hover {
-  background-color: #004f67;
+  background-color: #118ab2;
   color: #ffffff;
 }
 .button-filter-selected {
-  background-color: #004f67;
+  background-color: #118ab2;
   color: #ffffff;
+}
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 12px;
+  }
 }
 .form-container {
   width: 25%;
@@ -78,7 +90,7 @@ table {
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
-  border: solid 0.1rem #06161E;
+  border: solid 0.1rem #073b4c;
   padding: 5rem;
 }
 form {
@@ -103,7 +115,7 @@ form {
 }
 .input-group > input {
   border: none;
-  border-bottom: solid 0.1rem #06161E;
+  border-bottom: solid 0.1rem #073b4c;
 }
 .input-group > input:focus {
   outline: none;
@@ -112,7 +124,7 @@ form {
   flex-direction: row;
 }
 .remember-me > input {
-  accent-color: #004f67;
+  accent-color: #118ab2;
 }
 .forgotten-password {
   text-align: right;
@@ -122,7 +134,7 @@ form {
   transition: all 0.2s;
 }
 .forgotten-password:hover {
-  color: #004f67;
+  color: #118ab2;
   opacity: 1;
 }
 .form-footer {
@@ -135,7 +147,7 @@ form {
 }
 input {
   font-size: 1rem;
-  color: #004f67;
+  color: #118ab2;
 }
 @media screen and (max-width: 768px) {
   .form-container {
