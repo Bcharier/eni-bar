@@ -3,7 +3,7 @@ function sauvegarderDansSessionStorage(formID) {
     var form = document.getElementById(formID);
 
     // Ajouter un événement de soumission au formulaire
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", function (event) {
         // Empêcher le comportement par défaut du formulaire (rechargement de la page)
         event.preventDefault();
 
@@ -59,9 +59,6 @@ function sauvegarderDansSessionStorage(formID) {
 
 // Appeler la fonction pour chaque formulaire que vous souhaitez traiter
 sauvegarderDansSessionStorage("filter_sortie");
-// Ajoutez plus d'appels pour d'autres formulaires si nécessaire
-
-
 
 function reAfficherDonneesSauvegardees(formID) {
     // Récupérer le formulaire
@@ -97,32 +94,32 @@ function reAfficherDonneesSauvegardees(formID) {
 
 // Appeler la fonction pour chaque formulaire que vous souhaitez re-afficher les données sauvegardées
 reAfficherDonneesSauvegardees("filter_sortie");
-// Ajoutez plus d'appels pour d'autres formulaires si nécessaire
 
-// (function() {
-//     document.getElementById('filter_sortie_filter');
-//     window.onload=function(){
-//         var auto = setTimeout(function(){ submitform(); }, 100);
+let currentPage = window.location.href;
+let previousPage = document.referrer;
 
-//         function submitform(){
-//           alert('test');
-//           document.forms["filter_sortie"].submit();
-//         }
-//     }
+if (currentPage !== previousPage) {
+    document.addEventListener("DOMContentLoaded", function () {
+        let urlParams = new URLSearchParams(window.location.search);
+        let submitted = urlParams.get('submitted');
+        if (!submitted) {
+            document.getElementById("filter_sortie").submit();
+        }
+    });
+} else {
+}
+    loader();
 
+function loader() {
+    // Afficher le loader lorsque la page commence à se charger
+    document.addEventListener("DOMContentLoaded", function () {
+        var loader = document.querySelector('.loader');
+        loader.style.display = 'block'; // Afficher le loader
+    });
 
-
-//     let options = document.querySelectorAll('#sortie_lieu option');
-//     options.forEach(o => o.remove());
-// })();
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Vérifier si le paramètre "submitted" est présent dans l'URL
-    var urlParams = new URLSearchParams(window.location.search);
-    var submitted = urlParams.get('submitted');
-    
-    // Si "submitted" n'est pas présent, soumettre automatiquement le formulaire
-    if (!submitted) {
-        document.getElementById("filter_sortie").submit();
-    }
-});
+    // Masquer le loader lorsque la page est complètement chargée
+    window.addEventListener('load', function () {
+        var loader = document.querySelector('.loader');
+        loader.style.display = 'none'; // Masquer le loader
+    });
+}

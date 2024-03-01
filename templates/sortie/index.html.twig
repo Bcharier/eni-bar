@@ -14,6 +14,10 @@
 <h1 class="page-title">Filtrer les sorties</h1>
 
 {{ form_start(form, { 'attr': { 'id': 'filter_sortie'}}) }}
+    <!-- Loader -->
+    <div class="loader">
+        <img src="{{ asset('img/loader.gif')}}" alt="Chargement en cours...">
+    </div>
     <div class="filters">
         <div class="first-column">
             <div class="site-option-container">

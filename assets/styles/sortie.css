@@ -295,3 +295,20 @@ tbody tr td:last-child {
     display: flex;
   }
 }
+
+        /* Styles pour le loader */
+        .loader {
+            display: none; /* Masquer le loader par défaut */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7); /* Fond semi-transparent */
+            z-index: 9999; /* S'assurer que le loader est au-dessus de tout */
+            text-align: center;
+            padding-top: 20%;
+        }
+        .loader img {
+            width: 50px; /* Taille de l'icône de chargement */
+        }
