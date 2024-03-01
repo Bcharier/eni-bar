@@ -4,38 +4,38 @@
 @inner-flash-padding : 4px;
 
 #live-flash-ctn {
-    margin:auto;
-    position: fixed;
-    top: @inner-flash-padding;
-    left : @inner-flash-padding;
-    z-index: 11;
+    max-width: 300px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 150;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    opacity: 1;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+  }
+  
+  #live-flash-ctn.success {
+    background-color: #88e188;
+    border: 1px solid #88e188;
+  }
+  #live-flash-ctn.error {
+    background-color: #D9544D;
+    border: 1px solid #D9544D;
+    color: #FFFFFF;
+  }
 
-    background-color: @white;
-
-    .flash-header {
-        color : @white;
-        font-weight : bold;
-        padding : @outer-flash-padding @outer-flash-padding @inner-flash-padding @outer-flash-padding;
-
-        &.success {
-            background-color: @pale-green;
-            border: 1px solid @pale-green;
-        }
-        &.error {
-            background-color: @pale-red;
-            border: 1px solid @pale-red;
-        }
-    }
-    
-    .flash-body {
-        padding : @inner-flash-padding @outer-flash-padding @outer-flash-padding @outer-flash-padding;
-    }
-
-    button.btn-close {
-        position: absolute;
-        display: block;
-
-        top: @outer-flash-padding;
-        right: @outer-flash-padding;
-    }
-}
+  .btn-close {
+    border: 0px;
+    background-color: transparent;
+    font-weight: bold;
+    order: 2;
+    font-size: 12pt;
+  }
