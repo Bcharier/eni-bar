@@ -4,7 +4,7 @@ function get(id) {
 
 function sauvegarderDansSessionStorage(formID) {
     // Récupérer le formulaire
-    var form = document.getElementById(formID);
+    let form = document.getElementById(formID);
 
     // Ajouter un événement de soumission au formulaire
     form.addEventListener("submit", function (event) {
@@ -12,17 +12,17 @@ function sauvegarderDansSessionStorage(formID) {
         event.preventDefault();
 
         // Sérialiser les données du formulaire en JSON et les sauvegarder dans le sessionStorage
-        var formData = {};
-        var inputs = this.getElementsByTagName("input");
-        for (var i = 0; i < inputs.length; i++) {
+        let formData = {};
+        let inputs = this.getElementsByTagName("input");
+        for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].type === 'checkbox') {
                 formData[inputs[i].name] = inputs[i].checked.toString(); // Stocker la valeur booléenne en tant que chaîne de caractères
             } else {
                 formData[inputs[i].name] = inputs[i].value;
             }
         }
-        var selects = this.getElementsByTagName("select");
-        for (var j = 0; j < selects.length; j++) {
+        let selects = this.getElementsByTagName("select");
+        for (let j = 0; j < selects.length; j++) {
             formData[selects[j].name] = selects[j].value;
         }
 
@@ -34,15 +34,15 @@ function sauvegarderDansSessionStorage(formID) {
     });
 
     // Récupérer les données sauvegardées depuis le sessionStorage
-    var savedFormData = sessionStorage.getItem(formID + "-formData");
+    let savedFormData = sessionStorage.getItem(formID + "-formData");
 
     // Si des données sont présentes dans le sessionStorage, les utiliser
     if (savedFormData) {
         savedFormData = JSON.parse(savedFormData);
         // Parcourir les champs du formulaire pour mettre à jour leurs valeurs
-        for (var field in savedFormData) {
+        for (let field in savedFormData) {
             if (savedFormData.hasOwnProperty(field)) {
-                var element = form.elements[field];
+                let element = form.elements[field];
                 if (element) {
                     if (element.type === 'checkbox') {
                         // Si c'est une case à cocher, vérifier si elle doit être cochée
@@ -66,18 +66,18 @@ sauvegarderDansSessionStorage("filter_sortie");
 
 function reAfficherDonneesSauvegardees(formID) {
     // Récupérer le formulaire
-    var form = document.getElementById(formID);
+    let form = document.getElementById(formID);
 
     // Récupérer les données sauvegardées depuis le sessionStorage
-    var savedFormData = sessionStorage.getItem(formID + "-formData");
+    let savedFormData = sessionStorage.getItem(formID + "-formData");
 
     // Si des données sont présentes dans le sessionStorage, les utiliser
     if (savedFormData) {
         savedFormData = JSON.parse(savedFormData);
         // Parcourir les champs du formulaire pour mettre à jour leurs valeurs
-        for (var field in savedFormData) {
+        for (let field in savedFormData) {
             if (savedFormData.hasOwnProperty(field)) {
-                var element = form.elements[field];
+                let element = form.elements[field];
                 if (element) {
                     if (element.type === 'checkbox') {
                         // Si c'est une case à cocher, vérifier si elle doit être cochée
@@ -117,13 +117,13 @@ if (currentPage !== previousPage) {
 function loader() {
     // Afficher le loader lorsque la page commence à se charger
     document.addEventListener("DOMContentLoaded", function () {
-        var loader = document.querySelector('.loader');
+        let loader = document.querySelector('.loader');
         loader.style.display = 'block'; // Afficher le loader
     });
 
     // Masquer le loader lorsque la page est complètement chargée
     window.addEventListener('load', function () {
-        var loader = document.querySelector('.loader');
+        let loader = document.querySelector('.loader');
         loader.style.display = 'none'; // Masquer le loader
     });
 }
