@@ -99,6 +99,7 @@ let currentPage = window.location.href;
 let previousPage = document.referrer;
 
 if (currentPage !== previousPage) {
+        loader();
     document.addEventListener("DOMContentLoaded", function () {
         let urlParams = new URLSearchParams(window.location.search);
         let submitted = urlParams.get('submitted');
@@ -108,7 +109,6 @@ if (currentPage !== previousPage) {
     });
 } else {
 }
-    loader();
 
 function loader() {
     // Afficher le loader lorsque la page commence à se charger

@@ -112,6 +112,10 @@ class SortieController extends AbstractController
         $formVille= $this->createForm(VilleType::class);
         $formVille->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->get('delete')->isClicked()) {
+            return $this->redirectToRoute('app_sortie_delete', ['id' => $sortie->getId()], 307);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
@@ -187,6 +191,9 @@ class SortieController extends AbstractController
     #[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
     public function delete(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
+        $form = $this->createForm(CancelSortieType::class, $sortie);
+        $form->handleRequest($request);
+
         if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
             $entityManager->remove($sortie);
             $entityManager->flush();
