@@ -22,8 +22,6 @@ submitButton.addEventListener('click', async function(e) {
     })
         if(response.ok) {
         newLieuForm.classList.toggle('show')
-    } else {
-        //TODO handle error
     }
 
     fetch('/lieu/api/get/lieuByVilleId/' + document.querySelector('.select-ville').value)
