@@ -3,18 +3,39 @@
 {% block title %}New Sortie{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/sortie.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/createSortie.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Crée une sortie</h1>
+    <h1 class="page-title">Crée une sortie</h1>
 
     {{ include('sortie/_form.html.twig') }}
 
-    <a class"return" href="{{ path('app_sortie_index') }}">back to list</a>
-
+<div class="add-lieu-container">
+    <form class="add-lieu-form" action="{{ path('app_sortie_new') }}" method="POST">
+        <h2>Ajouter un nouveau lieu</h2>
+        <div class="input-container">
+            <label for="ville">Ville : </label>
+            <select class="select-ville" name="ville">
+                <option value="" disabled selected>Choisissez une ville</option>
+                    {% for label, value in field_choices(formLieu.ville) %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+            </select>
+        </div>
+        <div class="input-container"><label for="nom">Nom : </label><input name="nom" type="text"></div>
+        <div class="input-container"><label for="rue">Rue : </label><input name="rue" type="text"></div>
+        <div class="input-container"><label for="latitude">Latitude : </label><input name="latitude" type="number" step="any"></div>
+        <div class="input-container"><label for="longitude">Longitude : </label><input name="longitude" type="number"></div>
+    <div class="button-container">
+        <button class="button submit-lieu" type="submit">Créer le lieu</button>
+        <button class="button cancel-lieu">Annuler</button>
+    </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('/JS/empty_option.js') }}"></script>
+    <script src="{{ asset('/JS/cree_lieu.js') }}"></script>
 {% endblock %}

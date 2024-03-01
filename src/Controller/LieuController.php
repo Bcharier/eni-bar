@@ -5,18 +5,15 @@ namespace App\Controller;
 use App\Entity\Lieu;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
-use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+
 
 #[Route('/lieu')]
 class LieuController extends AbstractController
@@ -97,6 +94,28 @@ class LieuController extends AbstractController
             }
         }
         return  new JsonResponse($output);
+    }
 
+    #[Route('/api/post/newLieu', name: 'app_api_newLieu')]
+    public function insertNewLieu(EntityManagerInterface $entityManager) : Response
+    {
+        $lieu = new Lieu();
+        $lieu->setNom($_POST['nom']);
+        $lieu->setRue($_POST['rue']);
+        $lieu->setLatitude($_POST['latitude']);
+        $lieu->setLongitude($_POST['longitude']);
+        $lieu->setVille($entityManager->getReference('App\Entity\Ville', $_POST['ville']));
+        $entityManager->persist($lieu);
+        $entityManager->flush();
+
+        return new Response();
+    }
+
+    #[Route('/api/get/lieuByVilleId/{ville}', name: 'app_api_lieu', methods: ['GET'])]
+    public function getLieuByVilleId(LieuRepository $lieuRepository, $ville): JsonResponse
+    {
+        $lieux = $lieuRepository->findByVille($ville);
+
+        return new JsonResponse(json_encode($lieux));
     }
 }

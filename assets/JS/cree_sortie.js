@@ -1,7 +1,5 @@
 function updateInitalLieuFields() {
-    console.log("Start updating");
     let villeId = document.getElementById('lieu_ville').value;
-    console.log("gotValue");
     if(villeId != null && villeId != "") {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', '/get-lieux-by-ville/' + villeId, true);

@@ -29,35 +29,12 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax')
             ->add('infosSortie', TextareaType::class)
-            /*
-            ->add('etat', EntityType::class, [
-                'class' => Etat::class,
-                'choice_label' => 'libelle',
-                'mapped' => false,
-                ])
-            ->add('organisateur', EntityType::class, [
-                'class' => Participant::class,
-                'choice_label' => 'pseudo',
-            ])
-            ->add('site', EntityType::class, [
-                'class' => Site::class,
-                'choice_label' => 'nom',
-            ])
-            ->add('lieu', ChoiceType::class, [
-                'choices' => [],
-                'choice_label' => 'nom',
-                'required' => true,
-                'mapped' => false,
-                'by_reference' => false,
-            ])
-            */
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
             ])
             ->add('submit', SubmitType::class, array('label' => 'Enregistrer la sortie', 'row_attr' => ['class' => 'row enregistrer'], 'attr' => ['class' => 'button enregistrer',]))
             ->add('publish', SubmitType::class, array('label'  => 'Publier la sortie', 'row_attr' => ['class' => 'row publier'], 'attr' => ['class' => 'button publier',]))
-            ->add('cancel', ResetType::class, array('label'  => 'Annuler', 'row_attr' => ['class' => 'row annuler'], 'attr' => ['class' => 'button annuler',]))
         ;
     }
 

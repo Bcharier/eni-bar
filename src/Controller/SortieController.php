@@ -18,8 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/sortie')]
@@ -47,26 +45,10 @@ class SortieController extends AbstractController
         ]);
     }
 
-    /*
-    #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
-    public function updateOngoingSorties(SortieRepository $sortieRepository): Response
-    {
-        $res = $sortieRepository->updateOngoingSorties();
-        if($res && $res == 1) {
-          $message = " sortie a été mise à jour";
-        } else {
-          $message = " sorties ont été mises à jour";
-        }
-        $message = $res." ".$message;
-        $this->addFlash('success', $message);
-        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-    }
-    */
-
     #[Route('/uos', name: 'app_sortie_update_ongoing', methods: ['GET'])]
     public function updateOngoingSorties(UpdateStateService $updateStateService): Response
     {
-        $res = $updateStateService->updateOngoingSorties();
+        $updateStateService->updateOngoingSorties();
 
         $this->addFlash('success', 'L`état des sorties est mis à jour');
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
